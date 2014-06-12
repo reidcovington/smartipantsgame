@@ -1,6 +1,7 @@
 smartipants
 ===========
 --------------MVP (created - 6/12/14 to by finished by 6/16/14)
+
 -as a user I will be informed how the game works
 
 -a user can play single n-back
