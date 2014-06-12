@@ -1,5 +1,18 @@
 smartipants
+
 ===========
+
+An implementation of the n-back game that is both fun to play and gives you statistical information based on users aggregated data.
+
+Team Members:
+
+- Siyan Beverly
+- Reid Covington
+- Connor Harwood
+- Steven Inouye
+- Stephen Roth
+
+Link to Trello Workflow: https://trello.com/b/uxPwjS6S/smartipants
 
 #-------MVP-----------
 (finished by 6/16/14)
