@@ -1,7 +1,7 @@
 smartipants
 ===========
 
-#-------MVP(created - 6/12/14 to by finished by 6/16/14)---
+#-------MVP(finished by 6/16/14)---
 ###GAME
 -as a user I will be informed how the game works
 
