@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  pool: 5
+  timeout: 10000
+  encoding: unicode
+
+development:
+  <<: *default
+  database: smartipants_development
+
+test:
+  <<: *default
+  database: smartipants_test
+
+production:
+  <<: *default
+  database: smartipants_production
