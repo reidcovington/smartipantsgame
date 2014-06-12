@@ -1,8 +1,8 @@
 smartipants
 ===========
 
--------MVP(created - 6/12/14 to by finished by 6/16/14)
-~~GAME~~
+#-------MVP(created - 6/12/14 to by finished by 6/16/14)---
+###GAME
 -as a user I will be informed how the game works
 
 -a user can play single n-back
@@ -18,20 +18,20 @@ smartipants
 -a user can answer either cue(audio or visual-color) by pressing the corresponding pre-set keyboard key 
 
 
-~~SCOREBOARD~~
+###SCOREBOARD
 -a user is shown a scoreboard after each game
 -a user can see an overview of how they performed, which includes how they performed on specific memory types
 
-~~DATA~~
+###DATA
 -as a database I can store users, game, and rounds
 
 
-~~PROFILE~~
+###PROFILE
 -a profile has a username, 
 -as a user I can see data on my past games and can see the specific scores from each game I played
 
 
---------------Stretch-----------------------------
+#--------------Stretch-----------------------------
 -as a user I can see a visual representation of my performance history
 -including positional
 -a user can see how everyone else has performed overall in the corresponding dual n-back
