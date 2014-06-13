@@ -8,6 +8,21 @@
 </head>
 <body>
 
+<nav>
+  <form>
+      <ul>
+        <li><%= link_to 'Profile', root_path %></li>
+        <li><%= link_to 'New Game', games_play_path %></li>
+        <li><%= link_to 'Log In/Sign up', users_login_path, :method => :add,  :id => "login"  %></li>
+        <li class="login_hide"><input type="textarea" name="email" placeholder="email"></input></li>
+        <li>
+        <li class="login_hide"><input type="textarea" name="password" placeholder="password"></input></li>
+        <li class="login_hide"><input type="submit" value="submit"></input></li>
+
+      </ul>
+    </form>
+  </nav>
+
 <%= yield %>
 
 </body>
