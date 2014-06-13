@@ -4,17 +4,14 @@ class GamesController < ApplicationController
   end 
 
   def create
-    if GameBuilder.create_game(game_params)
-      redirect_to root_path
-    else
-      "no bueno"
-    end
+    GameBuilder.create_game(game_params)
+    redirect_to root_path
   end
-
 
   private
-  def game_params
-    params.permit!          #(:n, :rounds)#.permit( (1..25).to_a.map!{|num| num.to_sym} )
-  end
-end
 
+  def game_params
+    params.permit!
+  end
+
+end
