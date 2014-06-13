@@ -28,7 +28,7 @@ GameController.prototype = {
         // debugger
         $('#game-section').on('click', '#start-button', function(event){
             event.preventDefault();
-            var new_game = new GameModel(2, 'dual')
+            var new_game = new GameModel(2, 'single')
             console.log(new_game)
         })
     }
@@ -51,21 +51,41 @@ GameModel.prototype = {
     generateBoard: function(n, gameType){
         var numOfRounds = n + 20
 
-        for(var round = 1; round < numOfRounds; round++) {
-            this.board[round] = new RoundModel( this.getRandomInt(0, 3), this.getRandomInt(0, 2) )
-        }
-
-        for(var round = 1; round < numOfRounds; round++) {
-            if (round - n > 0) {
-                if (this.board[round].color === this.board[round - n].color) {
-                    this.board[round].color_match = true
-                };
-
-                if (this.board[round].sound === this.board[round - n].sound) {
-                    this.board[round].audio_match = true
-                };
+        if (gameType ===  'single') {
+            for(var round = 1; round < numOfRounds; round++) {
+                var colorIndex = this.getRandomInt(0, 3)
+                this.board[round] = new RoundModel( colorIndex )
             }
-        }
+            for(var round = 1; round < numOfRounds; round++) {
+                if (round - n > 0) {
+                    if (this.board[round].color === this.board[round - n].color) {
+                        this.board[round].color_match = true
+                    };
+                }
+            };
+        };
+
+        if (gameType === 'dual') {
+            for(var round = 1; round < numOfRounds; round++) {
+                var colorIndex = this.getRandomInt(0, 3)
+                var soundIndex = this.getRandomInt(0, 2)
+
+                this.board[round] = new RoundModel( colorIndex, soundIndex )
+            }
+
+            for(var round = 1; round < numOfRounds; round++) {
+                if (round - n > 0) {
+                    if (this.board[round].color === this.board[round - n].color) {
+                        this.board[round].color_match = true
+                    };
+
+                    if (this.board[round].sound === this.board[round - n].sound) {
+                        this.board[round].audio_match = true
+                    };
+                }
+            }
+        };
+
         return this.board
     },
 }
@@ -74,7 +94,7 @@ var RoundModel = function(colorIndex, soundIndex){
     this.colors = ['blue', 'red', 'green', 'orange']
     this.sounds = ['a', 'b', 'c']
     var color = this.colors[colorIndex]
-    var sound = this.sounds[soundIndex]
+    var sound = this.sounds[soundIndex || null]
 
     return { color: color, sound: sound, color_match: false, audio_match: false, correct: true }
 }
