@@ -29,7 +29,7 @@ GameController.prototype = {
         $('#game-section').on('click', '#start-button', function(event){
             event.preventDefault();
             var new_game = new GameModel(2, 'dual')
-            console.log(self.gameModel.generateBoard(2))
+            console.log(new_game)
         })
     }
 }
@@ -53,6 +53,14 @@ GameModel.prototype = {
 
         for(var round = 1; round < numOfRounds; round++) {
             this.board[round] = new RoundModel( this.getRandomInt(0, 3), this.getRandomInt(0, 2) )
+        }
+
+        for(var round = 1; round < numOfRounds; round++) {
+            if (round - n > 0) {
+                if (this.board[round].color === this.board[round - n].color) {
+                    this.board[round].match = true
+                }
+            }
         }
 
         return this.board
