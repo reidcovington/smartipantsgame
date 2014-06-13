@@ -25,10 +25,14 @@ var GameController = function(gameModel, roundView){
 GameController.prototype = {
     initEvents: function() {
         var self = this;
-        // debugger
-        $('#game-section').on('click', '#start-button', function(event){
+        $('#game-section').on('click', '#1', function(event){
             event.preventDefault();
             var new_game = new GameModel(2, 'single')
+            console.log(new_game)
+        })
+        $('#game-section').on('click', '#2', function(event){
+            event.preventDefault();
+            var new_game = new GameModel(2, 'dual')
             console.log(new_game)
         })
     }
@@ -69,9 +73,9 @@ GameModel.prototype = {
             for(var round = 1; round < numOfRounds; round++) {
                 var colorIndex = this.getRandomInt(0, 3)
                 var soundIndex = this.getRandomInt(0, 2)
-
                 this.board[round] = new RoundModel( colorIndex, soundIndex )
             }
+            // debugger
 
             for(var round = 1; round < numOfRounds; round++) {
                 if (round - n > 0) {
@@ -94,7 +98,10 @@ var RoundModel = function(colorIndex, soundIndex){
     this.colors = ['blue', 'red', 'green', 'orange']
     this.sounds = ['a', 'b', 'c']
     var color = this.colors[colorIndex]
-    var sound = this.sounds[soundIndex || null]
+    var sound = this.sounds[soundIndex]
+    if(sound == undefined){
+        sound = null
+    }
 
     return { color: color, sound: sound, color_match: false, audio_match: false, correct: true }
 }
@@ -107,7 +114,7 @@ var StartingView = function(){
 
 StartingView.prototype = {
     drawIntro: function(gameScreenSelector){
-        $(gameScreenSelector).append('<h1>Welcome, play your BALLZ off!</h1><br><button id="start-button" type="button">Start FUCKER!</button>');
+        $(gameScreenSelector).append('<h1>Welcome, play your happy self off!</h1><br><button id="1" type="button">Play single mah dude!</button><br><button id="2" type="button">Play double mah dude!</button>');
     }
 }
 
