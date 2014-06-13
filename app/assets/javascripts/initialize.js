@@ -58,13 +58,15 @@ GameModel.prototype = {
         for(var round = 1; round < numOfRounds; round++) {
             if (round - n > 0) {
                 if (this.board[round].color === this.board[round - n].color) {
-                    this.board[round].match = true
-                }
+                    this.board[round].color_match = true
+                };
+
+                if (this.board[round].sound === this.board[round - n].sound) {
+                    this.board[round].audio_match = true
+                };
             }
         }
-
         return this.board
-
     },
 }
 
@@ -74,7 +76,7 @@ var RoundModel = function(colorIndex, soundIndex){
     var color = this.colors[colorIndex]
     var sound = this.sounds[soundIndex]
 
-    return { color: color, sound: sound, match: false, correct: true }
+    return { color: color, sound: sound, color_match: false, audio_match: false, correct: true }
 }
 
 // VIEWS ------------------------------------------
