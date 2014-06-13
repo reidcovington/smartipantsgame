@@ -13,7 +13,7 @@ describe User do
       it "should have password" do
         expect{user2.save}.to change {User.all.count}.by(0)
       end
-    let(:user3) { User.new(email: "a", password: "sdfsdf", password_confirmation: "b") }
+    let(:user3) { User.new(email: "a", password: "sdfsdf", password_confirmation: "sdfsdf") }
       it "should only accept valid email" do
         expect{user3.save}.to change {User.all.count}.by(0)
       end
