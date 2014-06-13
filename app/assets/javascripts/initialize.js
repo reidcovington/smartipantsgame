@@ -1,30 +1,24 @@
-$(document).ready( function() {
-    new ApplicationController (new GameController(
+$(document).ready(function() {
+   var applicationController = new ApplicationController (new GameController(
         new GameModel(),
         new RoundModel(),
         new StartingView(),
         new RoundView('selector1'),
         new ScoreView('selector1'))
     ).initEvents();
-
-
 })
 
 // CONTROLLERS ------------------------------------
 
 var ApplicationController = function(gameController){
     this.gameController = gameController;
-    this.startGameSelector = '#start-button'
+    gameController.initEvents();
 }
 
 ApplicationController.prototype = {
     initEvents: function() {
         var self = this;
         self.gameController.startingView.drawIntro('#game-section')
-        $(document).on( 'click', self.startGameSelector, function(event){
-            event.preventDefault();
-            alert("hello");
-        })
     }
 }
 
@@ -34,25 +28,55 @@ var GameController = function(gameModel, roundModel, startingView, roundView, sc
         this.startingView = startingView;
         this.roundView = roundView;
         this.scoreView = scoreView;
+        this.startGameSelector = '#start-button';
 }
 
 GameController.prototype = {
-
+    initEvents: function() {
+        var self = this;
+        debugger
+        $(document).on( 'click', self.startGameSelector, function(event){
+            event.preventDefault();
+            console.log(this.gameModel);
+            debugger
+        })
+    }
 }
 
 // MODELS ----------------------------------------
 
-var GameModel = function(data){
-    this.data = data;
+var GameModel = function(){
+    this.board = {};
     this.rounds = [];
 }
 
 GameModel.prototype = {
+    init: function(){
+        this.generateBoard();
+    },
 
+    getRandomInt: function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+
+    generateBoard: function(n, gameType){
+        var numOfRounds = n + 20
+
+        for(var round = 1; round < numOfRounds; round++) {
+            debugger
+            this.board[round] = new RoundModel( GameModel.getRandomInt(1, 4), GameModel.getRandomInt(1, 3) )
+        }
+        console.log(this.board)
+    }
 }
 
-var RoundModel = function(memoryTypes){
+var RoundModel = function(colorIndex, soundIndex){
+    this.colors = ['blue', 'red', 'green', 'orange']
+    this.sounds = ['a', 'b', 'c']
+    var color = this.colors[colorIndex]
+    var sound = this.sounds[soundIndex]
 
+    return { color: color, sound: sound, match: false, correct: true }
 }
 
 // VIEWS ------------------------------------------
