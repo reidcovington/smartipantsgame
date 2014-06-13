@@ -1,59 +1,48 @@
 $(document).ready(function() {
-   var applicationController = new ApplicationController (new GameController(
-        new GameModel(),
-        new RoundModel(),
-        new StartingView(),
-        new RoundView('selector1'),
-        new ScoreView('selector1'))
-    ).initEvents();
+   new ApplicationController (new GameController(GameModel, new RoundView('selector1')))
 })
 
 // CONTROLLERS ------------------------------------
 
 var ApplicationController = function(gameController){
     this.gameController = gameController;
-    gameController.initEvents();
+    this.startingView = new StartingView;
+    this.scoreView = new ScoreView;
+    this.startingView.drawIntro('#game-section')
 }
 
-ApplicationController.prototype = {
-    initEvents: function() {
-        var self = this;
-        self.gameController.startingView.drawIntro('#game-section')
-    }
-}
+// ApplicationController.prototype = {
 
-var GameController = function(gameModel, roundModel, startingView, roundView, scoreView){
+// }
+
+var GameController = function(gameModel, roundView){
         this.gameModel = gameModel;
-        this.roundModel = roundModel;
-        this.startingView = startingView;
         this.roundView = roundView;
-        this.scoreView = scoreView;
-        this.startGameSelector = '#start-button';
+        // this.startGameSelector = '#start-button';
+        this.initEvents();
 }
 
 GameController.prototype = {
     initEvents: function() {
         var self = this;
-        debugger
-        $(document).on( 'click', self.startGameSelector, function(event){
+        // debugger
+        $('#game-section').on('click', '#start-button', function(event){
             event.preventDefault();
-            console.log(this.gameModel);
-            debugger
+            var new_game = new GameModel(2, 'dual')
+            console.log(self.gameModel.generateBoard(2))
         })
     }
 }
 
 // MODELS ----------------------------------------
 
-var GameModel = function(){
+var GameModel = function(n, gameType){
     this.board = {};
     this.rounds = [];
+    this.generateBoard(n, gameType);
 }
 
 GameModel.prototype = {
-    init: function(){
-        this.generateBoard();
-    },
 
     getRandomInt: function(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -63,11 +52,12 @@ GameModel.prototype = {
         var numOfRounds = n + 20
 
         for(var round = 1; round < numOfRounds; round++) {
-            debugger
-            this.board[round] = new RoundModel( GameModel.getRandomInt(1, 4), GameModel.getRandomInt(1, 3) )
+            this.board[round] = new RoundModel( this.getRandomInt(0, 3), this.getRandomInt(0, 2) )
         }
-        console.log(this.board)
-    }
+
+        return this.board
+
+    },
 }
 
 var RoundModel = function(colorIndex, soundIndex){
