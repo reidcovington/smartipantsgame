@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  def show 
+  def play
     # Landing page/game page
   end 
 

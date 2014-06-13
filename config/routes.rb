@@ -2,8 +2,9 @@ Rails.application.routes.draw do
 
 
   resources :users
-  root to: 'users#index'
+  root to: 'games#play'
 
-  resources :games, only: [ :show, :create ]
-  
+  resources :games, only: [ :create ]
+  get '/games/play', to: 'games#play'
+
 end
