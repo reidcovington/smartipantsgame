@@ -79,3 +79,5 @@ Link to Trello Workflow: https://trello.com/b/uxPwjS6S/smartipants
 -a user can play variable lenth n-back
 
 -a user can embed the game in another website
+
+-mobile friendly
