@@ -2,9 +2,9 @@ $(document).ready( function() {
     new ApplicationController (new GameController(
         new GameModel(),
         new RoundModel(),
-        new StartingView(),
-        new RoundView(),
-        new ScoreView())
+        new StartingView('selector1'),
+        new RoundView('selector1'),
+        new ScoreView('selector1'))
     ).initEvents();
 })
 
@@ -66,16 +66,15 @@ var RoundView = function(selector1){
 }
 
 RoundView.prototype = {
+    drawColor: function(roundColor){
 
+    },
+    playSound: function(roundSound){
+
+    }
 }
 
-var SoundView = function(selector1){
-    this.selector1 = selector1;
-}
 
-SoundView.prototype = {
-
-}
 
 var ScoreView = function(selector1){
     this.selector1 = selector1;
