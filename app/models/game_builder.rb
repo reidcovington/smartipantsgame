@@ -1,6 +1,6 @@
 class GameBuilder
-  def self.create_game(game_hash)
-    game = build_game(game_hash[:n], game_hash)
+  def self.create_game(user_id, game_hash)
+    game = build_game(user_id, game_hash[:n], game_hash)
     build_rounds(game_hash[:rounds]).each do |round|
       game.rounds << round
     end
@@ -9,8 +9,8 @@ class GameBuilder
 
   private
 
-  def self.build_game(n, game_hash)
-    User.find(1).games.build(n: n, json_string: game_hash.to_s)
+  def self.build_game(user_id, n, game_hash)
+    User.find(user_id).games.build(n: n, json_string: game_hash.to_s)
   end
 
   def self.build_rounds(rounds_hash)
