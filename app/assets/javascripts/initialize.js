@@ -2,24 +2,28 @@ $(document).ready( function() {
     new ApplicationController (new GameController(
         new GameModel(),
         new RoundModel(),
-        new StartingView('selector1'),
+        new StartingView(),
         new RoundView('selector1'),
         new ScoreView('selector1'))
     ).initEvents();
+
+
 })
 
 // CONTROLLERS ------------------------------------
 
 var ApplicationController = function(gameController){
     this.gameController = gameController;
-    this.startGameSelector = '#start-button';
+    this.startGameSelector = '#start-button'
 }
 
 ApplicationController.prototype = {
     initEvents: function() {
         var self = this;
-        $(document).on( 'submit', self.startGameSelector, function(event){
+        self.gameController.startingView.drawIntro('#game-section')
+        $(document).on( 'click', self.startGameSelector, function(event){
             event.preventDefault();
+            alert("hello");
         })
     }
 }
@@ -53,12 +57,14 @@ var RoundModel = function(memoryTypes){
 
 // VIEWS ------------------------------------------
 
-var StartingView = function(selector1){
-    this.selector1 = selector1;
+var StartingView = function(){
+    // this.gameScreenSelector = gameScreenSelector;
 }
 
 StartingView.prototype = {
-
+    drawIntro: function(gameScreenSelector){
+        $(gameScreenSelector).append('<h1>Welcome, play your BALLZ off!</h1><br><button id="start-button" type="button">Start FUCKER!</button>');
+    }
 }
 
 var RoundView = function(selector1){
