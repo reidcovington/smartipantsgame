@@ -1,5 +1,18 @@
 smartipants
+
 ===========
+
+An implementation of the n-back game that is both fun to play and gives you statistical information based on users aggregated data.
+
+Team Members:
+
+- Siyan Beverly
+- Reid Covington
+- Connor Harwood
+- Steven Inouye
+- Stephen Roth
+
+Link to Trello Workflow: https://trello.com/b/uxPwjS6S/smartipants
 
 #-------MVP-----------
 (finished by 6/16/14)
@@ -64,3 +77,7 @@ smartipants
 -as a user I want to be able to challange another user in "competitive mode" where users play the same game at the same time
 
 -a user can play variable lenth n-back
+
+-a user can embed the game in another website
+
+-mobile friendly
