@@ -1,49 +1,63 @@
 $(document).ready(function() {
-   new ApplicationController (new GameController(GameModel, new RoundView('selector1')))
+   new ApplicationController ("#game-section")
 })
 
 // CONTROLLERS ------------------------------------
 
-var ApplicationController = function(gameController){
-    this.gameController = gameController;
-    this.startingView = new StartingView;
-    this.scoreView = new ScoreView;
-    this.startingView.drawIntro('#game-section')
+var ApplicationController = function(selector){
+    this.selector = selector;
+    this.startingView = new StartingView(selector, this);
+    this.gameController = new GameController(this.selector);
 }
 
-// ApplicationController.prototype = {
+ApplicationController.prototype = {
+    buildGame: function(n, gameType){
+        this.gameController.initEvents(n, gameType);
+    }
+}
 
-// }
-
-var GameController = function(gameModel, roundView){
-        this.gameModel = gameModel;
-        this.roundView = roundView;
-        // this.startGameSelector = '#start-button';
-        this.initEvents();
+var GameController = function(selector){
+    this.selector = selector;
+    this.gameModel;
+    this.roundView = new RoundView(selector, this);
+    this.scoreView = new ScoreView(selector, this);
 }
 
 GameController.prototype = {
-    initEvents: function() {
+    initEvents: function(n, gameType) {
         var self = this;
-        $('#game-section').on('click', '#1', function(event){
-            event.preventDefault();
-            var new_game = new GameModel(2, 'single')
-            console.log(new_game)
-        })
-        $('#game-section').on('click', '#2', function(event){
-            event.preventDefault();
-            var new_game = new GameModel(2, 'dual')
-            console.log(new_game)
-        })
-    }
+        this.gameModel = new GameModel(n, gameType)
+        this.roundView.listenForCueClicks();
+        var round = 0;
+        var gamePlay = setInterval(function(){
+            // debugger
+            if (round === self.gameModel.rounds.length - 1) { clearInterval(gamePlay) }
+            self.executeRound(round, gameType)
+            round += 1
+        }, 200)
+    },
+
+    executeRound: function(roundNum, gameType){
+        if (gameType == 1){
+            console.log('log in loop');
+            this.roundView.drawColor(this.gameModel.rounds[roundNum].color)
+        } else {
+            this.roundView.drawColor(this.gameModel.rounds[roundNum].color)
+            this.roundView.playSound(this.gameModel.rounds[roundNum].sound)
+        }
+    },
+
+    // evalKeyup: function(this){
+
+    // }
 }
 
 // MODELS ----------------------------------------
 
 var GameModel = function(n, gameType){
-    this.board = {};
+    this.game = {};
     this.rounds = [];
-    this.generateBoard(n, gameType);
+    this.generateGame(n, gameType);
 }
 
 GameModel.prototype = {
@@ -52,46 +66,47 @@ GameModel.prototype = {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     },
 
-    generateBoard: function(n, gameType){
-        var numOfRounds = n + 20
-
-        if (gameType ===  'single') {
-            for(var round = 1; round < numOfRounds; round++) {
-                var colorIndex = this.getRandomInt(0, 3)
-                this.board[round] = new RoundModel( colorIndex )
+    generateGame: function(n, gameType){
+        var numOfRounds = n + 20;
+        if (gameType ==  1) {
+            for(var round = 0; round < numOfRounds; round++) {
+                var colorIndex = this.getRandomInt(0, 3);
+                this.rounds.push( new RoundModel( colorIndex ) );
             }
-            for(var round = 1; round < numOfRounds; round++) {
+            for(var round = 0; round < numOfRounds; round++) {
                 if (round - n > 0) {
-                    if (this.board[round].color === this.board[round - n].color) {
-                        this.board[round].color_match = true
+                    if (this.rounds[round].color === this.rounds[round - n].color) {
+                        this.rounds[round].color_match = true
                     };
                 }
             };
         };
 
-        if (gameType === 'dual') {
+        if (gameType == 2) {
             for(var round = 1; round < numOfRounds; round++) {
                 var colorIndex = this.getRandomInt(0, 3)
                 var soundIndex = this.getRandomInt(0, 2)
-                this.board[round] = new RoundModel( colorIndex, soundIndex )
+                this.rounds[round] = new RoundModel( colorIndex, soundIndex )
             }
             // debugger
 
             for(var round = 1; round < numOfRounds; round++) {
                 if (round - n > 0) {
-                    if (this.board[round].color === this.board[round - n].color) {
-                        this.board[round].color_match = true
+                    if (this.rounds[round].color === this.rounds[round - n].color) {
+                        this.rounds[round].color_match = true
                     };
 
-                    if (this.board[round].sound === this.board[round - n].sound) {
-                        this.board[round].audio_match = true
+                    if (this.rounds[round].sound === this.rounds[round - n].sound) {
+                        this.rounds[round].audio_match = true
                     };
                 }
             }
         };
 
-        return this.board
-    },
+        return this.rounds
+    }
+
+
 }
 
 var RoundModel = function(colorIndex, soundIndex){
@@ -99,46 +114,65 @@ var RoundModel = function(colorIndex, soundIndex){
     this.sounds = ['a', 'b', 'c']
     var color = this.colors[colorIndex]
     var sound = this.sounds[soundIndex]
-    if(sound == undefined){
-        sound = null
-    }
 
     return { color: color, sound: sound, color_match: false, audio_match: false, correct: true }
 }
 
 // VIEWS ------------------------------------------
 
-var StartingView = function(){
+var StartingView = function(selector, delegate){
+    this.selector = selector;
+    this.delegate = delegate;
+    this.drawIntro(selector);
+    this.listenForGameParams();
     // this.gameScreenSelector = gameScreenSelector;
 }
 
 StartingView.prototype = {
     drawIntro: function(gameScreenSelector){
-        $(gameScreenSelector).append('<h1>Welcome, play your happy self off!</h1><br><button id="1" type="button">Play single mah dude!</button><br><button id="2" type="button">Play double mah dude!</button>');
+        $(gameScreenSelector).append('<h1>Welcome, play your happy self off!</h1><br><form id="intro-form"><input type="integer" id="n"><input type="integer" id="game-type"><input type="submit" value="submit"></form>');
+    },
+    listenForGameParams: function(){
+        var self = this;
+        $('#intro-form').on('submit', function(event){
+            event.preventDefault();
+            self.delegate.buildGame(parseInt($('input#n').val()), parseInt($('input#game-type').val()));
+            $(self.selector).empty();
+        })
     }
 }
 
-var RoundView = function(selector1){
-    this.selector1 = selector1;
+var RoundView = function(selector, delegate){
+    this.delegate = delegate;
+    this.selector = selector;
 }
 
 RoundView.prototype = {
-    drawColor: function(roundColor){
-
+    drawColor: function(color){
+        var self = this;
+        $(this.selector).css('background-color', color)
     },
-    playSound: function(roundSound){
-
+    playSound: function(sound){
+        $(this.selector).append('thing that makes sound');
+    },
+    listenForCueClicks: function(){
+        var self = this;
+        $(document).on('keyup', function(event){
+            event.preventDefault();
+            self.delegate.evalKeyup(this);
+        })
     }
 }
 
 
 
-var ScoreView = function(selector1){
-    this.selector1 = selector1;
+var ScoreView = function(selector, delegate){
+    this.delegate = delegate;
+    this.selector1 = selector;
 }
 
 ScoreView.prototype = {
-
+    //make cool methods that do things here
 }
 
 
