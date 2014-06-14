@@ -30,22 +30,32 @@ describe UsersController do
   end
 
   context '#login' do
-    it 'is a valid route'
+    it 'is a valid route' do
+      expect(response.status).to eq 200
+    end
   end
 
   context '#show' do
-    it 'is a valid route'
+    it 'is a valid route' do
+      expect(response.status).to eq 200
+    end
   end
 
   context '#logout' do
-    it 'is a valid route'
+    it 'is a valid route' do
+      expect(response.status).to eq 200
+    end
   end
 
   context '#update' do
-    it 'is a valid route'
+    it 'is a valid route' do
+      expect(response.status).to eq 200
+    end
   end
 
   context '#destroy' do
-    it 'is a valid route'
+    it 'is a valid route' do
+      expect(response.status).to eq 200
+    end
   end
 end
