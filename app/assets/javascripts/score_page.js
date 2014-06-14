@@ -116,7 +116,7 @@ $(function () {
         // Create the chart
         $('#graph_container').highcharts({
             credits: {
-           enabled: false
+                enabled: false
             },
             chart: {
                 type: 'pie'
