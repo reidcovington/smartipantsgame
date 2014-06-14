@@ -44,7 +44,7 @@ describe("GameModel", function() {
         expect(gameModel.rounds[3]['colorGuess']).toEqual(true)
       })
 
-      it('should set attributeGuess to true if user indicates a match correctly', function() {
+      it('should not set attributeGuess if user guesses incorrectly', function() {
         var gameModel = new GameModel(2, { colors: [] })
         gameModel.rounds[0].color = 'blue'
         gameModel.rounds[2].color = 'red'
@@ -54,7 +54,7 @@ describe("GameModel", function() {
     })
 
     describe('#scoreNonGuess', function() {
-      it('should set colorGuess to true if no guess was provided and there was no match', function() {
+      it('should set attributeGuess to true if user correctly gives no input', function() {
         var gameModel = new GameModel(2, { colors: [] })
 
         gameModel.rounds[0].color = 'blue'
@@ -63,6 +63,17 @@ describe("GameModel", function() {
         gameModel.scoreNonGuess('color', 2)
 
         expect(gameModel.rounds[2].colorGuess).toEqual(true)
+      })
+
+      it('should not set attributeGuess to true if user INcorrectly gives no input', function() {
+        var gameModel = new GameModel(2, { colors: [] })
+
+        gameModel.rounds[0].color = 'blue'
+        gameModel.rounds[2].color = 'blue'
+
+        gameModel.scoreNonGuess('color', 2)
+
+        expect(gameModel.rounds[2].colorGuess).toBeUndefined();
       })
     })
     })
