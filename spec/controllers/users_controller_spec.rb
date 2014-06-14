@@ -32,7 +32,7 @@ describe UsersController do
   context '#login' do
     describe 'valid user info' do
       before :each do
-        @user = User.create(email: 'test@test.com', password_confirmation: 'test', password: 'test')
+        user = User.create(email: 'test@test.com', password_confirmation: 'test', password: 'test')
         get :login, :user => {'email' => 'test@test.com', 'password' => 'test' }
       end
       it 'is a valid route' do
@@ -85,8 +85,13 @@ describe UsersController do
   end
 
   context '#update' do
-    it 'is a valid route' do
-      expect(response.status).to eq 200
+    before :each do
+      @user = FactoryGirl.create(:user)
+      session[:user_id] = @user.id
+    end
+    it 'locates the correct user' do
+      patch :update, id: @user, user: FactoryGirl.attributes_for(:user)
+      expect(assigns(:user)).to eq @user
     end
   end
 
