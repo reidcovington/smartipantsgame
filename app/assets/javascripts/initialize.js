@@ -42,7 +42,7 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
             }
-        }.bind(this), 400);
+        }.bind(this), 1000);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
