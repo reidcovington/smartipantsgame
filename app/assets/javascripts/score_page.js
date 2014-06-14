@@ -10,7 +10,7 @@ var valid_game = {
         "3": {
             color_id: 2,
             audio_id: 3,
-            color_correct: false,
+            color_correct: true,
             audio_correct: false
         },
         "2": {
@@ -44,8 +44,16 @@ for (i=0; i<array_values.length; i++){
   }
 }
 
-  console.log(color_correct.length)
-  console.log(audio_correct.length)
+var total_correct_length = color_correct.length + audio_correct.length
+var total_incorrect_length = 8 - total_correct_length
+var hit = Math.round(total_correct_length / 8 * 100);
+var miss = 100 - hit
+var color_hit = Math.round((color_correct.length/total_correct_length) * hit)
+var audio_hit = Math.round((audio_correct.length/total_correct_length) * hit)
+var color_miss = Math.round(((4-color_correct.length)/total_incorrect_length) * miss)
+var audio_miss = Math.round(((4-audio_correct.length)/total_incorrect_length) * miss)
+
+console.log(color_miss)
 
 
 $(function () {
@@ -54,21 +62,21 @@ $(function () {
             categories = ['Hit', 'Miss'],
             name = 'Answers!',
             data = [{
-                    y: 40,
+                    y: hit,
                     color: colors[6],
                     drilldown: {
                         name: 'Hit',
                         categories: ['Color', 'Audio'],
-                        data: [20,20],
+                        data: [color_hit, audio_hit],
                         color: colors[6]
                     }
                 }, {
-                    y: 60,
+                    y: miss,
                     color: colors[2],
                     drilldown: {
                         name: 'Miss',
                         categories: ['Color', 'Audio'],
-                        data: [25,35],
+                        data: [color_miss,audio_miss],
                         color: colors[2]
                     }
                 }];
