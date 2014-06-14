@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
 def show
   p UserShowBrain.color_correct
+  p UserShowBrain.game_dates
 end
 
   def login
