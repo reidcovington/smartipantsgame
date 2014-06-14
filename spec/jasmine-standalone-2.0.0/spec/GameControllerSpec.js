@@ -38,13 +38,29 @@ describe("GameController", function() {
   });
 
   describe("#initiateGame", function() {
-    it("acceptes color and sound attributes", function(){
-      var round =  new RoundModel( {colors: ["Magenta"], sounds: ["chewbacca growl"]})
-      expect(round.color).toEqual("Magenta");
-      expect(round.sound).toEqual("chewbacca growl");
+    var applicationController = new ApplicationController
+    var gameController =  new GameController( 2, "dual", '#game-section', applicationController);
+    it("calls #constructRound method, which applies RoundView first round data (color, sounds etc)", function(){
+      expect(gameController.roundView.constructRound).toBeDefined();
+    });
+
+    it("starts #setInterval timer that cycles through rounds", function(){
+      expect(gameController.initiateGame).toBeDefined();
+      // should access #setInterval...
     });
 
   })
+
+  describe("#evalGuess", function() {
+    // var applicationController = new ApplicationController
+    // var gameController =  new GameController( 2, "dual", '#game-section', applicationController);
+    // gameController.currentRound = gameController.gameModel.rounds[3]
+    it('if "q" is pressed, calls #scoreGuess method and evals for color match', function(){
+    //   expect(gameController.gameModel.scoreGuess("color", gameController.currentRound )).toBeDefined();
+    });
+
+  });
+
 
   //   it("acceptes color and sound attributes", function(){
   //     var round =  new RoundModel( {colors: ["Magenta"], sounds: ["chewbacca growl"]})
