@@ -13,7 +13,9 @@ class UsersController < ApplicationController
 
 def show
   p UserShowBrain.color_correct
+  p UserShowBrain.audio_correct
   p UserShowBrain.game_dates
+  p UserShowBrain.total_correct
 end
 
   def login
