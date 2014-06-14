@@ -67,8 +67,20 @@ describe UsersController do
   end
 
   context '#logout' do
+    before :each do
+      session[:user_id] = 5
+      get :logout
+    end
     it 'is a valid route' do
-      expect(response.status).to eq 200
+      expect(response.status).to eq 302
+    end
+
+    it 'clears the session' do
+      expect(session[:user_id]).to be_nil
+    end
+
+    it 'redirects to root path' do
+      expect(response).to redirect_to root_path
     end
   end
 
