@@ -29,17 +29,42 @@ GameController.prototype = {
         this.gameModel = new GameModel(n, gameType)
         this.roundView.listenForCueClicks();
         var round = 0;
+        self.currentRound = round;
+        console.log("starting game now.");
+        self.executeRound(round, gameType);
         var gamePlay = setInterval(function(){
-            // debugger
-            if (round === self.gameModel.rounds.length - 1) { clearInterval(gamePlay) }
+            // console.log("[LOG] you pressed q: " + self.gameModel.rounds[round].keyed_color)
+            console.log("end of round: " + self.currentRound)
+            if (self.gameModel.rounds[round].keyed_color === false ) {
+                console.log("you didn't press q.")
+                self.gameModel.evalRoundColor(round)
+            }
+            if (round === self.gameModel.rounds.length - 1) {
+                clearInterval(gamePlay);
+                var num_correct = 0;
+                var num_incorrect = 0;
+                for(i=0; i < self.gameModel.rounds.length; i++){
+                    if(self.gameModel.rounds[i].color_correct === true){
+                        num_correct++
+                    }else{
+                        num_incorrect++
+                    }
+                }
+                console.log("number correct: " + num_correct)
+                console.log("number incorrect: " + num_incorrect)
+            }
+            // if (self.gameModel.rounds[round].keyed_sound === false) {
+            //     self.evalRoundSound(round)
+            // }
             self.executeRound(round, gameType)
+            console.log(self.gameModel.rounds[round])
             round += 1
-        }, 200)
+            self.currentRound = round
+        }, 2000)
     },
 
     executeRound: function(roundNum, gameType){
         if (gameType == 1){
-            console.log('log in loop');
             this.roundView.drawColor(this.gameModel.rounds[roundNum].color)
         } else {
             this.roundView.drawColor(this.gameModel.rounds[roundNum].color)
@@ -47,8 +72,19 @@ GameController.prototype = {
         }
     },
 
-    // evalKeyup: function(this){
+    evalKeyup: function(key){
+        if(key == 81) { this.gameModel.evalColorMatch(this.currentRound) };
+        if(key == 82) { this.gameModel.evalSoundMatch(this.currentRound) };
+    }
 
+
+
+
+    // this.gameModel.rounds[self.currentRound].visual_response = true
+    // evalRound: function(round){
+    //     if (this.gameModel.rounds[self.currentRound].visual_response = false && this.gameModel.rounds[self.currentRound].color_match == true ) {
+    //         this.gameModel.rounds[round].correct = false;
+    //     }
     // }
 }
 
@@ -104,9 +140,39 @@ GameModel.prototype = {
         };
 
         return this.rounds
+    },
+
+    evalColorMatch: function(currentRound) {
+        this.rounds[currentRound].keyed_color = true;
+        if(this.rounds[currentRound].color_match === false) {
+            this.rounds[currentRound].color_correct = false;
+            console.log("you pressed q and were wrong")
+        }else{
+            console.log("you pressed q and were right")
+        }
+    },
+
+    evalSoundMatch: function(currentRound) {
+        if(this.rounds[currentRound].audio_match === false) {
+            this.rounds[currentRound].audio_correct = false;
+            this.rounds[currentRound].keyed_sound = true;
+        }
+    },
+
+    evalRoundColor: function(currentRound) {
+        if(this.rounds[currentRound].color_match === true) {
+            this.rounds[currentRound].color_correct = false;
+            console.log("evaluating end of round; your lack input was incorrect")
+        }else{
+            console.log("evaluating end of round; your lack of input was correct")
+        };
+    },
+
+    evalRoundSound: function(currentRound) {
+        if(this.rounds[currentRound].audio_match === false) {
+            this.rounds[currentRound].audio_correct = false;
+        };
     }
-
-
 }
 
 var RoundModel = function(colorIndex, soundIndex){
@@ -115,7 +181,7 @@ var RoundModel = function(colorIndex, soundIndex){
     var color = this.colors[colorIndex]
     var sound = this.sounds[soundIndex]
 
-    return { color: color, sound: sound, color_match: false, audio_match: false, correct: true }
+    return { color: color, sound: sound, color_match: false, color_correct: true, audio_match: false, audio_correct: true, keyed_color: false, keyed_sound: false }
 }
 
 // VIEWS ------------------------------------------
@@ -159,7 +225,8 @@ RoundView.prototype = {
         var self = this;
         $(document).on('keyup', function(event){
             event.preventDefault();
-            self.delegate.evalKeyup(this);
+            console.log(event.keyCode)
+            self.delegate.evalKeyup(event.keyCode);
         })
     }
 }
