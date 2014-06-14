@@ -30,6 +30,10 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def update
+    @user = User.find(session[:user_id])
+  end
+
   private
 
   def user_params
