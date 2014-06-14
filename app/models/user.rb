@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
 
   def self.find_and_auth email, password
     user = User.find_by_email(email)
-    puts "[log] user = #{user.inspect}"
     user && user.authenticate(password) ? user : nil
   end
 end

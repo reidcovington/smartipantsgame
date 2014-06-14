@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def login
-    puts "[log] #{User.find_and_auth(user_params[:email], user_params[:password])}"
     @user = User.find_and_auth(user_params[:email], user_params[:password])
     if @user
       session[:user_id] = @user.id

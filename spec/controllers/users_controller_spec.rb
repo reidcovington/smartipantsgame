@@ -42,6 +42,21 @@ describe UsersController do
       it 'assigns a user when given valid params' do
         expect(assigns(:user)).to be_an_instance_of User
       end
+      it 'will set a session id' do
+        expect(session[:user_id]).to_not be_nil
+      end
+    end
+
+    describe 'invalid user info' do
+      before :each do
+        get :login, :user => {'email' => 'nouserhas@this.email', 'password' => 'notapassword' }
+      end
+      it 'does not assign a user, given invalid params' do
+        expect(assigns(:user)).to be_nil
+      end
+      it 'will not set a session id' do
+        expect(session[:user_id]).to be_nil
+      end
     end
   end
 
