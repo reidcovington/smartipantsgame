@@ -1,22 +1,31 @@
 require 'spec_helper'
 
 describe UsersController do
+  
   context '#create' do
-    it 'is a valid route' do
-      post :create
-      expect(response.status).to eq 200
+
+    describe 'valid info' do
+      before :each do
+        post :create, :user => {"username" => "test_user", "email" => "test@email.test", "password" => "test", "password_confirmation" => "test"}
+      end
+
+      it 'is a valid route' do
+        expect(response.status).to eq 200
+      end
+
+      it 'adds a valid user to the database' do
+        expect(assigns(:user)).to be_an_instance_of User
+      end
     end
-    it 'adds a valid user to the database' do
-      post :create, :user => {"username" => "test_user", "email" => "test@email.test", "password" => "test", "password_digest" => "test"}
-      # expect(assigns(:user)).to be_an_instance_of User
-    end
-    it 'does not add an invalid user to the database' do
-      post :create, :user => {"username" => "test_invalid_user", "email" => "test@invalidtest", "password" => "test", "password_digest" => "test"}
-      expect(assigns(:user)).to be_nil
-    end
-    it 'sets an error message if the user is invalid' do
-      post :create, :user => {"username" => "test_invalid_user", "email" => "@", "password" => "test", "password_digest" => "test"}
-      expect(session[:last_error]).to_not be_nil
+
+    describe 'invalid info' do
+      before :each do
+        post :create, :user => {"username" => "test_invalid_user", "email" => "test@invalidtest", "password" => "test", "password_confirmation" => "test"}
+      end
+
+      it 'sets an error message if the user is invalid' do
+        expect(flash[:invalid_create]).to_not be_nil
+      end
     end
   end
 
