@@ -1,0 +1,32 @@
+body {
+  padding-top: 3em;
+}
+
+nav {
+  background: black;
+  height: 3em;
+  color: white;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+
+  ul {
+    margin: 0;
+    line-height: 3em;
+  }
+
+  li {
+    display: inline;
+    padding: 0 .5em;
+  }
+
+  a {
+    color: white !important;
+    text-decoration: none;
+  }
+
+
+
+}
+

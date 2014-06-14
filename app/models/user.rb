@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
-  has_secure_password
-  
+  validates :email, presence: true
+  validates :email, uniqueness: true
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :save
+  validates :password, presence: true
   has_many :games
 
-  validates :email, format: { with: /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/ }, presence: true
+  has_secure_password
 end
