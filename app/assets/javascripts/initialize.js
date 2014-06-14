@@ -28,47 +28,31 @@ GameController.prototype = {
         var self = this;
         this.gameModel = new GameModel(n, gameType)
         this.roundView.listenForCueClicks();
-        var round = 0;
-        self.currentRound = round;
+        self.currentRound = 0;
         console.log("starting game now.");
-        self.executeRound(round, gameType);
+        self.executeRound(self.currentRound, gameType);
         var gamePlay = setInterval(function(){
-            // console.log("[LOG] you pressed q: " + self.gameModel.rounds[round].keyed_color)
-            console.log("end of round: " + self.currentRound)
-            if (self.gameModel.rounds[round].keyed_color === false ) {
+            if (self.gameModel.rounds[self.currentRound].keyed_color === false ) {
                 console.log("you didn't press q.")
-                self.gameModel.evalRoundColor(round)
+                self.gameModel.evalEndOfRoundColor(self.currentRound)
             }
-            if (round === self.gameModel.rounds.length - 1) {
+            self.currentRound += 1;
+            self.executeRound(self.currentRound, gameType)
+            if (self.currentRound === self.gameModel.rounds.length - 1) {
                 clearInterval(gamePlay);
-                var num_correct = 0;
-                var num_incorrect = 0;
-                for(i=0; i < self.gameModel.rounds.length; i++){
-                    if(self.gameModel.rounds[i].color_correct === true){
-                        num_correct++
-                    }else{
-                        num_incorrect++
-                    }
-                }
-                console.log("number correct: " + num_correct)
-                console.log("number incorrect: " + num_incorrect)
             }
-            // if (self.gameModel.rounds[round].keyed_sound === false) {
-            //     self.evalRoundSound(round)
-            // }
-            self.executeRound(round, gameType)
-            console.log(self.gameModel.rounds[round])
-            round += 1
-            self.currentRound = round
-        }, 2000)
+        }, 500)
     },
 
-    executeRound: function(roundNum, gameType){
+    executeRound: function(roundIndex, gameType){
+        console.log("**************************************************")
+        console.log("round with index: " + roundIndex)
+        console.log(this.gameModel.rounds[this.currentRound]);
         if (gameType == 1){
-            this.roundView.drawColor(this.gameModel.rounds[roundNum].color)
+            this.roundView.drawColor(this.gameModel.rounds[roundIndex].color)
         } else {
-            this.roundView.drawColor(this.gameModel.rounds[roundNum].color)
-            this.roundView.playSound(this.gameModel.rounds[roundNum].sound)
+            this.roundView.drawColor(this.gameModel.rounds[roundIndex].color)
+            this.roundView.playSound(this.gameModel.rounds[roundIndex].sound)
         }
     },
 
@@ -110,7 +94,7 @@ GameModel.prototype = {
                 this.rounds.push( new RoundModel( colorIndex ) );
             }
             for(var round = 0; round < numOfRounds; round++) {
-                if (round - n > 0) {
+                if (round - n >= 0) {
                     if (this.rounds[round].color === this.rounds[round - n].color) {
                         this.rounds[round].color_match = true
                     };
@@ -144,6 +128,7 @@ GameModel.prototype = {
 
     evalColorMatch: function(currentRound) {
         this.rounds[currentRound].keyed_color = true;
+        // debugger
         if(this.rounds[currentRound].color_match === false) {
             this.rounds[currentRound].color_correct = false;
             console.log("you pressed q and were wrong")
@@ -159,7 +144,7 @@ GameModel.prototype = {
         }
     },
 
-    evalRoundColor: function(currentRound) {
+    evalEndOfRoundColor: function(currentRound) {
         if(this.rounds[currentRound].color_match === true) {
             this.rounds[currentRound].color_correct = false;
             console.log("evaluating end of round; your lack input was incorrect")
