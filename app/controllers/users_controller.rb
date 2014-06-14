@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
 def show
-  p UserShowBrain.meow
+  p UserShowBrain.color_correct
 end
 
   def login
