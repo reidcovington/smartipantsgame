@@ -8,20 +8,14 @@
 </head>
 <body>
 
-<nav>
-  <form>
-      <ul>
-        <li><%= link_to 'Profile', root_path %></li>
-        <li><%= link_to 'New Game', games_play_path %></li>
-<!--         <li><%= link_to 'Log In/Sign up', users_login_path, :method => :add,  :id => "login"  %></li> -->
-        <li><a href="" id="login">Log in/Sign up</a></li>
-        <li class="login_hide"><input type="textarea" name="email" placeholder="email"></input></li>
-        <li>
-        <li class="login_hide"><input type="textarea" name="password" placeholder="password"></input></li>
-        <li class="login_hide"><input type="submit" value="submit"></input></li>
-
-      </ul>
-    </form>
+<nav class="navbar navbar-default" role="navigation">
+        <%= link_to 'Profile', root_path, class: "btn btn-primary" %>
+        <%= link_to 'New Game', games_play_path, class: "btn btn-primary" %>
+        <%= link_to 'Log In/Sign up', users_login_path, class: "btn btn-primary", :method => :add,  :id => "login"  %>
+        <a href="" id="login" class= "btn btn-primary" >Log in/Sign up</a>
+        <input class="form-control"  type="textarea" name="email" placeholder="email"></input>
+        <input class="form-control" type="textarea" name="password" placeholder="password"></input>
+        <input type="submit" value="submit" class= "btn btn-primary">
   </nav>
 
 <%= yield %>
