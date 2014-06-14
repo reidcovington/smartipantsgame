@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   resources :games, only: [ :create ]
   get '/games/play', to: 'games#play'
 
+  resources :scores, only: [:get]
+  get '/score', to: 'score#game'
+
 end
