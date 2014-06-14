@@ -3,6 +3,9 @@ $(function () {
             credits: {
                 enabled: false
             },
+            allowPointSelect: {
+                enabled: true
+            },
             chart: {
                 type: 'spline'
             },
@@ -30,6 +33,7 @@ $(function () {
                 shared: true
             },
             plotOptions: {
+
                 spline: {
                     marker: {
                         radius: 4,
@@ -40,13 +44,40 @@ $(function () {
             },
             series: [{
                 name: 'Total',
-                data: [20, 50, 15, 30, 85]
+                data: [20, 50, 15, 30, 85],
+                cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function (e) {
+                                x: e.pageX
+                                console.log(this.x);
+                            }
+                        }
+                    },
             },{
                 name: 'Audio',
-                data: [14, 40, 35, 55, 90]
+                data: [14, 40, 35, 55, 90],
+                cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function (e) {
+                                x: e.pageX
+                                console.log(this.x);
+                            }
+                        }
+                    },
             }, {
                 name: 'Color',
-                data: [19, 35, 70, 50, 80]
+                data: [19, 35, 70, 50, 80],
+                cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function (e) {
+                                x: e.pageX
+                                console.log(this.x);
+                            }
+                        }
+                    },
             }]
         });
     });
