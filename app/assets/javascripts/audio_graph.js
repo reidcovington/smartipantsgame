@@ -8,7 +8,7 @@ $(function () {
                     color: colors[0],
                     drilldown: {
                         name: 'Audio1',
-                        categories: ['correct',' incorrect'],
+                        categories: ['hit',' miss'],
                         data: [6.25,6.25],
                         color: colors[0]
                     }
@@ -17,7 +17,7 @@ $(function () {
                     color: colors[1],
                     drilldown: {
                         name: 'Audio2',
-                        categories: ['correct',' incorrect'],
+                        categories: ['hit',' miss'],
                         data: [6.25,6.25],
                         color: colors[1]
                     }
@@ -26,7 +26,7 @@ $(function () {
                     color: colors[2],
                     drilldown: {
                         name: 'Audio3',
-                        categories: ['correct',' incorrect'],
+                        categories: ['hit',' miss'],
                         data: [6.25,6.25],
                         color: colors[2]
                     }
@@ -35,7 +35,7 @@ $(function () {
                     color: colors[3],
                     drilldown: {
                         name: 'Audio4',
-                        categories: ['correct',' incorrect'],
+                        categories: ['hit',' miss'],
                         data: [6.25,6.25],
                         color: colors[3]
                     }
@@ -44,7 +44,7 @@ $(function () {
                     color: colors[4],
                     drilldown: {
                         name: 'Audio5',
-                        categories: ['correct',' incorrect'],
+                        categories: ['hit',' miss'],
                         data: [6.25,6.25],
                         color: colors[4]
                     }
@@ -53,7 +53,7 @@ $(function () {
                     color: colors[5],
                     drilldown: {
                         name: 'Audio6',
-                        categories: ['correct',' incorrect'],
+                        categories: ['hit',' miss'],
                         data: [6.25,6.25],
                         color: colors[4]
                     }
@@ -62,7 +62,7 @@ $(function () {
                     color: colors[6],
                     drilldown: {
                         name: 'Audio7',
-                        categories: ['correct',' incorrect'],
+                        categories: ['hit',' miss'],
                         data: [6.25,6.25],
                         color: colors[4]
                     }
@@ -71,7 +71,7 @@ $(function () {
                     color: colors[7],
                     drilldown: {
                         name: 'Audio8',
-                        categories: ['correct',' incorrect'],
+                        categories: ['hit',' miss'],
                         data: [6.25,6.25],
                         color: colors[4]
                     }
