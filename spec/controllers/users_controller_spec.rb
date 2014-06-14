@@ -30,8 +30,18 @@ describe UsersController do
   end
 
   context '#login' do
-    it 'is a valid route' do
-      expect(response.status).to eq 200
+    describe 'valid user info' do
+      before :each do
+        @user = User.create(email: 'test@test.com', password_confirmation: 'test', password: 'test')
+        get :login, :user => {'email' => 'test@test.com', 'password' => 'test' }
+      end
+      it 'is a valid route' do
+        expect(response.status).to eq 302
+      end
+
+      it 'assigns a user when given valid params' do
+        expect(assigns(:user)).to be_an_instance_of User
+      end
     end
   end
 
