@@ -6,16 +6,46 @@ describe("GameController", function() {
   });
 
 
-  // describe("#initialize", function() {
-  //   var round =  new RoundModel( {colors: ["Magenta"], sounds: ["chewbacca growl"]});
-  //     it("creates a new RoundModel instance with the specified color attribute", function(){
-  //       expect(round.color).toEqual("Magenta");
-  //     });
+  describe("#initialize", function() {
+    var applicationController = new ApplicationController
+    var gameController =  new GameController( 2, "dual", '#game-section', applicationController);
+      it("creates a new GameController instance", function(){
+        expect(gameController).toBeDefined();
+      });
 
+      it("creates a new GameController with the set number of rounds and game mode", function(){
+        expect(gameController.n).toEqual(2);
+        expect(gameController.fetchGameStructure).toBeDefined();
+      });
 
-  // });
+      it("when a new GameController is instantiated it creates a new intance of GameModel", function(){
+        expect(gameController.gameModel).toBeDefined();
+      });
 
-  // describe("attribues", function() {
+      it("when a new GameController is instantiated it creates a new intance of GameModel, which has n + 20 number of rounds", function(){
+        expect(gameController.gameModel.rounds.length).toEqual(22);
+      });
+
+      it("when a new GameController is instantiated it creates a new intance of GameModel, which has rounds with gameMode prescribed attributes", function(){
+        expect(gameController.gameModel.rounds[0].color).toBeDefined();
+        expect(gameController.gameModel.rounds[0].sound).toBeDefined();
+      });
+
+       it("when a new GameController is instantiated it creates a new intance of RoundView", function(){
+        expect(gameController.roundView).toBeDefined();
+      });
+
+  });
+
+  describe("#initiateGame", function() {
+    it("acceptes color and sound attributes", function(){
+      var round =  new RoundModel( {colors: ["Magenta"], sounds: ["chewbacca growl"]})
+      expect(round.color).toEqual("Magenta");
+      expect(round.sound).toEqual("chewbacca growl");
+    });
+
+  })
+
   //   it("acceptes color and sound attributes", function(){
   //     var round =  new RoundModel( {colors: ["Magenta"], sounds: ["chewbacca growl"]})
   //     expect(round.color).toEqual("Magenta");
