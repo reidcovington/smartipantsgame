@@ -1,0 +1,11 @@
+#ColorGraph {
+  float: left;
+  margin-right: 0%;
+}
+
+#AudioGraph {
+  margin-left: 0%;
+  display: inline;
+}
+
+
