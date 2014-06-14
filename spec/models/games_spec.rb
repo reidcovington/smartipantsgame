@@ -10,11 +10,11 @@ describe Game do
       expect{game.save}.to change {Game.all.count}.by(1)
     end
     let(:game2) { Game.new(n: 2) }
-      it "should not accept nil value for json_string, add validation" do
+      it "should not accept nil value for json_string" do
         expect{game2.save}.to change {Game.all.count}.by(0)
       end
     let(:game3) { Game.new(json_string: "test string for testing purpose")}
-      it "should not accept nil value for n, add validation" do
+      it "should not accept nil value for n" do
         expect{game3.save}.to change {Game.all.count}.by(0)
     end
   end
