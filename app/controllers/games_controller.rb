@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   def play
     # Landing page/game page
+    { colors: JSONFormatter.format(Color.all), audio: JSONFormatter.format(Audio.all) }.to_json
   end 
 
   def create
