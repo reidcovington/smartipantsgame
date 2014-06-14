@@ -12,17 +12,15 @@ class UsersController < ApplicationController
   end
 
   def login
-     @user = User.find_by_username(params[:username])
-      if @user
-        if @user.password == params[:password]
-          session[:user_id] = @user.id
-          erb :userpage
-        else
-          redirect ('/users/index')
-        end
-      else
-        redirect_to root_path
-      end
+    puts "[log] #{User.find_and_auth(user_params[:email], user_params[:password])}"
+    @user = User.find_and_auth(user_params[:email], user_params[:password])
+    if @user
+      session[:user_id] = @user.id
+      redirect_to root_path
+    else
+      flash[:login_error] = "Unable to log in."
+      redirect_to root_path
+    end
   end
 
   def show
