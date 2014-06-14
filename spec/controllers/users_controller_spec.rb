@@ -24,7 +24,7 @@ describe UsersController do
       end
 
       it 'sets an error message if the user is invalid' do
-        expect(flash[:invalid_create]).to_not be_nil
+        expect(flash[:error]).to_not be_nil
       end
     end
   end
@@ -89,9 +89,37 @@ describe UsersController do
       @user = FactoryGirl.create(:user)
       session[:user_id] = @user.id
     end
-    it 'locates the correct user' do
-      patch :update, id: @user, user: FactoryGirl.attributes_for(:user)
-      expect(assigns(:user)).to eq @user
+
+    describe 'for valid user input' do
+      it 'locates the correct user' do
+        patch :update, id: @user, user: FactoryGirl.attributes_for(:user)
+        expect(assigns(:user)).to eq @user
+      end
+
+      it 'updates the users attributes' do
+        patch :update, id: @user, user: FactoryGirl.attributes_for(:user, username: 'newusername', email: 'newemail@test.com')
+        @user.reload
+        expect(@user.username).to eq 'newusername'
+        expect(@user.email).to eq 'newemail@test.com'
+      end
+
+      it 'redirects to root path' do
+        patch :update, id: @user, user: FactoryGirl.attributes_for(:user)
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    describe 'for invalid user input' do
+      it 'does not update the users attributes' do
+        patch :update, id: @user, user: FactoryGirl.attributes_for(:user, email: '@#$%^%##')
+        @user.reload
+        expect(@user.email).to_not eq '@#$%^%##'
+      end
+
+      it 'creates a flash notification' do
+        patch :update, id: @user, user: FactoryGirl.attributes_for(:user, email: '@#$%^%##')
+        expect(flash[:error]).to eq "Unable to update your info."
+      end
     end
   end
 
