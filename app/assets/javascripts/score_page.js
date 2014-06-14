@@ -1,3 +1,52 @@
+var valid_game = {
+    n: 2,
+    rounds: {
+        "1": {
+            color_id: 1,
+            audio_id: 1,
+            color_correct: true,
+            audio_correct: false
+        },
+        "3": {
+            color_id: 2,
+            audio_id: 3,
+            color_correct: false,
+            audio_correct: false
+        },
+        "2": {
+            color_id: 4,
+            audio_id: 2,
+            color_correct: true,
+            audio_correct: true
+        },
+        "4": {
+            color_id: 1,
+            audio_id: 1,
+            color_correct: true,
+            audio_correct: false
+        }
+    }
+}
+var rounds = valid_game.rounds
+var array_values = new Array();
+var color_correct = new Array();
+var audio_correct = new Array();
+for (var key in rounds) {
+    array_values.push(rounds[key]);
+}
+
+for (i=0; i<array_values.length; i++){
+  if(array_values[i].color_correct === true){
+      color_correct.push(array_values[i])
+  if(array_values[i].audio_correct === true){
+      audio_correct.push(array_values[i])
+    }
+  }
+}
+
+  console.log(color_correct.length)
+  console.log(audio_correct.length)
+
 
 $(function () {
 
