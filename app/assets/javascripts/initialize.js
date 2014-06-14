@@ -39,6 +39,7 @@ GameController.prototype = {
             self.currentRound += 1;
             self.executeRound(self.currentRound, gameType)
             if (self.currentRound === self.gameModel.rounds.length - 1) {
+                self.roundView.stopListening();
                 clearInterval(gamePlay);
             }
         }, 500)
@@ -213,6 +214,9 @@ RoundView.prototype = {
             console.log(event.keyCode)
             self.delegate.evalKeyup(event.keyCode);
         })
+    },
+    stopListening: function(){
+        $(document).unbind('keyup');
     }
 }
 
