@@ -6,11 +6,13 @@ Rails.application.routes.draw do
 
   post '/users/login', to: 'users#login'
   get '/users/logout', to: 'users#logout'
+  get '/user/:id', to: 'user#show'
 
   resources :games, only: [ :create ]
   get '/games/play', to: 'games#play'
 
   resources :scores, only: [:get]
   get '/score', to: 'score#game'
+
 
 end
