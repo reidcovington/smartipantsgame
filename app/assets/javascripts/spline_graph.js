@@ -1,5 +1,5 @@
 $(function () {
-        $('#container').highcharts({
+        $('#total_progress_graph').highcharts({
             credits: {
                 enabled: false
             },
@@ -81,4 +81,5 @@ $(function () {
             }]
         });
     });
+
 

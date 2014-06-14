@@ -17,6 +17,7 @@ def login
 end
 
 def show
+  p UserShowBrain.meow
 end
 
 def logout
