@@ -1,57 +1,81 @@
 $(function () {
 
         var colors = Highcharts.getOptions().colors,
-            categories = ['MSIE', 'Firefox', 'Chrome', 'Safari', 'Opera'],
+            categories = ['Color1', 'Color2', 'Color3', 'Color4', 'Color5', 'Color6', 'Color7', 'Color8'],
             name = 'Browser brands',
             data = [{
-                    y: 0,
+                    y: 12.5,
                     color: colors[0],
                     drilldown: {
-                        name: 'MSIE versions',
-                        categories: ['MSIE 6.0', 'MSIE 7.0', 'MSIE 8.0', 'MSIE 9.0'],
-                        data: [10.85, 7.35, 33.06, 2.81],
+                        name: 'Color1',
+                        categories: ['correct',' incorrect'],
+                        data: [6.25,6.25],
                         color: colors[0]
                     }
                 }, {
-                    y: 21.63,
+                    y: 12.5,
                     color: colors[1],
                     drilldown: {
-                        name: 'Firefox versions',
-                        categories: ['Firefox 2.0', 'Firefox 3.0', 'Firefox 3.5', 'Firefox 3.6', 'Firefox 4.0'],
-                        data: [0.20, 0.83, 1.58, 13.12, 5.43],
+                        name: 'Color2',
+                        categories: ['correct',' incorrect'],
+                        data: [6.25,6.25],
                         color: colors[1]
                     }
                 }, {
-                    y: 11.94,
+                    y: 12.5,
                     color: colors[2],
                     drilldown: {
-                        name: 'Chrome versions',
-                        categories: ['Chrome 5.0', 'Chrome 6.0', 'Chrome 7.0', 'Chrome 8.0', 'Chrome 9.0',
-                            'Chrome 10.0', 'Chrome 11.0', 'Chrome 12.0'],
-                        data: [0.12, 0.19, 0.12, 0.36, 0.32, 9.91, 0.50, 0.22],
+                        name: 'Color3',
+                        categories: ['correct',' incorrect'],
+                        data: [6.25,6.25],
                         color: colors[2]
                     }
                 }, {
-                    y: 7.15,
+                    y: 12.5,
                     color: colors[3],
                     drilldown: {
-                        name: 'Safari versions',
-                        categories: ['Safari 5.0', 'Safari 4.0', 'Safari Win 5.0', 'Safari 4.1', 'Safari/Maxthon',
-                            'Safari 3.1', 'Safari 4.1'],
-                        data: [4.55, 1.42, 0.23, 0.21, 0.20, 0.19, 0.14],
+                        name: 'Color4',
+                        categories: ['correct',' incorrect'],
+                        data: [6.25,6.25],
                         color: colors[3]
                     }
                 }, {
-                    y: 2.14,
+                    y: 12.5,
                     color: colors[4],
                     drilldown: {
-                        name: 'Opera versions',
-                        categories: ['Opera 9.x', 'Opera 10.x', 'Opera 11.x'],
-                        data: [ 0.12, 0.37, 1.65],
+                        name: 'Color5',
+                        categories: ['correct',' incorrect'],
+                        data: [6.25,6.25],
+                        color: colors[4]
+                    }
+                }, {
+                    y: 12.5,
+                    color: colors[5],
+                    drilldown: {
+                        name: 'Color6',
+                        categories: ['correct',' incorrect'],
+                        data: [6.25,6.25],
+                        color: colors[4]
+                    }
+                }, {
+                    y: 12.5,
+                    color: colors[6],
+                    drilldown: {
+                        name: 'Color7',
+                        categories: ['correct',' incorrect'],
+                        data: [6.25,6.25],
+                        color: colors[4]
+                    }
+                }, {
+                    y: 12.5,
+                    color: colors[7],
+                    drilldown: {
+                        name: 'Color8',
+                        categories: ['correct',' incorrect'],
+                        data: [6.25,6.25],
                         color: colors[4]
                     }
                 }];
-
 
         // Build the data arrays
         var browserData = [];
