@@ -67,7 +67,6 @@ var audio_miss = Math.round(((6-audio_correct.length)/total_incorrect_length) * 
 
 
 $(function () {
-
         var colors = Highcharts.getOptions().colors,
             categories = ['Hit', 'Miss'],
             name = 'Answers!',

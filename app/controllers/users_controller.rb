@@ -16,6 +16,9 @@ def login
     end
 end
 
+def show
+end
+
 def logout
   session.clear
 end
