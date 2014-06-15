@@ -26,7 +26,13 @@ function GameController(n, gameMode, jQSelector, delegate){
 };
 GameController.prototype = {
     fetchGameStructure: function(n, gameMode){
-        return {colors: ['orange', 'lightgreen', 'lightblue', 'yellow']}; //replace with server request
+        var roundAttributes = {colors: ['orange', 'lightgreen', 'lightblue', 'yellow'],
+                            sounds: ['#soundElem1', '#soundElem2', '#soundElem3', '#soundElem4', '#soundElem5', '#soundElem6', '#soundElem7', '#soundElem8']}; //replace with server request
+        if (gameMode == 'single') {
+            return {colors: roundAttributes.colors}
+        } else if (gameMode == 'dual') {
+            return roundAttributes
+        }
     },
     initiateGame: function(){
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -41,7 +47,7 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
             }
-        }.bind(this), 2500);
+        }.bind(this), 2000);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -129,7 +135,7 @@ RoundView.prototype = {
 
         };
         if(roundData.sound){
-            //do sound thing
+            $(roundData.sound)[0].play();
         };
         this.turnOnBuzzers();
     },
@@ -183,7 +189,11 @@ Announcer.prototype = {
         var activeNBack = this.nBackNumberSelector + ' .active';
         $(jQSelector).on('click', function(event){
             event.preventDefault();
-            this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())
+            if ($(gameModeSelector).text().toLowerCase() == 'game mode') {
+                alert("Please select a Game Mode!");
+            } else {
+            $("#start-button").hide();
+            this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())};
         }.bind(this))
     },
     postResult: function(points){
