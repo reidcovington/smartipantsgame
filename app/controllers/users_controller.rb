@@ -37,6 +37,14 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def destroy
+    @user = User.find(session[:user_id])
+    @user.update_attributes(user_params)
+    @user.save(validate: false)
+    session.clear
+    redirect_to root_path
+  end
+
   private
 
   def user_params
