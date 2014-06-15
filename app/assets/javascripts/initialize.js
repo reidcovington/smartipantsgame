@@ -137,7 +137,7 @@ RoundView.prototype = {
         if(roundData.sound){
             setTimeout(function(){
                 $(roundData.sound)[0].play();
-            }, 500)
+            }, 400)
         };
         this.turnOnBuzzers();
     },
