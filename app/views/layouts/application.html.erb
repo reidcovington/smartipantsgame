@@ -23,19 +23,25 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          
+        
           <ul class="nav navbar-nav navbar-right">
+        <% unless session[:user_id] %> 
               <li> <a href="">Sign Up</a> </li>
               <li class="dropdown" id="menuLogin">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
                   <div class="dropdown-menu" style="padding:17px;">
-                    <form class="form-group" id="formLogin"> 
+                    <form class="form-group" id="submit-login"> 
                       <input class= "form-control" name="username" id="username" type="text" placeholder="Username"> 
                       <input class= "form-control" name="password" id="password" type="password" placeholder="Password"><br>
-                      <button type="button" id="submit-login" class="btn">Submit</button>
+                      <input type="submit" id="submit-login" class="btn">
                     </form>
                   </div>
               </li>
+
+        <% else %>
+            <li> <a href="">Profile</a> </li>
+            <li> <a href="">Logout</a> </li>
+        <% end %>
           </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
