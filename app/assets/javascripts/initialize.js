@@ -227,7 +227,7 @@ Announcer.prototype = {
         } else {
             rounds = 40;
         };
-        $(this.jQSelector).empty().append("<p>You scored "+points+" out of " + rounds + " possible points!</p><br><a href='#'>Play again!</a>")
+        $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>')
     }
 }
 function SoundBuilder(){}
