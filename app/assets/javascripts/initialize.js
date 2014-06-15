@@ -144,42 +144,46 @@ RoundView.prototype = {
 function Announcer(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
-    this.nBackNumberSelector = ".pagination"
+    this.nBackNumberSelector = ".pagination";
+    this.gameModeSelector = '#game-mode'
     this.postIntro();
 };
 Announcer.prototype = {
+
     postIntro: function(){
-        this._listenForNbackNumber();
-        this._listenForGameMode(this.nBackNumberSelector);
-        this._listenForClick(this.jQSelector);
+        this._listenForNbackNumber(this.nBackNumberSelector);
+        this._listenForGameMode(this.gameModeSelector);
+        this._listenForClick(this.jQSelector, this.nBackNumberSelector, this.gameModeSelector);
     },
     _listenForNbackNumber: function(nBackNumberSelector) {
-        var nBackNumberElement = ' li'
+        var nBackNumberElement = ' li';
+        var activeNBack = this.nBackNumberSelector + ' .active';
         $(nBackNumberSelector + nBackNumberElement).click(function(event) {
             event.preventDefault();
-            $(nBackNumberSelector + ' .active').removeClass('active')
+            $(activeNBack).removeClass('active')
             this.className = 'active'
         })
     },
-    _listenForGameMode: function() {
+    _listenForGameMode: function(gameModeSelector) {
         var self = this
-        $('#game-mode').click(function(event) {
+        $(gameModeSelector).click(function(event) {
             event.preventDefault();
-            self._listenForGameModeSelection();
+
+            self._listenForGameModeSelection(gameModeSelector);
 
         })
     },
-    _listenForGameModeSelection: function(event){
-        $('#game-mode-selection').click(function(event) {
+    _listenForGameModeSelection: function(gameModeSelector){
+        $(gameModeSelector + '-selection').click(function(event) {
             event.preventDefault();
-            $('#game-mode').text(event.target.innerHTML).append('<span class="caret"></span>');
+            $(gameModeSelector).text(event.target.innerHTML).append('<span class="caret"></span>');
         })
     },
-    _listenForClick: function(jQSelector){
+    _listenForClick: function(jQSelector, nBackNumberSelector, gameModeSelector){
+        var activeNBack = this.nBackNumberSelector + ' .active';
         $(jQSelector).on('click', function(event){
             event.preventDefault();
-            alert(this)
-            this.delegate.buildGame(parseInt( $('.pagination .active').attr('id' )), 'dual');
+            this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())
         }.bind(this))
     },
     postResult: function(points){
