@@ -40,7 +40,6 @@ GameController.prototype = {
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
-        debugger
         if (gameMode == 'single') {
             return {colors: colorArr}
         } else if (gameMode == 'dual') {
@@ -52,7 +51,6 @@ GameController.prototype = {
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
-            console.log(this.gameModel.rounds.length)
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -61,7 +59,7 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
             }
-        }.bind(this), 3000);
+        }.bind(this), 2500);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -118,7 +116,9 @@ GameModel.prototype = {
 function RoundModel(attributes){
     this.color = this.pickColor(attributes);
     this.soundData = this.pickSound(attributes);
-    this.sound = this.soundData[1];
+    if(attributes.soundData){
+        this.sound = this.soundData[1];
+    }
 };
 RoundModel.prototype = {
     pickColor: function(attributes){
@@ -151,7 +151,6 @@ RoundView.prototype = {
 
         };
         if(roundData.sound){
-            // debugger
             setTimeout(function(){
                 $("#soundElem"+roundData.soundData[0])[0].play();
             }, 400)
@@ -208,7 +207,6 @@ Announcer.prototype = {
         var activeNBack = this.nBackNumberSelector + ' .active';
         $(jQSelector).on('click', function(event){
             event.preventDefault();
-            console.log(this + "clicked")
             if ($(gameModeSelector).text().toLowerCase() == 'game mode') {
                 alert("Please select a Game Mode!");
             } else {
