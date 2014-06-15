@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     if @user.save
       true
     else
-      flash[:invalid_create] = "Unable to create user."
+      flash[:error] = "Unable to create user."
     end
   end
 
@@ -25,21 +25,34 @@ end
 # end
 
   def login
-     @user = User.find_by_username(params[:username])
-      if @user
-        if @user.password == params[:password]
-          session[:user_id] = @user.id
-          erb :userpage
-        else
-          redirect ('/users/index')
-        end
-      else
-        redirect_to root_path
-      end
+    @user = User.find_and_auth(user_params[:email], user_params[:password])
+    if @user
+      session[:user_id] = @user.id
+      redirect_to root_path
+    else
+      flash[:error] = "Unable to log in."
+      redirect_to root_path
+    end
   end
 
   def logout
     session.clear
+    redirect_to root_path
+  end
+
+  def update
+    @user = User.find(session[:user_id])
+    @user.update_attributes(user_params)
+    flash[:error] = "Unable to update your info." unless @user.save
+    redirect_to root_path
+  end
+
+  def destroy
+    @user = User.find(session[:user_id])
+    @user.update_attributes(user_params)
+    @user.save(validate: false)
+    session.clear
+    redirect_to root_path
   end
 
   private

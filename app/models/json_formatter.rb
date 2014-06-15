@@ -1,22 +1,17 @@
 class JSONFormatter
-  def self.format(array_of_data)
-    stringified_numbers = numbering_system(array_of_data)
+  def self.format(klass, method)
     formatted_data = Hash.new
 
-    array_of_data.each do |datum|
-      formatted_data[stringified_numbers.shift] = datum
+    self.pull_values(klass, method).each_with_index do |datum, index|
+      formatted_data[index + 1] = datum
     end
     formatted_data
   end
 
   private
 
-  def self.numbering_system(array_of_data)
-    stringified_numbers = []
-
-    for i in 1..array_of_data.length
-      stringified_numbers << i.to_s
-    end
-    stringified_numbers
+  def self.pull_values(klass, method)
+    klass.all.map{|instance| instance.send(method) }
   end
+
 end

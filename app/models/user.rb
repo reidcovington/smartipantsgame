@@ -6,4 +6,9 @@ class User < ActiveRecord::Base
   has_many :games
 
   has_secure_password
+
+  def self.find_and_auth email, password
+    user = User.find_by_email(email)
+    user && user.authenticate(password) ? user : nil
+  end
 end
