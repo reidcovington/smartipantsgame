@@ -26,12 +26,19 @@ function GameController(n, gameMode, jQSelector, delegate){
 };
 GameController.prototype = {
     fetchGameStructure: function(n, gameMode){
-        return {colors: ['orange', 'lightgreen', 'lightblue', 'yellow']}; //replace with server request
+        var roundAttributes = {colors: ['orange', 'lightgreen', 'lightblue', 'yellow'],
+                            sounds: ['#soundElem1', '#soundElem2', '#soundElem3', '#soundElem4', '#soundElem5', '#soundElem6', '#soundElem7', '#soundElem8']}; //replace with server request
+        if (gameMode == 'single') {
+            return {colors: roundAttributes.colors}
+        } else if (gameMode == 'dual') {
+            return roundAttributes
+        }
     },
     initiateGame: function(){
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
+            console.log(this.gameModel.rounds.length)
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -40,7 +47,7 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
             }
-        }.bind(this), 2500);
+        }.bind(this), 3000);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -52,7 +59,7 @@ GameController.prototype = {
     evalRound: function(){
         if(this.currentRound >= this.n){
             this.gameModel.scoreNonGuess('color', this.currentRound);
-            // this.gameModel.scoreNonGuess('sound', this.currentRound);
+            this.gameModel.scoreNonGuess('sound', this.currentRound);
         }
     },
     endGame: function(rounds){
@@ -128,7 +135,9 @@ RoundView.prototype = {
 
         };
         if(roundData.sound){
-            //do sound thing
+            setTimeout(function(){
+                $(roundData.sound)[0].play();
+            }, 400)
         };
         this.turnOnBuzzers();
     },
@@ -143,31 +152,53 @@ RoundView.prototype = {
 function Announcer(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
+    this.nBackNumberSelector = ".pagination";
+    this.gameModeSelector = '#game-mode'
     this.postIntro();
 };
 Announcer.prototype = {
 
-    listenForNbackNumber: function() {
-
-        $('.pagination li').click(function(event) {
+    postIntro: function(){
+        this._listenForNbackNumber(this.nBackNumberSelector);
+        this._listenForGameMode(this.gameModeSelector);
+        this._listenForClick(this.jQSelector, this.nBackNumberSelector, this.gameModeSelector);
+    },
+    _listenForNbackNumber: function(nBackNumberSelector) {
+        var nBackNumberElement = ' li';
+        var activeNBack = this.nBackNumberSelector + ' .active';
+        $(nBackNumberSelector + nBackNumberElement).click(function(event) {
             event.preventDefault();
-            $('.pagination .active').removeClass('active')
+            $(activeNBack).removeClass('active')
             this.className = 'active'
         })
     },
+    _listenForGameMode: function(gameModeSelector) {
+        var self = this
+        $(gameModeSelector).click(function(event) {
+            event.preventDefault();
 
-    postIntro: function(){
-        this._listenForClick(this.jQSelector);
-        this.listenForNbackNumber();
+            self._listenForGameModeSelection(gameModeSelector);
+
+        })
     },
-    postResult: function(points){
-        $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 20 possible points!</h3><br><a href='#'>Play again!</a>")
+    _listenForGameModeSelection: function(gameModeSelector){
+        $(gameModeSelector + '-selection').click(function(event) {
+            event.preventDefault();
+            $(gameModeSelector).text(event.target.innerHTML).append('<span class="caret"></span>');
+        })
     },
-    _listenForClick: function(jQSelector){
+    _listenForClick: function(jQSelector, nBackNumberSelector, gameModeSelector){
+        var activeNBack = this.nBackNumberSelector + ' .active';
         $(jQSelector).on('click', function(event){
             event.preventDefault();
-            alert(this)
-            this.delegate.buildGame(parseInt( $('.pagination .active').attr('id' )), 'dual');
+            if ($(gameModeSelector).text().toLowerCase() == 'game mode') {
+                alert("Please select a Game Mode!");
+            } else {
+            $("#start-button").hide();
+            this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())};
         }.bind(this))
+    },
+    postResult: function(points){
+        $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 40 possible points!</h3><br><a href='#'>Play again!</a>")
     }
 }
