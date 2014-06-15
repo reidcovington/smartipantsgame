@@ -8,7 +8,9 @@ class GamesController < ApplicationController
   end
 
   def create
-    GameBuilder.create_game(game_params)
+    puts "~"*50
+    puts game_params.inspect
+    # GameBuilder.create_game(game_params)
     redirect_to root_path
   end
 

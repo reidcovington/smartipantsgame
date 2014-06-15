@@ -18,13 +18,14 @@ ApplicationController.prototype = {
     buildGame: function(n, gameMode){
         this.gameController = new GameController(n, gameMode, this.jQSelector, this);
     },
-    announceResult: function(points){
-        this.announcer.postResult(points);
+    announceResult: function(points, gameMode){
+        this.announcer.postResult(points, gameMode);
     }
 };
 
 function GameController(n, gameMode, jQSelector, delegate){
     this.n = n;
+    this.gameMode = gameMode;
     this.delegate = delegate;
     this.soundBuilder = new SoundBuilder()
     this.gameModel = new GameModel(n, this.fetchGameStructure(gameMode));
@@ -56,8 +57,8 @@ GameController.prototype = {
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
             }
             else {
-                this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
+                this.endGame(this.gameModel.rounds);
             }
         }.bind(this), 500);
     },
@@ -76,12 +77,13 @@ GameController.prototype = {
     },
     endGame: function(rounds){
         var points = 0;
+        var self = this;
         for(var i = 0; i < rounds.length; i++){
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
         };
-        debugger
-        this.delegate.announceResult(points);
+            $( self.jQSelector ).empty();
+            self.delegate.announceResult(points, self.gameMode);
     }
 };
 
@@ -123,6 +125,7 @@ function RoundModel(attributes){
 };
 RoundModel.prototype = {
     pickColor: function(attributes){
+        console.log(attributes)
         var colors = attributes.colors;
         if( colors ){
             return colors[Math.floor(Math.random() * colors.length)];
@@ -146,7 +149,7 @@ function RoundView(jQSelector, delegate){
 RoundView.prototype = {
     constructRound: function(roundData){
         if(roundData.color){
-            $(this.jQSelector).fadeOut(300)
+            $(this.jQSelector).fadeOut(200)
             $(this.jQSelector).css('background-color', roundData.color)
             $(this.jQSelector).fadeIn(300)
 
@@ -217,8 +220,14 @@ Announcer.prototype = {
             };
         }.bind(this))
     },
-    postResult: function(points){
-        $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 40 possible points!</h3><br><a href='#'>Play again!</a>")
+    postResult: function(points, gameMode){
+        var rounds;
+        if (gameMode == 'single') {
+            rounds = 20;
+        } else {
+            rounds = 40;
+        };
+        $(this.jQSelector).empty().append("<p>You scored "+points+" out of " + rounds + " possible points!</p><br><a href='#'>Play again!</a>")
     }
 }
 function SoundBuilder(){}
