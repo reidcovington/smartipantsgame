@@ -12,11 +12,17 @@ class UsersController < ApplicationController
   end
 
 def show
-  p UserShowBrain.color_correct
-  p UserShowBrain.audio_correct
-  p UserShowBrain.game_dates
-  p UserShowBrain.total_correct
+  @color_correct = UserShowBrain.color_correct
+  @audio_correct = UserShowBrain.audio_correct
+  @total_correct = UserShowBrain.total_correct
+  @games = UserShowBrain.game_dates
+  # show_info = {games: "mneow"}.to_json
+  # show_info
 end
+
+# def stats
+# {games: "mneow"}.to_json
+# end
 
   def login
      @user = User.find_by_username(params[:username])
