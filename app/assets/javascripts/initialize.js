@@ -162,10 +162,17 @@ Announcer.prototype = {
         })
     },
     _listenForGameMode: function() {
-        $('.pagination li').click(function(event) {
+        var self = this
+        $('#game-mode').click(function(event) {
             event.preventDefault();
-            $('.pagination .active').removeClass('active')
-            this.className = 'active'
+            self._listenForGameModeSelection();
+
+        })
+    },
+    _listenForGameModeSelection: function(event){
+        $('#game-mode-selection').click(function(event) {
+            event.preventDefault();
+            $('#game-mode').text(event.target.innerHTML).append('<span class="caret"></span>');
         })
     },
     _listenForClick: function(jQSelector){
