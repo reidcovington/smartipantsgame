@@ -20,9 +20,9 @@ def show
   # show_info
 end
 
-# def stats
-# {games: "mneow"}.to_json
-# end
+def stats
+  format.json { render json: { ok: true } }
+end
 
   def login
     @user = User.find_and_auth(user_params[:email], user_params[:password])
