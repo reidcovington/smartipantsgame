@@ -1,0 +1,14 @@
+#ColorGraph {
+  float: left;
+  margin-right: 0%;
+}
+
+#AudioGraph {
+  margin-left: 0%;
+  display: inline;
+}
+
+#profile_page_graphs {
+  margin-left: 10%;
+}
+

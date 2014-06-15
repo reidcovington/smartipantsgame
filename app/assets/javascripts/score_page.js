@@ -16,10 +16,22 @@ var valid_game = {
         "2": {
             color_id: 4,
             audio_id: 2,
-            color_correct: true,
+            color_correct: false,
             audio_correct: true
         },
         "4": {
+            color_id: 4,
+            audio_id: 2,
+            color_correct: true,
+            audio_correct: true
+        },
+        "5": {
+            color_id: 1,
+            audio_id: 1,
+            color_correct: false,
+            audio_correct: false
+        },
+         "6": {
             color_id: 1,
             audio_id: 1,
             color_correct: true,
@@ -45,30 +57,27 @@ for (i=0; i<array_values.length; i++){
 }
 
 var total_correct_length = color_correct.length + audio_correct.length
-var total_incorrect_length = 8 - total_correct_length
-var hit = Math.round(total_correct_length / 8 * 100);
+var total_incorrect_length = 12 - total_correct_length
+var hit = Math.round(total_correct_length / 12 * 100);
 var miss = 100 - hit
 var color_hit = Math.round((color_correct.length/total_correct_length) * hit)
 var audio_hit = Math.round((audio_correct.length/total_correct_length) * hit)
-var color_miss = Math.round(((4-color_correct.length)/total_incorrect_length) * miss)
-var audio_miss = Math.round(((4-audio_correct.length)/total_incorrect_length) * miss)
-
-console.log(color_miss)
+var color_miss = Math.round(((6-color_correct.length)/total_incorrect_length) * miss)
+var audio_miss = Math.round(((6-audio_correct.length)/total_incorrect_length) * miss)
 
 
 $(function () {
-
         var colors = Highcharts.getOptions().colors,
             categories = ['Hit', 'Miss'],
             name = 'Answers!',
             data = [{
                     y: hit,
-                    color: colors[6],
+                    color: colors[5],
                     drilldown: {
                         name: 'Hit',
                         categories: ['Color', 'Audio'],
                         data: [color_hit, audio_hit],
-                        color: colors[6]
+                        color: colors[5]
                     }
                 }, {
                     y: miss,
@@ -76,7 +85,7 @@ $(function () {
                     drilldown: {
                         name: 'Miss',
                         categories: ['Color', 'Audio'],
-                        data: [color_miss,audio_miss],
+                        data: [color_miss, audio_miss],
                         color: colors[2]
                     }
                 }];
@@ -106,6 +115,9 @@ $(function () {
 
         // Create the chart
         $('#graph_container').highcharts({
+            credits: {
+                enabled: false
+            },
             chart: {
                 type: 'pie'
             },
@@ -114,7 +126,7 @@ $(function () {
             },
             yAxis: {
                 title: {
-                    text: 'Total percent market share'
+                    text: 'Percentage'
                 }
             },
             plotOptions: {
@@ -138,7 +150,7 @@ $(function () {
                     distance: -30
                 }
             }, {
-                name: 'Versions',
+                name: 'Misses',
                 data: versionsData,
                 size: '80%',
                 innerSize: '60%',
@@ -151,4 +163,3 @@ $(function () {
             }]
         });
     });
-
