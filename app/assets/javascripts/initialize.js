@@ -47,7 +47,7 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
             }
-        }.bind(this), 2000);
+        }.bind(this), 3000);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -59,7 +59,7 @@ GameController.prototype = {
     evalRound: function(){
         if(this.currentRound >= this.n){
             this.gameModel.scoreNonGuess('color', this.currentRound);
-            // this.gameModel.scoreNonGuess('sound', this.currentRound);
+            this.gameModel.scoreNonGuess('sound', this.currentRound);
         }
     },
     endGame: function(rounds){
@@ -135,7 +135,9 @@ RoundView.prototype = {
 
         };
         if(roundData.sound){
-            $(roundData.sound)[0].play();
+            setTimeout(function(){
+                $(roundData.sound)[0].play();
+            }, 500)
         };
         this.turnOnBuzzers();
     },
@@ -197,6 +199,6 @@ Announcer.prototype = {
         }.bind(this))
     },
     postResult: function(points){
-        $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 20 possible points!</h3><br><a href='#'>Play again!</a>")
+        $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 40 possible points!</h3><br><a href='#'>Play again!</a>")
     }
 }
