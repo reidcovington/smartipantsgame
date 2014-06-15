@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :games, only: [ :create ]
   get '/games/play', to: 'games#play'
+  get '/games/game_data', to: 'games#game_data'
 
   resources :scores, only: [:get]
   get '/score', to: 'score#game'
