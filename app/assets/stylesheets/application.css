@@ -16,10 +16,10 @@
  */
 
 
-#game-section table {
+#game-section {
   width: 30em;
   height: 30em;
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 #game-section tr {
@@ -29,4 +29,3 @@
 #game-section td {
   width: 10em;
 }
-

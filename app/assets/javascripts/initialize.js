@@ -35,6 +35,7 @@ GameController.prototype = {
         var timeInt = window.setInterval(function(){
             this.evalRound();
             if(this.currentRound < this.gameModel.rounds.length - 1){
+                console.log(this.currentRound)
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
             }
@@ -42,12 +43,12 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
             }
-        }.bind(this), 1000);
+        }.bind(this), 1500);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
             this.gameModel.scoreGuess('color', this.currentRound);
-        }else if(keyCode === 82){
+        } else if(keyCode === 82){
             this.gameModel.scoreGuess('sound', this.currentRound);
         };
     },
@@ -125,7 +126,10 @@ function RoundView(jQSelector, delegate){
 RoundView.prototype = {
     constructRound: function(roundData){
         if(roundData.color){
+            $(this.jQSelector).fadeOut(300)
             $(this.jQSelector).css('background-color', roundData.color)
+            $(this.jQSelector).fadeIn(300)
+
         };
         if(roundData.sound){
             //do sound thing
@@ -146,18 +150,32 @@ function Announcer(jQSelector, delegate){
     this.postIntro();
 };
 Announcer.prototype = {
-    // postIntro: function(){
+
+    listenForNbackNumber: function() {
+
+        $('.pagination li').click(function(event) {
+            event.preventDefault();
+            console.log(this)
+            $('.pagination .active')[0].className = ""
+            this.className = 'active'
+        })
+    },
+
+    postIntro: function(){
     //     $(this.jQSelector).empty();
         // $(this.jQSelector).append("<form id='game-type'><input id='n' type='number'><input type='submit' value='start game'></form>")
-        // this._listenForSubmit('#game-type', '#n');
-    // },
+        this._listenForClick(this.jQSelector);
+        this.listenForNbackNumber();
+    },
     postResult: function(points){
         $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 20 possible points!</h3><br><a href='#'>Play again!</a>")
     },
-    _listenForSubmit: function(jQSelector, inputId){
-        $(jQSelector).on('submit', function(event){
+    _listenForClick: function(jQSelector){
+        $(jQSelector).on('click', function(event){
             event.preventDefault();
-            this.delegate.buildGame(parseInt($(inputId).val()), 'dual');
+            alert(this)
+            console.log(event)
+            this.delegate.buildGame(parseInt( $('.pagination .active').attr('id' )), 'dual');
         }.bind(this))
     }
 }
