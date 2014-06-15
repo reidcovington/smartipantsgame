@@ -22,14 +22,14 @@ colors.each do |color|
 end
 
 audios = [
-  '/file/1',
-  '/file/2',
-  '/file/3',
-  '/file/4',
-  '/file/5',
-  '/file/6',
-  '/file/7',
-  '/file/8' 
+  '/app/assets/sounds/letters/1.mp3',
+  '/app/assets/sounds/letters/2.mp3',
+  '/app/assets/sounds/letters/3.mp3',
+  '/app/assets/sounds/letters/4.mp3',
+  '/app/assets/sounds/letters/5.mp3',
+  '/app/assets/sounds/letters/6.mp3',
+  '/app/assets/sounds/letters/7.mp3',
+  '/app/assets/sounds/letters/8.mp3'
 ]
 
 audios.each do |audio|
