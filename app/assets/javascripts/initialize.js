@@ -2,7 +2,7 @@ $(document).ready(function() {
    new ApplicationController("#game-section")
 })
 
-//CONTROLLERS ------------------------------------
+// CONTROLLERS ------------------------------------
 
 function ApplicationController(jQSelector){
     this.jQSelector = jQSelector;
@@ -42,7 +42,7 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
             }
-        }.bind(this), 400);
+        }.bind(this), 1000);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -90,7 +90,7 @@ GameModel.prototype = {
     scoreNonGuess: function(attribute, roundIndex){
         var pastRound = this.rounds[roundIndex - this.n];
         var currentRound = this.rounds[roundIndex];
-        console.log("past round: " + pastRound.color + " : current round: " + currentRound.color)
+        // console.log("past round: " + pastRound.color + " : current round: " + currentRound.color)
         if(!currentRound[attribute + 'Key'] && !(currentRound[attribute] === pastRound[attribute])){
             currentRound[attribute + 'Guess'] = true;
         }
@@ -146,11 +146,11 @@ function Announcer(jQSelector, delegate){
     this.postIntro();
 };
 Announcer.prototype = {
-    postIntro: function(){
-        $(this.jQSelector).empty();
-        $(this.jQSelector).append("<form id='game-type'><input id='n' type='number'><input type='submit' value='start game'></form>")
-        this._listenForSubmit('#game-type', '#n');
-    },
+    // postIntro: function(){
+    //     $(this.jQSelector).empty();
+        // $(this.jQSelector).append("<form id='game-type'><input id='n' type='number'><input type='submit' value='start game'></form>")
+        // this._listenForSubmit('#game-type', '#n');
+    // },
     postResult: function(points){
         $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 20 possible points!</h3><br><a href='#'>Play again!</a>")
     },
