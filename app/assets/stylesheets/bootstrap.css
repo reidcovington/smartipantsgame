@@ -4136,8 +4136,17 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-left: 0;
   margin: 20px 0;
   border-radius: 4px;
-  color: #1ABC9C;
 }
+
+.pagination ul {
+  background: #d6dbdf;
+  color: #ffffff;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  border-radius: 6px;
+}
+
 .pagination > li {
   display: inline;
 }
@@ -4148,10 +4157,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding: 6px 12px;
   margin-left: -1px;
   line-height: 1.428571429;
-  color: #1ABC9C;
+  color: #428bca;
   text-decoration: none;
-  background-color: #1ABC9C;
-  border: 1px solid #1ABC9C;
+  background-color: #fff;
+  border: 1px solid #ddd;
 }
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
@@ -4192,7 +4201,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .pagination > .disabled > a:focus {
   color: #999;
   cursor: not-allowed;
-  background-color: #fff;
+  background-color: #1ABC9C;
   border-color: #ddd;
 }
 .pagination-lg > li > a,
