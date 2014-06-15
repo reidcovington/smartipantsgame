@@ -189,11 +189,14 @@ Announcer.prototype = {
         var activeNBack = this.nBackNumberSelector + ' .active';
         $(jQSelector).on('click', function(event){
             event.preventDefault();
+            console.log(this + "clicked")
             if ($(gameModeSelector).text().toLowerCase() == 'game mode') {
                 alert("Please select a Game Mode!");
             } else {
-            $("#start-button").hide();
-            this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())};
+                $("#start-button").hide();
+                $( jQSelector ).css("pointer-events", "none")
+                this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())
+            };
         }.bind(this))
     },
     postResult: function(points){
