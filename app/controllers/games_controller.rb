@@ -1,8 +1,11 @@
 class GamesController < ApplicationController
   def play
-    {colors: JSONFormatter.format(Color, :hexcode),
+  end
+
+  def game_data
+    render json: {colors: JSONFormatter.format(Color, :hexcode),
      audio: JSONFormatter.format(Audio, :file_loc)}.to_json
-  end 
+  end
 
   def create
     GameBuilder.create_game(game_params)

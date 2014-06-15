@@ -1,5 +1,12 @@
+var gameData;
 $(document).ready(function() {
-   new ApplicationController("#game-section")
+    if (window.location.href.indexOf('/games/play') > -1){
+        $.get('/games/game_data').done(function(response){
+            gameData = response;
+        });
+       new ApplicationController("#game-section")
+    }
+
 })
 
 function ApplicationController(jQSelector){
