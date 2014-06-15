@@ -3942,11 +3942,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #1ABC9C;
+  background-color: #f8f8f8;
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
-  color: #1ABC9C;
+  color: #777;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -4136,6 +4136,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-left: 0;
   margin: 20px 0;
   border-radius: 4px;
+  color: #1ABC9C;
 }
 .pagination > li {
   display: inline;
@@ -4147,10 +4148,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding: 6px 12px;
   margin-left: -1px;
   line-height: 1.428571429;
-  color: #428bca;
+  color: #1ABC9C;
   text-decoration: none;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: #1ABC9C;
+  border: 1px solid #1ABC9C;
 }
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
