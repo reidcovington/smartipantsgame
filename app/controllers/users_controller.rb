@@ -12,9 +12,9 @@ class UsersController < ApplicationController
   end
 
 def show
-  @color_correct = UserShowBrain.color_correct
-  @audio_correct = UserShowBrain.audio_correct
-  @total_correct = UserShowBrain.total_correct
+  p @color_correct = UserShowBrain.color_correct
+  p @audio_correct = UserShowBrain.audio_correct
+  p @total_correct = UserShowBrain.total_correct
   @games = UserShowBrain.game_dates
   # show_info = {games: "mneow"}.to_json
   # show_info

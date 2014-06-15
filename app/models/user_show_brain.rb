@@ -22,6 +22,7 @@ class UserShowBrain
         @color_answer << color_answer
         @color_id << color_id
       end
+      @answer3 = []
       @answer = []
       @color_answer.each do |answer|
         response = []
@@ -30,7 +31,8 @@ class UserShowBrain
              response << bool
          end
         end
-            @answer << response.length
+            @answer3 << response.length
+            @answer << ((response.length/5) *100)
       end
       @answer
   end
@@ -49,6 +51,7 @@ class UserShowBrain
         @audio_id << audio_id
       end
       @answer2 = []
+      @answer4 = []
       @audio_answer.each do |answer2|
         response = []
         answer2.each do |bool|
@@ -56,13 +59,17 @@ class UserShowBrain
              response << bool
          end
         end
-            @answer2 << response.length
+            @answer4 << response.length
+            @answer2 << ((response.length/5)*100)
       end
       @answer2
   end
 
   def self.total_correct
-    @total_correct = [@answer,@answer2].transpose.map {|x| x.reduce(:+)}
+    @total_correct = [@answer3,@answer4].transpose.map {|x| x.reduce(:+)}
+    @total_correct.map! do |round|
+      ((round/10) * 100)
+    end
   end
 
 end
