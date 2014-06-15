@@ -32,6 +32,7 @@ GameController.prototype = {
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
+            console.log(this.gameModel.rounds.length)
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -146,8 +147,11 @@ function Announcer(jQSelector, delegate){
     this.postIntro();
 };
 Announcer.prototype = {
-
-    listenForNbackNumber: function() {
+    postIntro: function(){
+        this._listenForNbackNumber();
+        this._listenForClick(this.jQSelector);
+    },
+    _listenForNbackNumber: function() {
 
         $('.pagination li').click(function(event) {
             event.preventDefault();
@@ -155,19 +159,14 @@ Announcer.prototype = {
             this.className = 'active'
         })
     },
-
-    postIntro: function(){
-        this._listenForClick(this.jQSelector);
-        this.listenForNbackNumber();
-    },
-    postResult: function(points){
-        $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 20 possible points!</h3><br><a href='#'>Play again!</a>")
-    },
     _listenForClick: function(jQSelector){
         $(jQSelector).on('click', function(event){
             event.preventDefault();
             alert(this)
             this.delegate.buildGame(parseInt( $('.pagination .active').attr('id' )), 'dual');
         }.bind(this))
+    },
+    postResult: function(points){
+        $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 20 possible points!</h3><br><a href='#'>Play again!</a>")
     }
 }
