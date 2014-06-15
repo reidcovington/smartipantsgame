@@ -1,4 +1,4 @@
-var valid_game = {
+kvar valid_game = {
     n: 2,
     rounds: {
         "1": {
