@@ -59,7 +59,7 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
             }
-        }.bind(this), 2500);
+        }.bind(this), 500);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -80,6 +80,7 @@ GameController.prototype = {
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
         };
+        debugger
         this.delegate.announceResult(points);
     }
 };
@@ -115,8 +116,8 @@ GameModel.prototype = {
 
 function RoundModel(attributes){
     this.color = this.pickColor(attributes);
-    this.soundData = this.pickSound(attributes);
-    if(attributes.soundData){
+    if(attributes.sounds){
+        this.soundData = this.pickSound(attributes);
         this.sound = this.soundData[1];
     }
 };
