@@ -16,8 +16,17 @@
  */
 
 
-/*#game-section {
-  width: 200px;
-  height: 200px;
+#game-section table {
+  width: 30em;
+  height: 30em;
   border: 1px solid black;
-}*/
+}
+
+#game-section tr {
+  height: 10em;
+}
+
+#game-section td {
+  width: 10em;
+}
+

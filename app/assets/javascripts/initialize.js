@@ -146,11 +146,11 @@ function Announcer(jQSelector, delegate){
     this.postIntro();
 };
 Announcer.prototype = {
-    postIntro: function(){
-        $(this.jQSelector).empty();
+    // postIntro: function(){
+    //     $(this.jQSelector).empty();
         // $(this.jQSelector).append("<form id='game-type'><input id='n' type='number'><input type='submit' value='start game'></form>")
         // this._listenForSubmit('#game-type', '#n');
-    },
+    // },
     postResult: function(points){
         $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 20 possible points!</h3><br><a href='#'>Play again!</a>")
     },
