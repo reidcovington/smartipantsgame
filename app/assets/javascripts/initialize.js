@@ -19,18 +19,20 @@ ApplicationController.prototype = {
 function GameController(n, gameMode, jQSelector, delegate){
     this.n = n;
     this.delegate = delegate;
-    this.gameModel = new GameModel(n, this.fetchGameStructure(n, gameMode));
+    this.soundBuilder = new SoundBuilder()
+    this.gameModel = new GameModel(n, this.fetchGameStructure(gameMode));
     this.roundView = new RoundView(jQSelector, this);
     this.currentRound = 0;
     this.initiateGame();
 };
 GameController.prototype = {
-    fetchGameStructure: function(n, gameMode){
+    fetchGameStructure: function(gameMode){
         var roundAttributes = {colors: ['orange', 'lightgreen', 'lightblue', 'yellow'],
-                            sounds: ['#soundElem1', '#soundElem2', '#soundElem3', '#soundElem4', '#soundElem5', '#soundElem6', '#soundElem7', '#soundElem8']}; //replace with server request
+                            sounds: ['/assets/1.ogg', '/assets/2.ogg', '/assets/3.ogg', '/assets/4.ogg', '/assets/5.ogg', '/assets/6.ogg', '/assets/7.ogg', '/assets/8.ogg']}; //replace with server request
         if (gameMode == 'single') {
             return {colors: roundAttributes.colors}
         } else if (gameMode == 'dual') {
+            this.soundBuilder.buildSounds(roundAttributes.sounds)
             return roundAttributes
         }
     },
@@ -103,7 +105,8 @@ GameModel.prototype = {
 
 function RoundModel(attributes){
     this.color = this.pickColor(attributes);
-    this.sound = this.pickSound(attributes);
+    this.soundData = this.pickSound(attributes);
+    this.sound = this.soundData[1];
 };
 RoundModel.prototype = {
     pickColor: function(attributes){
@@ -116,7 +119,8 @@ RoundModel.prototype = {
     pickSound: function(attributes){
         var sounds = attributes.sounds;
         if( sounds ){
-            return sounds[Math.floor(Math.random() * sounds.length)];
+            var index = Math.floor(Math.random() * sounds.length)
+            return [index, sounds[index]];
         };
         return null;
     }
@@ -135,8 +139,9 @@ RoundView.prototype = {
 
         };
         if(roundData.sound){
+            // debugger
             setTimeout(function(){
-                $(roundData.sound)[0].play();
+                $("#soundElem"+roundData.soundData[0])[0].play();
             }, 400)
         };
         this.turnOnBuzzers();
@@ -203,5 +208,17 @@ Announcer.prototype = {
     },
     postResult: function(points){
         $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 40 possible points!</h3><br><a href='#'>Play again!</a>")
+    }
+}
+function SoundBuilder(){}
+SoundBuilder.prototype = {
+    buildSounds: function(soundUrlArray){
+        // debugger
+        for(var i = 0; i < soundUrlArray.length; i++){
+            this._buildSound(i, soundUrlArray[i])
+        }
+    },
+    _buildSound: function(i, url){
+        $('.container-fluid').append("<audio id='soundElem"+i+"'><source src='"+url+"' type='audio/ogg'></audio>")
     }
 }
