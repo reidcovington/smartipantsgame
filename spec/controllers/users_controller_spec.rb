@@ -124,8 +124,31 @@ describe UsersController do
   end
 
   context '#destroy' do
-    it 'is a valid route' do
-      expect(response.status).to eq 200
+    before :each do
+      @user = FactoryGirl.create(:user)
+      session[:user_id] = @user.id
     end
+
+    it 'locates the correct user' do
+      delete :destroy, id: @user, user: FactoryGirl.attributes_for(:user)
+      expect(assigns(:user)).to eq @user
+    end
+
+    it 'updates identifying info to anonymous info' do
+      delete :destroy, id: @user, user: FactoryGirl.attributes_for(:user, username: 'anonymous', email: 'anonymous@anonymous.anonymous')
+      @user.reload
+      expect(@user.username).to eq "anonymous"
+      expect(@user.email).to eq "anonymous@anonymous.anonymous"
+    end
+
+    it 'clears the session' do
+      delete :destroy, id: @user, user: FactoryGirl.attributes_for(:user)
+      expect(session[:user_id]).to be_nil
+    end
+
+    it 'redirects to root path' do
+      delete :destroy, id: @user, user: FactoryGirl.attributes_for(:user)
+      expect(response).to redirect_to root_path
+    end      
   end
 end
