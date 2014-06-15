@@ -2,7 +2,7 @@ $(document).ready(function() {
    new ApplicationController("#game-section")
 })
 
-CONTROLLERS ------------------------------------
+//CONTROLLERS ------------------------------------
 
 function ApplicationController(jQSelector){
     this.jQSelector = jQSelector;
