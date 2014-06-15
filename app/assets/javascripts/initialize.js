@@ -43,7 +43,7 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
             }
-        }.bind(this), 1000);
+        }.bind(this), 1500);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -126,7 +126,10 @@ function RoundView(jQSelector, delegate){
 RoundView.prototype = {
     constructRound: function(roundData){
         if(roundData.color){
+            $(this.jQSelector).fadeOut(300)
             $(this.jQSelector).css('background-color', roundData.color)
+            $(this.jQSelector).fadeIn(300)
+
         };
         if(roundData.sound){
             //do sound thing
@@ -149,10 +152,12 @@ function Announcer(jQSelector, delegate){
 Announcer.prototype = {
 
     listenForNbackNumber: function() {
+
         $('.pagination li').click(function(event) {
             event.preventDefault();
-            console.log('hi')
-            $(this).css('class', 'active')
+            console.log(this)
+            $('.pagination .active')[0].className = ""
+            this.className = 'active'
         })
     },
 
