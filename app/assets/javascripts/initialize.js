@@ -34,13 +34,18 @@ function GameController(n, gameMode, jQSelector, delegate){
 };
 GameController.prototype = {
     fetchGameStructure: function(gameMode){
-        var roundAttributes = {colors: ['orange', 'lightgreen', 'lightblue', 'yellow'],
-                            sounds: ['/assets/1.ogg', '/assets/2.ogg', '/assets/3.ogg', '/assets/4.ogg', '/assets/5.ogg', '/assets/6.ogg', '/assets/7.ogg', '/assets/8.ogg']}; //replace with server request
+        var colorArr = [];
+        var soundArr = [];
+        for(var i = 1; i < 9; i++){
+            colorArr.push(gameData.colors[i]);
+            soundArr.push(gameData.sounds[i]);
+        }
+        debugger
         if (gameMode == 'single') {
-            return {colors: roundAttributes.colors}
+            return {colors: colorArr}
         } else if (gameMode == 'dual') {
-            this.soundBuilder.buildSounds(roundAttributes.sounds)
-            return roundAttributes
+            this.soundBuilder.buildSounds(soundArr)
+            return {colors: colorArr, sounds: soundArr}
         }
     },
     initiateGame: function(){
@@ -226,6 +231,6 @@ SoundBuilder.prototype = {
         }
     },
     _buildSound: function(i, url){
-        $('.container-fluid').append("<audio id='soundElem"+i+"'><source src='"+url+"' type='audio/ogg'></audio>")
+        $('.container-fluid').append("<audio id='soundElem"+i+"'><source src='"+url+"' type='audio/mpeg'></audio>")
     }
 }
