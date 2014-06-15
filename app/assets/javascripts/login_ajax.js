@@ -1,9 +1,6 @@
-  $(document).ready(function(){
-    $(".login_hide").hide();
-    $(document).on('click', '#login',  function(e){
-      e.preventDefault();
-      $('.login_hide').show();
-    });
-
-  })
-
+$(document).ready(function(){
+	$('#login').click(function(e){
+	  e.preventDefault();
+	  $( '.navbar-form' ).show()
+	})
+});

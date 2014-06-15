@@ -16,6 +16,7 @@
  */
 
 
+
 #game-section {
   width: 30em;
   height: 30em;
@@ -28,4 +29,8 @@
 
 #game-section td {
   width: 10em;
+}
+
+.form-group {
+	width: 15em;
 }
