@@ -144,15 +144,24 @@ RoundView.prototype = {
 function Announcer(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
+    this.nBackNumberSelector = ".pagination"
     this.postIntro();
 };
 Announcer.prototype = {
     postIntro: function(){
         this._listenForNbackNumber();
+        this._listenForGameMode(this.nBackNumberSelector);
         this._listenForClick(this.jQSelector);
     },
-    _listenForNbackNumber: function() {
-
+    _listenForNbackNumber: function(nBackNumberSelector) {
+        var nBackNumberElement = ' li'
+        $(nBackNumberSelector + nBackNumberElement).click(function(event) {
+            event.preventDefault();
+            $(nBackNumberSelector + ' .active').removeClass('active')
+            this.className = 'active'
+        })
+    },
+    _listenForGameMode: function() {
         $('.pagination li').click(function(event) {
             event.preventDefault();
             $('.pagination .active').removeClass('active')
