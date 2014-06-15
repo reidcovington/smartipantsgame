@@ -1,11 +1,11 @@
 var gameData;
 $(document).ready(function() {
-    if (window.location.href.indexOf('/games/play') > -1){
-        $.get('/games/game_data').done(function(response){
-            gameData = response;
-        });
-       new ApplicationController("#game-section")
-    }
+    // if (window.location.href.indexOf('/games/play') > -1){
+    $.get('/games/game_data').done(function(response){
+        gameData = response;
+    });
+    new ApplicationController("#game-section")
+    // }
 
 })
 
@@ -26,19 +26,26 @@ ApplicationController.prototype = {
 function GameController(n, gameMode, jQSelector, delegate){
     this.n = n;
     this.delegate = delegate;
-    this.gameModel = new GameModel(n, this.fetchGameStructure(n, gameMode));
+    this.soundBuilder = new SoundBuilder()
+    this.gameModel = new GameModel(n, this.fetchGameStructure(gameMode));
     this.roundView = new RoundView(jQSelector, this);
     this.currentRound = 0;
     this.initiateGame();
 };
 GameController.prototype = {
-    fetchGameStructure: function(n, gameMode){
-        var roundAttributes = {colors: ['orange', 'lightgreen', 'lightblue', 'yellow'],
-                            sounds: ['#soundElem1', '#soundElem2', '#soundElem3', '#soundElem4', '#soundElem5', '#soundElem6', '#soundElem7', '#soundElem8']}; //replace with server request
+    fetchGameStructure: function(gameMode){
+        var colorArr = [];
+        var soundArr = [];
+        for(var i = 1; i < 9; i++){
+            colorArr.push(gameData.colors[i]);
+            soundArr.push(gameData.sounds[i]);
+        }
+        debugger
         if (gameMode == 'single') {
-            return {colors: roundAttributes.colors}
+            return {colors: colorArr}
         } else if (gameMode == 'dual') {
-            return roundAttributes
+            this.soundBuilder.buildSounds(soundArr)
+            return {colors: colorArr, sounds: soundArr}
         }
     },
     initiateGame: function(){
@@ -110,7 +117,8 @@ GameModel.prototype = {
 
 function RoundModel(attributes){
     this.color = this.pickColor(attributes);
-    this.sound = this.pickSound(attributes);
+    this.soundData = this.pickSound(attributes);
+    this.sound = this.soundData[1];
 };
 RoundModel.prototype = {
     pickColor: function(attributes){
@@ -123,7 +131,8 @@ RoundModel.prototype = {
     pickSound: function(attributes){
         var sounds = attributes.sounds;
         if( sounds ){
-            return sounds[Math.floor(Math.random() * sounds.length)];
+            var index = Math.floor(Math.random() * sounds.length)
+            return [index, sounds[index]];
         };
         return null;
     }
@@ -142,8 +151,9 @@ RoundView.prototype = {
 
         };
         if(roundData.sound){
+            // debugger
             setTimeout(function(){
-                $(roundData.sound)[0].play();
+                $("#soundElem"+roundData.soundData[0])[0].play();
             }, 400)
         };
         this.turnOnBuzzers();
@@ -210,5 +220,17 @@ Announcer.prototype = {
     },
     postResult: function(points){
         $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 40 possible points!</h3><br><a href='#'>Play again!</a>")
+    }
+}
+function SoundBuilder(){}
+SoundBuilder.prototype = {
+    buildSounds: function(soundUrlArray){
+        // debugger
+        for(var i = 0; i < soundUrlArray.length; i++){
+            this._buildSound(i, soundUrlArray[i])
+        }
+    },
+    _buildSound: function(i, url){
+        $('.container-fluid').append("<audio id='soundElem"+i+"'><source src='"+url+"' type='audio/mpeg'></audio>")
     }
 }
