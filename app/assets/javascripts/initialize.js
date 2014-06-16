@@ -61,7 +61,7 @@ GameController.prototype = {
                 clearInterval(timeInt);
                 this.endGame(this.gameModel.rounds);
             }
-        }.bind(this), 2500);
+        }.bind(this), 1000);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -78,21 +78,32 @@ GameController.prototype = {
     },
     endGame: function(rounds){
         var points = 0;
-        var self = this;
         for(var i = 0; i < rounds.length; i++){
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
         };
-
-        $.post('/games', {n: this.n, rounds: rounds} )
-        .done(function(response){console.log(response)})
+        console.log(this.gameModel);
+        $.ajax({
+            url: '/games',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(this.gameModel),
+            processData: false,
+            dataType: 'json'
+        });
         this.delegate.announceResult(points, this.gameMode);
     }//,
-    // _buildGameJson: function(gameModel){
-    //     var n = gameModel.n;
-    //     var rounds = gameModel.rounds;
-    //     console.log({n: n, rounds: rounds})
-    //     return {n: n, rounds: rounds}
+    // _buildJSONGame: function(){
+    //     console.log(gameData)
+    //     var fixRounds = this.gameModel.rounds;
+    //     for(var i = 0; i < fixRounds.length; i++){
+    //         fixRounds[i].round_number = i+1;
+    //         fixRounds[i].color_id = gameData.colors.indexOf(fixRounds[i].color);
+    //         fixRounds[i].audio_id = fixRounds[i].soundData[0] + 1;
+    //     }
+    //     this.gameModel.rounds = fixRounds;
+    //     console.log(this.gameModel)
+    //     return JSON.stringify(this.gameModel);
     // }
 };
 
@@ -105,7 +116,7 @@ function GameModel(n, roundAttributes){
 GameModel.prototype = {
     makeRounds: function(){
         for(var i = 0; i < 20 + this.n; i++){
-            this.rounds[i] = new RoundModel(this.roundAttributes);
+            this.rounds[i] = new RoundModel(i+1, this.roundAttributes);
         }
     },
     scoreGuess: function(attribute, roundIndex){
@@ -126,25 +137,26 @@ GameModel.prototype = {
     }
 };
 
-function RoundModel(attributes){
+function RoundModel(roundNumber, attributes){
+    this.roundNumber = roundNumber;
     this.color = this.pickColor(attributes);
-    this.soundData = this.pickSound(attributes);
-    if(this.soundData){this.sound = this.soundData[1]};
+    this.sound = this.pickSound(attributes);
 };
 RoundModel.prototype = {
     pickColor: function(attributes){
         console.log(attributes)
         var colors = attributes.colors;
         if( colors ){
-            return colors[Math.floor(Math.random() * colors.length)];
+            this.colorId = Math.floor(Math.random() * colors.length) + 1;
+            return colors[this.colorId - 1];
         };
         return null;
     },
     pickSound: function(attributes){
         var sounds = attributes.sounds;
         if( sounds ){
-            var index = Math.floor(Math.random() * sounds.length)
-            return [index, sounds[index]];
+            this.soundId = Math.floor(Math.random() * sounds.length) + 1;
+            return sounds[this.soundId - 1];
         };
         return null;
     }
@@ -162,9 +174,10 @@ RoundView.prototype = {
             $(this.jQSelector).fadeIn(300)
 
         };
+        console.log('roundData.sound: ' + roundData.sound)
         if(roundData.sound){
             setTimeout(function(){
-                $("#soundElem"+roundData.soundData[0])[0].play();
+                $("#soundElem"+roundData.soundId)[0].play();
             }, 400)
         };
         this.turnOnBuzzers();
@@ -257,7 +270,7 @@ SoundBuilder.prototype = {
     buildSounds: function(soundUrlArray){
         // debugger
         for(var i = 0; i < soundUrlArray.length; i++){
-            this._buildSound(i, soundUrlArray[i]);
+            this._buildSound(i+1, soundUrlArray[i]);
         }
     },
     _buildSound: function(i, url){

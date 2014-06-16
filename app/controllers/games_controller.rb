@@ -9,10 +9,12 @@ class GamesController < ApplicationController
 
   def create
     puts "$"*50
-    game_params.each do |key, value|
-      puts "#{key} $$$=========================================>>> #{value}"
-    end
-    # GameBuilder.create_game(session[:user_id], game_params[:game])
+    
+    puts params[:rounds]
+    # .each do |key, value|
+    #   puts "#{key} $$$=========================================>>> #{value}"
+    # end
+    GameBuilder.create_game(session[:user_id], game_params)
     redirect_to root_path
   end
 
