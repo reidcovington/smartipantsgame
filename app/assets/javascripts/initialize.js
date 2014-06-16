@@ -60,7 +60,7 @@ GameController.prototype = {
                 clearInterval(timeInt);
                 this.endGame(this.gameModel.rounds);
             }
-        }.bind(this), 1000);
+        }.bind(this), 2000);
 
     },
     evalGuess: function(keyCode){
@@ -163,7 +163,7 @@ RoundView.prototype = {
         if(roundData.sound){
             setTimeout(function(){
                 $("#soundElem"+roundData.soundId)[0].play();
-            }, 2000)
+            }, 400)
         };
         this.turnOnBuzzers();
         this.turnOnColorMatch();
