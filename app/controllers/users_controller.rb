@@ -11,6 +11,19 @@ class UsersController < ApplicationController
     end
   end
 
+def show
+  p @color_correct = UserShowBrain.color_correct
+  p @audio_correct = UserShowBrain.audio_correct
+  p @total_correct = UserShowBrain.total_correct
+  @games = UserShowBrain.game_dates
+  # show_info = {games: "mneow"}.to_json
+  # show_info
+end
+
+def stats
+  format.json { render json: { ok: true } }
+end
+
   def login
     @user = User.find_and_auth(user_params[:email], user_params[:password])
     if @user
@@ -20,9 +33,6 @@ class UsersController < ApplicationController
       flash[:error] = "Unable to log in."
       redirect_to root_path
     end
-  end
-
-  def show
   end
 
   def logout

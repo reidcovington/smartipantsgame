@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
   post '/users/login', to: 'users#login'
   get '/users/logout', to: 'users#logout'
-  get '/user/:id', to: 'user#show'
+  get '/users/:id', to: 'user#show'
+  get '/users/stats', to: 'users#stats'
 
   post '/games', to: 'games#create', defaults: { format: 'json' }
 
