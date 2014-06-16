@@ -1,17 +1,18 @@
 Rails.application.routes.draw do
 
 
-  resources :users
   root to: 'games#play'
+  get '/users/data', to: 'users#data'
+  resources :users
 
   post '/users/login', to: 'users#login'
   get '/users/logout', to: 'users#logout'
-  get '/users/:id', to: 'user#show'
-  get '/users/stats', to: 'users#stats'
+  # get '/users/statistics', to: 'users#statistics'
 
-  resources :games, only: [ :create ]
   get '/games/play', to: 'games#play'
   get '/games/game_data', to: 'games#game_data'
+  get '/games/statistics', to: 'games#statistics'
+  resources :games, only: [ :create ]
 
   resources :scores, only: [:get]
   get '/score', to: 'score#game'

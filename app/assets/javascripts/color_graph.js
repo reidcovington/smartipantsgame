@@ -1,10 +1,17 @@
-$(function () {
+if ((window.location.href.indexOf('/users/1'))>-1){
+    $.ajax({url: '/users/data', async: false}).done(function(response){
+            stats = response;
+            console.log(stats.colors_true);
+            // onAjaxComplete();
+        });
+}
 
+$(function () {
         var colors = Highcharts.getOptions().colors,
             categories = ['hit','miss'],
             name = 'Browser brands',
             data = [{
-                    y: 60,
+                    y: stats.last_game_color,
                     color: colors[0],
                     drilldown: {
                         name: 'Hit',
@@ -13,7 +20,7 @@ $(function () {
                         color: colors[0]
                     }
                 }, {
-                    y: 40,
+                    y: 100 - stats.last_game_color,
                     color: colors[4],
                     drilldown: {
                         name: 'miss',

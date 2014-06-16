@@ -1,9 +1,15 @@
+var stats;
 var gameData;
 $(document).ready(function() {
     // if (window.location.href.indexOf('/games/play') > -1){
     $.get('/games/game_data').done(function(response){
         gameData = response;
     });
+
+    $.get('/users/data').done(function(response){
+            stats = response;
+            // console.log(response);
+        });
     new ApplicationController("#game-section")
     // }
 

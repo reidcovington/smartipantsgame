@@ -12,17 +12,27 @@ class UsersController < ApplicationController
   end
 
 def show
-  p @color_correct = UserShowBrain.color_correct
-  p @audio_correct = UserShowBrain.audio_correct
-  p @total_correct = UserShowBrain.total_correct
+  @color_correct = UserShowBrain.color_correct
+  @audio_correct = UserShowBrain.audio_correct
+  @total_correct = UserShowBrain.total_correct
   @games = UserShowBrain.game_dates
   # show_info = {games: "mneow"}.to_json
   # show_info
 end
 
-def stats
-  format.json { render json: { ok: true } }
-end
+  def data
+    render json: {games: UserShowBrain.game_dates,
+         total_correct: UserShowBrain.total_correct,
+         audio_correct: UserShowBrain.audio_correct,
+         color_correct: UserShowBrain.color_correct,
+         last_game_color: UserShowBrain.color_correct[0],
+         last_game_audio: UserShowBrain.audio_correct[0],
+         colors_true: UserShowBrain.color_true,
+         user_object: User.find(1)}.to_json
+  end
+# def statistics
+#
+# end
 
   def login
     @user = User.find_and_auth(user_params[:email], user_params[:password])

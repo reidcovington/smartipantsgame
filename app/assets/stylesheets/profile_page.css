@@ -1,14 +1,18 @@
 #ColorGraph {
   float: left;
   margin-right: 0%;
+  margin-left: 7%;
 }
 
 #AudioGraph {
   margin-left: 0%;
+  margin-right: 7%;
+  float: right;
+}
+/*
+#profile_page_graphs {
+  margin-left: 18%;
   display: inline;
 }
 
-#profile_page_graphs {
-  margin-left: 18%;
-}
-
+*/
