@@ -1,24 +1,44 @@
-$(function () {
+if ((window.location.href.indexOf('/users/1'))>-1){
+    $.ajax({url: '/users/data', async: false}).done(function(response){
+            stats = response;
+            stats_data = []
+            stats_data3 = []
+            stats_data.push(Math.round((stats.colors_true[1] || 0)/(20.0 + stats.n) *100))
+            stats_data.push(Math.round((stats.colors_true[2] || 0)/(20.0 + stats.n) *100))
+            stats_data.push(Math.round((stats.colors_true[3] || 0)/(20.0 + stats.n) *100))
+            stats_data.push(Math.round((stats.colors_true[4] || 0)/(20.0 + stats.n) *100))
+            stats_data.push(Math.round((stats.colors_true[5] || 0)/(20.0 + stats.n) *100))
 
+            stats_data3.push(Math.round((stats.colors_false[1] || 0)/(20.0 + stats.n) *100))
+            stats_data3.push(Math.round((stats.colors_false[2] || 0)/(20.0 + stats.n) *100))
+            stats_data3.push(Math.round((stats.colors_false[3] || 0)/(20.0 + stats.n) *100))
+            stats_data3.push(Math.round((stats.colors_false[4] || 0)/(20.0 + stats.n) *100))
+            stats_data3.push(Math.round((stats.colors_false[5] || 0)/(20.0 + stats.n) *100))
+            stats_data_total = (eval(stats_data.join('+')))
+            stats_data3_total = (eval(stats_data3.join('+')))
+        });
+}
+
+$(function () {
         var colors = Highcharts.getOptions().colors,
             categories = ['hit','miss'],
-            name = 'Browser brands',
+            name = 'Color',
             data = [{
-                    y: 60,
+                    y: stats_data_total,
                     color: colors[0],
                     drilldown: {
                         name: 'Hit',
-                        categories: ['color1','color2','color3','color4','color5','color6','color7', 'color8'],
-                        data: [5,10,15,5,5,10,10,5],
+                        categories: ['color1','color2','color3','color4','color5'],
+                        data: stats_data,
                         color: colors[0]
                     }
                 }, {
-                    y: 40,
+                    y: stats_data3_total,
                     color: colors[4],
                     drilldown: {
                         name: 'miss',
-                        categories: ['color1','color2','color3','color4','color5','color6','color7', 'color8'],
-                        data: [5,5,5,5,5,5,5,5],
+                        categories: ['color1','color2','color3','color4','color5'],
+                        data: stats_data3,
                         color: colors[4]
                     }
                 }];

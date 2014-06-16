@@ -1,14 +1,12 @@
-// $(document).ready(function(){
-// if(location.href === 'http://0.0.0.0:3000/users/1'){
-//     $.ajax({
-//         type: "get"
-//         , url: "/users/stats"
-//         , dataType: 'JSON'
-//         , complete: function(response){
-//             console.log(response)
-//         }
-//     })
-    $(function () {
+if ((window.location.href.indexOf('/users/1'))>-1){
+    $.ajax({url: '/users/data', async: false}).done(function(response){
+            stats = response;
+            console.log(stats.games);
+            // onAjaxComplete();
+        });
+}
+
+        $(function() {
             $('#total_progress_graph').highcharts({
                 credits: {
                     enabled: false
@@ -20,14 +18,17 @@
                     type: 'spline'
                 },
                 title: {
-                    text: 'Username'
+                    text: ''
                 },
                 subtitle: {
                     text: 'SmartiPants Progress'
                 },
                 xAxis: {
-                    categories: ['game1', 'game2', 'game3', 'gam4', 'game5']
-                },
+                categories: stats.games,
+                title: {
+                    text: null
+                }
+            },
                 yAxis: {
                     title: {
                         text: 'Percent correct'
@@ -54,19 +55,21 @@
                 },
                 series: [{
                     name: 'Total',
-                    data: [20, 50, 15, 30, 85],
+                    data: stats.total_correct,
                     cursor: 'pointer',
                         point: {
                             events: {
                                 click: function (e) {
                                     x: e.pageX
                                     console.log(this.x);
+                                    console.log(stats);
+                                    $('#profile_page_graphs').hide();
                                 }
                             }
                         },
                 },{
                     name: 'Audio',
-                    data: [14, 40, 35, 55, 90],
+                    data: stats.audio_correct,
                     cursor: 'pointer',
                         point: {
                             events: {
@@ -78,7 +81,7 @@
                         },
                 }, {
                     name: 'Color',
-                    data: [19, 35, 70, 50, 80],
+                    data: stats.color_correct,
                     cursor: 'pointer',
                         point: {
                             events: {
@@ -87,9 +90,8 @@
                                     console.log(this.x);
                                 }
                             }
-                        },
+                        }
                 }]
             })
         })
-//     }
-// });
+

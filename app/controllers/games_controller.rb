@@ -7,6 +7,10 @@ class GamesController < ApplicationController
      sounds: JSONFormatter.format(Audio, :file_loc)}.to_json
   end
 
+  # def statistics
+  #    render json: {ok: true}.to_json
+  # end
+
   def create
     GameBuilder.create_game(session[:user_id], game_params)
     redirect_to root_path
