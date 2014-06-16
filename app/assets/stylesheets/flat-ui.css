@@ -687,7 +687,7 @@ fieldset[disabled] .btn-info.active {
 .btn-danger:active,
 .btn-danger.active,
 .open .dropdown-toggle.btn-danger {
-  color: #ffffff;
+  color: #1ABC9C;
   background-color: #ec7063;
   border-color: #ec7063;
 }
