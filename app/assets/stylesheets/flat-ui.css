@@ -2243,7 +2243,7 @@ select[multiple].navbar-form .btn {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 .navbar-default {
-  background-color: #ecf0f1;
+  background-color: #7AABED;
 }
 .navbar-default .navbar-brand {
   color: #34495e;
@@ -2266,7 +2266,7 @@ select[multiple].navbar-form .btn {
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #e5e9ea;
+  border-color: #7AABED;
   border-width: 2px;
 }
 .navbar-default .navbar-nav > li > a {

@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   root to: 'games#play'
 
   post '/users/login', to: 'users#login'
-  get '/users/logout', to: 'users#logout'
+
+  post '/users/logout', to: 'users#logout'
+
   get '/users/:id', to: 'user#show'
   get '/users/stats', to: 'users#stats'
 

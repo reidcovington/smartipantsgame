@@ -1,22 +1,21 @@
-  $(document).ready(function(){
+$(document).ready(function(){
     $('#submit-login').submit(function(e){
         e.preventDefault();
-        var userInfo = {email: $(emailinputselector).val(), password: $(passwordinputselector).val()};
-// SIYAN: Change the above to match your form and debug.
-        $.post('/users/login', userInfo);
+        $.post('/users/login', $( this ).serialize());
+        $( '#main-navbar' ).load('../../application.html.erb', function() {
+            alert('Load was performed.');
+        });
     });
 
-    $('submit-signup').submit(function(e){
+    $('#submit-signup').submit(function(e){
         e.preventDefault();
-        var userInfo = {username: $(usernameinputselector).val(), email: $(emailinputselector).val(), password: $(passwordinputselector).val()};
-        $.post('/users/create', userInfo);
-    });
+        $.post('/users', $( '#submit-signup' ).serialize());
+    })
 
     $('#logout').click(function(e){
         e.preventDefault();
-
-        $.get('/users/logout');
+        $.post('/users/logout').done(function(response){
+            location.reload();
+        });
     });
-
-  });
-
+});
