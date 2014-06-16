@@ -45,6 +45,7 @@ GameController.prototype = {
             this.soundBuilder.buildSounds(soundArr)
             return {positions: positionArr, sounds: soundArr}
         } else if (gameMode == 'triple'){
+            this.soundBuilder.buildSounds(soundArr)
             return {colors: colorArr, sounds: soundArr, positions: positionArr}
         }
     },
@@ -54,6 +55,7 @@ GameController.prototype = {
             this.evalRound();
             $('#color-button').attr("class", "btn btn-inverse");
             $('#sound-button').attr("class", "btn btn-inverse");
+            $('#position-button').attr("class", "btn btn-inverse");
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -67,14 +69,15 @@ GameController.prototype = {
 
     },
     evalGuess: function(keyCode){
-        if(keyCode === 69){
+        if(keyCode === 69 && this.gameMode === 'triple'){
             $('#color-button').addClass('active');
             this.gameModel.scoreGuess('color', this.currentRound);
-        } else if(keyCode === 87 && this.gameMode === "dual"){
+        } else if(keyCode === 81){
+            $('#position-button').addClass('active');
+            this.gameModel.scoreGuess('position', this.currentRound);
+        } else if(keyCode === 87 && this.gameMode != 'single'){
             $('#sound-button').addClass('active');
             this.gameModel.scoreGuess('sound', this.currentRound);
-        } else if(keyCode === 81){
-            this.gameModel.scoreGuess('position', this.currentRound);
         };
     },
     evalRound: function(){
@@ -173,15 +176,16 @@ function RoundView(jQSelector, delegate){
 };
 RoundView.prototype = {
     constructRound: function(roundData){
-        if(roundData.position){
-            $('td').fadeOut(200)
+        $('#game-section td').fadeOut(200)
+        setTimeout(function(){
+            $('#game-section td').css('background-color', 'transparent')
             if(roundData.color){
                 $('td.'+roundData.position).css('background-color', roundData.color)
             } else{
                 $('td.'+roundData.position).css('background-color', 'orange')
             };
-            $('td.'+roundData.position).fadeIn(300)
-        };
+            $('#game-section td').fadeIn(200)
+        }, 200)
         if(roundData.sound){
             setTimeout(function(){
                 $("#soundElem"+roundData.soundId)[0].play();
@@ -190,6 +194,7 @@ RoundView.prototype = {
         this.turnOnBuzzers();
         this.turnOnColorMatch();
         this.turnOnSoundMatch();
+        this.turnOnPositionMatch();
     },
     turnOnBuzzers: function(){
         $(document).on('keyup', function(event){
