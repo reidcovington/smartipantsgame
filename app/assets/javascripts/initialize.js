@@ -1,8 +1,14 @@
+var stats;
 var gameData;
 $(document).ready(function() {
     $.get('/games/game_data').done(function(response){
         gameData = response;
     });
+
+    $.get('/users/data').done(function(response){
+            stats = response;
+            // console.log(response);
+        });
     new ApplicationController("#game-section")
 })
 

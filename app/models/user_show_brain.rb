@@ -1,6 +1,9 @@
 class UserShowBrain
-  def self.game_dates
-    @user = User.find(1)
+  def self.user(player)
+    @user = player
+  end
+  def self.game_dates(player)
+    @user = User.find(player)
     @games = @user.games.all
     @game_dates = []
     @games.each do |game|
@@ -9,10 +12,10 @@ class UserShowBrain
     @game_dates
   end
 
-  def self.color_correct
+  def self.color_correct(player)
     @color_answer = []
     @color_id = []
-    User.first.games.all.each do |game|
+    User.find(player).games.all.each do |game|
       color_answer = []
       color_id = []
         game.rounds.each do |round|
@@ -25,22 +28,23 @@ class UserShowBrain
       @answer3 = []
       @answer = []
       @color_answer.each do |answer|
-        response = []
+        response1 = []
         answer.each do |bool|
           if bool == true
-             response << bool
+             response1 << bool
          end
         end
-            @answer3 << response.length
-            @answer << ((response.length/5) *100)
+            @answer3 << response1.length
+            @answer << ((response1.length/20.0)*100)
       end
+      @answer3
       @answer
   end
 
-  def self.audio_correct
+  def self.audio_correct(player)
     @audio_answer = []
     @audio_id = []
-    User.first.games.all.each do |game|
+    User.find(player).games.all.each do |game|
       audio_answer = []
       audio_id = []
         game.rounds.each do |round|
@@ -60,7 +64,7 @@ class UserShowBrain
          end
         end
             @answer4 << response.length
-            @answer2 << ((response.length/5)*100)
+            @answer2 << ((response.length/20.0)*100)
       end
       @answer2
   end
@@ -68,8 +72,73 @@ class UserShowBrain
   def self.total_correct
     @total_correct = [@answer3,@answer4].transpose.map {|x| x.reduce(:+)}
     @total_correct.map! do |round|
-      ((round/10) * 100)
+      ((round/40.0) * 100)
     end
+    @total_correct
+  end
+
+  def self.color_true(player)
+    @color_true_array = []
+    @user = User.find(player)
+    @game = @user.games.last
+    @true_rounds = @game.rounds.where(color_correct: true)
+    @true_rounds.each do |round|
+        @color_true_array << round.color_id
+      end
+      p @color_true_array
+    @color_hash = Hash.new(0)
+    @color_true_array.each { | v | @color_hash.store(v, @color_hash[v]+1) }
+    @color_hash
+  end
+
+  def self.audio_true(player)
+    @audio_true_array = []
+    @user = User.find(player)
+    @game = @user.games.last
+    @true_rounds = @game.rounds.where(audio_correct: true)
+    @true_rounds.each do |round|
+        @audio_true_array << round.audio_id
+      end
+     @audio_hash = Hash.new(0)
+     @audio_true_array.each { | v | @audio_hash.store(v, @audio_hash[v]+1) }
+     @audio_hash
+  end
+
+  def self.audios_false(player)
+    @audio_false_array = []
+    @user = User.find(player)
+    @game = @user.games.last
+    @false_rounds = @game.rounds
+    @false_rounds.each do |round|
+       if round.audio_correct != true
+          @audio_false_array << round.audio_id
+        end
+      end
+     @audio_hash = Hash.new(0)
+     @audio_false_array.each { | v | @audio_hash.store(v, @audio_hash[v]+1) }
+     @audio_hash
+  end
+
+  def self.color_false(player)
+    @color_false_array = []
+    @user = User.find(player)
+    @game = @user.games.last
+    @false_rounds = @game.rounds
+    @false_rounds.each do |round|
+      if round.color_correct != true
+        @color_false_array << round.color_id
+      end
+    end
+    p @color_false_array
+    @color_hash = Hash.new(0)
+    @color_false_array.each { | v | @color_hash.store(v, @color_hash[v]+1) }
+    p @color_hash
+  end
+
+  def self.n(player)
+    @user = User.find(player)
+    @game = @user.games.last
+    @n = @game.n
   end
 
 end
