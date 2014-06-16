@@ -41,7 +41,7 @@ GameController.prototype = {
         var colorArr = [];
         var soundArr = [];
         var positionArr = [1,2,3,4];
-        for(var i = 1; i < 6; i++){
+        for(var i = 1; i < 5; i++){
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
@@ -188,7 +188,7 @@ RoundView.prototype = {
             if(roundData.color){
                 $('td.'+roundData.position).css('background-color', roundData.color)
             } else{
-                $('td.'+roundData.position).css('background-color', 'orange')
+                $('td.'+roundData.position).css('background-color', '#fff51b')
             };
             $('#game-section td').fadeIn(200)
         }, 200)
