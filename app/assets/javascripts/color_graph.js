@@ -9,7 +9,7 @@ if ((window.location.href.indexOf('/users/1'))>-1){
 $(function () {
         var colors = Highcharts.getOptions().colors,
             categories = ['hit','miss'],
-            name = 'Browser brands',
+            name = 'Color',
             data = [{
                     y: stats.last_game_color,
                     color: colors[0],

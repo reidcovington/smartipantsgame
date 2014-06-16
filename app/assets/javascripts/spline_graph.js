@@ -18,7 +18,7 @@ if ((window.location.href.indexOf('/users/1'))>-1){
                     type: 'spline'
                 },
                 title: {
-                    text: 'Username'
+                    text: ''
                 },
                 subtitle: {
                     text: 'SmartiPants Progress'

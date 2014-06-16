@@ -15,6 +15,7 @@ def show
   @audio_correct = UserShowBrain.audio_correct(session[:user_id])
   @total_correct = UserShowBrain.total_correct
   @games = UserShowBrain.game_dates(session[:user_id])
+  @username = User.find(session[:user_id]).username
 end
 
   def data
@@ -22,10 +23,11 @@ end
          total_correct: UserShowBrain.total_correct,
          audio_correct: UserShowBrain.audio_correct(session[:user_id]),
          color_correct: UserShowBrain.color_correct(session[:user_id]),
-         last_game_color: UserShowBrain.color_correct(session[:user_id])[0],
-         last_game_audio: UserShowBrain.audio_correct(session[:user_id])[0],
+         last_game_color: UserShowBrain.color_correct(session[:user_id]).last,
+         last_game_audio: UserShowBrain.audio_correct(session[:user_id]).last,
          colors_true: UserShowBrain.color_true(session[:user_id]),
-         user_object: User.find(1)}.to_json
+         colors_true: UserShowBrain.audio_true(session[:user_id]),
+         user_object: User.find(session[:user_id])}.to_json
   end
 # def statistics
 #

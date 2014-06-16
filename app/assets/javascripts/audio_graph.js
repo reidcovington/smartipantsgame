@@ -9,7 +9,7 @@ $(function () {
 
         var colors = Highcharts.getOptions().colors,
             categories = ['hit','miss'],
-            name = 'Browser brands',
+            name = 'Audio',
             data = [{
                     y: stats.last_game_audio,
                     color: colors[0],

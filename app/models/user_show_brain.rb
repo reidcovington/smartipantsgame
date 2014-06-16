@@ -74,18 +74,29 @@ class UserShowBrain
     @total_correct.map! do |round|
       ((round/40.0) * 100)
     end
-    p @total_correct
+    @total_correct
   end
 
   def self.color_true(player)
     @color_true_array = []
     @user = User.find(player)
     @game = @user.games.last
-    @true_rounds = @game.rounds.where(color_correct: true)
+    p @true_rounds = @game.rounds.where(color_correct: true)
     @true_rounds.each do |round|
-      @color_true_array << round.color_id
-    end
-    @color_true_array
+        @color_true_array << round.color_id
+      end
+    p @color_true_array
+  end
+
+  def self.audio_true(player)
+    @audio_true_array = []
+    @user = User.find(player)
+    @game = @user.games.last
+    p @true_rounds = @game.rounds.where(audio_correct: true)
+    @true_rounds.each do |round|
+        @audio_true_array << round.audio_id
+      end
+    p @audio_true_array
   end
 
 end
