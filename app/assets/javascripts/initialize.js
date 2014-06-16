@@ -67,6 +67,7 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
             }
         }.bind(this), 1000);
+
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -197,6 +198,7 @@ RoundView.prototype = {
 function Announcer(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
+
     this.nBackNumberSelector = ".pagination";
     this.gameModeSelector = '#game-mode'
     this.postIntro();
@@ -204,6 +206,8 @@ function Announcer(jQSelector, delegate){
 Announcer.prototype = {
 
     postIntro: function(){
+        $("#graph_container").hide();
+        // $(this.jQSelector).append("Hello")
         this._listenForNbackNumber(this.nBackNumberSelector);
         this._listenForGameMode(this.gameModeSelector);
         this._listenForClick(this.jQSelector, this.nBackNumberSelector, this.gameModeSelector);
@@ -252,7 +256,9 @@ Announcer.prototype = {
         } else if (gameMode == 'dual') {
             rounds = 40;
         };
-        $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>');
+        $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><p> See full results <a hre="#">below</a><br><br>OR<br><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>');
+        // $('#game-section').hide();
+        $('#graph_container').show();
     }
 }
 function SoundBuilder(){}
