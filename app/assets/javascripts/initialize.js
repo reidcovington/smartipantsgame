@@ -60,7 +60,7 @@ GameController.prototype = {
                 clearInterval(timeInt);
                 this.endGame(this.gameModel.rounds);
             }
-        }.bind(this), 600);
+        }.bind(this), 2500);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -82,9 +82,9 @@ GameController.prototype = {
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
         };
-        $.post('/games', {n: this.n, rounds: rounds})//_buildGameJson(this.gameModel))
-        .done(function(response){console.log(response)})
-        this.delegate.announceResult(points, this.gameMode);
+        $.post('/games', {n: this.n, rounds: rounds}).done(function(response){console.log(response)})
+        debugger
+        this.delegate.announceResult(points, this.gameMode)
     },
     _buildGameJson: function(gameModel){
         var n = gameModel.n;
@@ -112,6 +112,7 @@ GameModel.prototype = {
         currentRound[attribute + 'Key'] = true;
         if(currentRound[attribute] === pastRound[attribute]){
             currentRound[attribute + 'Guess'] = true;
+            console.log(currentRound[attribute + 'Guess'])
         }
     },
     scoreNonGuess: function(attribute, roundIndex){
@@ -167,11 +168,25 @@ RoundView.prototype = {
             }, 400)
         };
         this.turnOnBuzzers();
+        this.turnOnColorMatch();
+        this.turnOnSoundMatch();
     },
     turnOnBuzzers: function(){
         $(document).on('keyup', function(event){
             event.preventDefault();
             this.delegate.evalGuess(event.keyCode);
+        }.bind(this));
+    },
+    turnOnColorMatch: function(){
+        $("#color-button").on('click', function(event){
+            event.preventDefault();
+            this.delegate.evalGuess(81);
+        }.bind(this));
+    },
+    turnOnSoundMatch: function(){
+        $("#sound-button").on('click', function(event){
+            event.preventDefault();
+            this.delegate.evalGuess(82);
         }.bind(this));
     }
 };
