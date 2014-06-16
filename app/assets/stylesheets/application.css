@@ -22,11 +22,18 @@
 }
 
 #game-section tr {
-  height: 10em;
+  height: 15em;
 }
 
 #game-section td {
-  width: 10em;
+  width: 15em;
+}
+
+#start-button{
+  position: fixed;
+  z-index: 999;
+  top:330px;
+  left: 710px;
 }
 
 .form-group {
