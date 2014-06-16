@@ -37,7 +37,7 @@ GameController.prototype = {
     fetchGameStructure: function(gameMode){
         var colorArr = [];
         var soundArr = [];
-        for(var i = 1; i < 9; i++){
+        for(var i = 1; i < 6; i++){
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
