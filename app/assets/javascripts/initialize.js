@@ -224,10 +224,10 @@ Announcer.prototype = {
         var rounds;
         if (gameMode == 'single') {
             rounds = 20;
-        } else {
+        } else if (gameMode == 'dual') {
             rounds = 40;
         };
-        $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>')
+        $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>');
     }
 }
 function SoundBuilder(){}
@@ -235,10 +235,10 @@ SoundBuilder.prototype = {
     buildSounds: function(soundUrlArray){
         // debugger
         for(var i = 0; i < soundUrlArray.length; i++){
-            this._buildSound(i, soundUrlArray[i])
+            this._buildSound(i, soundUrlArray[i]);
         }
     },
     _buildSound: function(i, url){
-        $('.container-fluid').append("<audio id='soundElem"+i+"'><source src='"+url+"' type='audio/mpeg'></audio>")
+        $('.container-fluid').append("<audio id='soundElem"+i+"'><source src='"+url+"' type='audio/mpeg'></audio>");
     }
-}
+};
