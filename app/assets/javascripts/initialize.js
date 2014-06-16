@@ -125,7 +125,7 @@ GameModel.prototype = {
 function RoundModel(attributes){
     this.color = this.pickColor(attributes);
     this.soundData = this.pickSound(attributes);
-    this.sound = this.soundData[1];
+    if(this.soundData){this.sound = this.soundData[1]};
 };
 RoundModel.prototype = {
     pickColor: function(attributes){
