@@ -51,7 +51,6 @@ GameController.prototype = {
     initiateGame: function(){
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
-            console.log(this.gameModel.rounds[this.currentRound])
             this.evalRound();
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
@@ -82,7 +81,6 @@ GameController.prototype = {
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
         };
-        console.log(this.gameModel);
         $.ajax({
             url: '/games',
             type: 'POST',
@@ -92,19 +90,7 @@ GameController.prototype = {
             dataType: 'json'
         });
         this.delegate.announceResult(points, this.gameMode);
-    }//,
-    // _buildJSONGame: function(){
-    //     console.log(gameData)
-    //     var fixRounds = this.gameModel.rounds;
-    //     for(var i = 0; i < fixRounds.length; i++){
-    //         fixRounds[i].round_number = i+1;
-    //         fixRounds[i].color_id = gameData.colors.indexOf(fixRounds[i].color);
-    //         fixRounds[i].audio_id = fixRounds[i].soundData[0] + 1;
-    //     }
-    //     this.gameModel.rounds = fixRounds;
-    //     console.log(this.gameModel)
-    //     return JSON.stringify(this.gameModel);
-    // }
+    }
 };
 
 function GameModel(n, roundAttributes){
@@ -144,7 +130,6 @@ function RoundModel(roundNumber, attributes){
 };
 RoundModel.prototype = {
     pickColor: function(attributes){
-        console.log(attributes)
         var colors = attributes.colors;
         if( colors ){
             this.colorId = Math.floor(Math.random() * colors.length) + 1;
@@ -174,7 +159,6 @@ RoundView.prototype = {
             $(this.jQSelector).fadeIn(300)
 
         };
-        console.log('roundData.sound: ' + roundData.sound)
         if(roundData.sound){
             setTimeout(function(){
                 $("#soundElem"+roundData.soundId)[0].play();

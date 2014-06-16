@@ -1,7 +1,5 @@
 class GameBuilder
   def self.create_game(user_id, params)
-    puts params
-    puts "#"*50
     game = build_game(user_id, params[:n], params)
     build_rounds(params[:rounds]).each do |round|
       game.rounds << round
@@ -18,7 +16,6 @@ class GameBuilder
   def self.build_rounds(rounds_arr)
     new_rounds = []
     rounds_arr.each do |round|
-      puts "round object: #{round}"
       new_rounds << build_round(round)
     end
     new_rounds
