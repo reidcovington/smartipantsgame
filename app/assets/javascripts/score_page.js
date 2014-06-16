@@ -1,4 +1,4 @@
-kvar valid_game = {
+var valid_game = {
     n: 2,
     rounds: {
         "1": {
@@ -113,7 +113,6 @@ $(function () {
             }
         }
 
-        // Create the chart
         $('#graph_container').highcharts({
             credits: {
                 enabled: false
@@ -162,4 +161,6 @@ $(function () {
                 }
             }]
         });
-    });
+
+})
+
