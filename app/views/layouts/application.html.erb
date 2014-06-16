@@ -17,16 +17,10 @@
 <body>
 
   <% if session[:user_id] %>
-
     <%= render "users/userin" %>
-
   <% else %>
-
     <%= render "users/nouser" %>
-
   <% end %>
-
-  
 
 <%= yield %>
     
