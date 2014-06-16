@@ -15,8 +15,6 @@
  *= require_flat-ui
  */
 
-
-
 #game-section {
   width: 30em;
   height: 30em;
@@ -33,4 +31,9 @@
 
 .form-group {
 	width: 15em;
+}
+
+.form-control {
+	margin-top: .3em;
+	width: 10em;
 }

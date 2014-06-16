@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   root to: 'games#play'
 
   post '/users/login', to: 'users#login'
-  get '/users/logout', to: 'users#logout'
-  get '/user/:id', to: 'user#show'
+  post '/users/logout', to: 'users#logout'
+  # get '/user/:id', to: 'user#show'
 
   post '/games', to: 'games#create', defaults: { format: 'json' }
   get '/games/play', to: 'games#play'
