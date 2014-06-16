@@ -19,6 +19,7 @@
 #game-section {
   width: 30em;
   height: 30em;
+  background-color: #ECF0F1;
 }
 
 #game-section tr {
@@ -40,6 +41,19 @@
   height: 4em;
   margin: 2em 1em 1em 1em;
 }
+
+#graph_container{
+
+}
+
+
+
+
+
+
+
+
+
 
 
 
