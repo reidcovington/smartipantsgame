@@ -52,6 +52,8 @@ GameController.prototype = {
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
+            $('#color-button').attr("class", "btn btn-inverse");
+            $('#sound-button').attr("class", "btn btn-inverse");
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -60,13 +62,15 @@ GameController.prototype = {
                 clearInterval(timeInt);
                 this.endGame(this.gameModel.rounds);
             }
-        }.bind(this), 1000);
+        }.bind(this), 2500);
 
     },
     evalGuess: function(keyCode){
-        if(keyCode === 81){
+        if(keyCode === 69){
+            $('#color-button').addClass('active');
             this.gameModel.scoreGuess('color', this.currentRound);
-        } else if(keyCode === 82){
+        } else if(keyCode === 87 && this.gameMode === "dual"){
+            $('#sound-button').addClass('active');
             this.gameModel.scoreGuess('sound', this.currentRound);
         };
     },
@@ -111,8 +115,11 @@ GameModel.prototype = {
         var currentRound = this.rounds[roundIndex];
         currentRound[attribute + 'Key'] = true;
         if(currentRound[attribute] === pastRound[attribute]){
+            $('#' + attribute + '-button').attr("class", "btn btn-success")
             currentRound[attribute + 'Guess'] = true;
-            console.log(currentRound[attribute + 'Guess'])
+        }
+        else if (currentRound[attribute] != pastRound[attribute]){
+            $('#' + attribute + '-button').attr("class", "btn btn-danger")
         }
     },
     scoreNonGuess: function(attribute, roundIndex){
@@ -178,7 +185,7 @@ RoundView.prototype = {
     turnOnColorMatch: function(){
         $("#color-button").on('click', function(event){
             event.preventDefault();
-            this.delegate.evalGuess(81);
+            this.delegate.evalGuess(69);
         }.bind(this));
     },
     turnOnSoundMatch: function(){
@@ -232,13 +239,13 @@ Announcer.prototype = {
     },
     _listenForClick: function(jQSelector, nBackNumberSelector, gameModeSelector){
         var activeNBack = this.nBackNumberSelector + ' .active';
-        $(jQSelector).on('click', function(event){
+        $("#start-button").on('click', function(event){
             event.preventDefault();
             if ($(gameModeSelector).text().toLowerCase() == 'game mode') {
                 alert("Please select a Game Mode!");
             } else {
                 $("#start-button").hide();
-                $( jQSelector ).css("pointer-events", "none")
+                // $( "#start-button" ).css("pointer-events", "none");
                 this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())
             };
         }.bind(this))
@@ -251,7 +258,7 @@ Announcer.prototype = {
             rounds = 40;
         };
         $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><p> See full results <a hre="#">below</a><br><br>OR<br><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>');
-        // $('#game-section').hide();
+        // $( "#start-button" ).css("pointer-events", "auto");
         $('#graph_container').show();
     }
 }
