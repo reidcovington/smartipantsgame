@@ -82,8 +82,8 @@ GameController.prototype = {
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
         };
-        console.log(JSON.stringify({n: this.n, rounds: rounds}));
-        $.post('/games', JSON.stringify({n: this.n, rounds: rounds}))//_buildGameJson(this.gameModel))
+
+        $.post('/games', {n: this.n, rounds: rounds} )
         .done(function(response){console.log(response)})
         this.delegate.announceResult(points);
     }//,
