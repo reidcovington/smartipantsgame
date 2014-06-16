@@ -60,7 +60,7 @@ GameController.prototype = {
                 clearInterval(timeInt);
                 this.endGame(this.gameModel.rounds);
             }
-        }.bind(this), 500);
+        }.bind(this), 600);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -82,8 +82,15 @@ GameController.prototype = {
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
         };
-            $( self.jQSelector ).empty();
-            self.delegate.announceResult(points, self.gameMode);
+        $.post('/games', {n: this.n, rounds: rounds})//_buildGameJson(this.gameModel))
+        .done(function(response){console.log(response)})
+        this.delegate.announceResult(points, this.gameMode);
+    },
+    _buildGameJson: function(gameModel){
+        var n = gameModel.n;
+        var rounds = gameModel.rounds;
+        console.log({n: n, rounds: rounds})
+        return {n: n, rounds: rounds}
     }
 };
 

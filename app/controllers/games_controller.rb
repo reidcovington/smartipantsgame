@@ -8,9 +8,11 @@ class GamesController < ApplicationController
   end
 
   def create
-    puts "~"*50
-    puts game_params.inspect
-    # GameBuilder.create_game(game_params)
+    puts "$"*50
+    game_params.each do |key, value|
+      puts "#{key} $$$===>>> #{value}"
+    end
+    # GameBuilder.create_game(session[:user_id], game_params[:game])
     redirect_to root_path
   end
 

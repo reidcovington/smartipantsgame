@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   get '/users/logout', to: 'users#logout'
   get '/user/:id', to: 'user#show'
 
-  post '/games', to: 'games#create', :defaults => { :format => 'json' }
+  post '/games', to: 'games#create', defaults: { format: 'json' }
+
   get '/games/play', to: 'games#play'
   get '/games/game_data', to: 'games#game_data'
 
