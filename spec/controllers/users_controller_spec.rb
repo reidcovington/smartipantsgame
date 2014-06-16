@@ -10,7 +10,7 @@ describe UsersController do
       end
 
       it 'is a valid route' do
-        expect(response.status).to eq 200
+        expect(response.status).to eq 302
       end
 
       it 'adds a valid user to the database' do

@@ -1,10 +1,12 @@
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>Smartipants</title>
+  <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+
    <script src="http://code.highcharts.com/highcharts.js"></script>
   <script src="http://code.highcharts.com/modules/exporting.js"></script>
   <script>$(document).ajaxSend(function(e, xhr, options) {
@@ -14,15 +16,14 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default" role="navigation" style="background-color: #1ABC9C; height: 3em; verticle-align: middle;">
-        <%= link_to 'Profile', root_path, class: "btn btn-primary navbar-btn" %>
-        <%= link_to 'Log In/Sign up', users_login_path, class: "btn btn-primary navbar-btn", :method => :add,  :id => "login"  %>
-        <input class="form-control"  type="textarea" name="email" placeholder="email" style="width:10em; display:inline; display:none;"></input>
-        <input class="form-control" type="textarea" name="password" placeholder="password" style="width:10em; display:inline; display:none;"></input>
-        <input type="submit" value="submit" class= "btn btn-primary" style="display:none;">
-  </nav>
+  <% if session[:user_id] %>
+    <%= render "users/userin" %>
+  <% else %>
+    <%= render "users/nouser" %>
+  <% end %>
 
 <%= yield %>
-
+    
 </body>
 </html>
+

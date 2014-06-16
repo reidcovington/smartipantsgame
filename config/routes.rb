@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   get '/users/logout', to: 'users#logout'
   # get '/users/statistics', to: 'users#statistics'
 
+
+  get '/users/:id', to: 'user#show'
+  get '/users/stats', to: 'users#stats'
+
   post '/games', to: 'games#create', defaults: { format: 'json' }
 
   get '/games/play', to: 'games#play'

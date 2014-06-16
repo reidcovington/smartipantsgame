@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
-  def index
-  end
-
   def create
     @user = User.new(user_params)
     if @user.save
-      true
+      session[:user_id] = @user.id
+      redirect_to root_path
     else
       flash[:error] = "Unable to create user."
+      redirect_to root_path
     end
   end
 
@@ -16,8 +15,6 @@ def show
   @audio_correct = UserShowBrain.audio_correct
   @total_correct = UserShowBrain.total_correct
   @games = UserShowBrain.game_dates
-  # show_info = {games: "mneow"}.to_json
-  # show_info
 end
 
   def data
