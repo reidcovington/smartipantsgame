@@ -4,10 +4,10 @@ $(document).ready(function(){
         $.post('/users/login', $( this ).serialize());      
     });
 
-    $('#show-signup').click(function(e){
+    $('#submit-signup').submit(function(e){
         e.preventDefault();
-        var userInfo = {username: $(usernameinputselector).val(), email: $(emailinputselector).val(), password: $(passwordinputselector).val()};
-        $.post('/users/create', userInfo);
+        alert('hi')
+        $.post('/users', $( this ).serialize());      
     });
 
     $('#logout').click(function(e){

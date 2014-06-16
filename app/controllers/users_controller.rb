@@ -3,12 +3,15 @@ class UsersController < ApplicationController
   end
 
   def create
+    puts "this route is working"
     @user = User.new(user_params)
     if @user.save
       true
     else
       flash[:error] = "Unable to create user."
     end
+
+    redirect_to host: 'www.google.com'
   end
 
   def login
