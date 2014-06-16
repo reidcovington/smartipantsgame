@@ -18,13 +18,14 @@ ApplicationController.prototype = {
     buildGame: function(n, gameMode){
         this.gameController = new GameController(n, gameMode, this.jQSelector, this);
     },
-    announceResult: function(points){
-        this.announcer.postResult(points);
+    announceResult: function(points, gameMode){
+        this.announcer.postResult(points, gameMode);
     }
 };
 
 function GameController(n, gameMode, jQSelector, delegate){
     this.n = n;
+    this.gameMode = gameMode;
     this.delegate = delegate;
     this.soundBuilder = new SoundBuilder()
     this.gameModel = new GameModel(n, this.fetchGameStructure(gameMode));
@@ -36,7 +37,7 @@ GameController.prototype = {
     fetchGameStructure: function(gameMode){
         var colorArr = [];
         var soundArr = [];
-        for(var i = 1; i < 9; i++){
+        for(var i = 1; i < 6; i++){
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
@@ -51,7 +52,6 @@ GameController.prototype = {
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
-            console.log(this.gameModel.rounds.length)
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -60,7 +60,8 @@ GameController.prototype = {
                 clearInterval(timeInt);
                 this.endGame(this.gameModel.rounds);
             }
-        }.bind(this), 600);
+        }.bind(this), 1000);
+
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -81,15 +82,15 @@ GameController.prototype = {
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
         };
-        $.post('/games', {n: this.n, rounds: rounds})//_buildGameJson(this.gameModel))
-        .done(function(response){console.log(response)})
-        this.delegate.announceResult(points);
-    },
-    _buildGameJson: function(gameModel){
-        var n = gameModel.n;
-        var rounds = gameModel.rounds;
-        console.log({n: n, rounds: rounds})
-        return {n: n, rounds: rounds}
+        $.ajax({
+            url: '/games',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(this.gameModel),
+            processData: false,
+            dataType: 'json'
+        });
+        this.delegate.announceResult(points, this.gameMode);
     }
 };
 
@@ -102,7 +103,7 @@ function GameModel(n, roundAttributes){
 GameModel.prototype = {
     makeRounds: function(){
         for(var i = 0; i < 20 + this.n; i++){
-            this.rounds[i] = new RoundModel(this.roundAttributes);
+            this.rounds[i] = new RoundModel(i+1, this.roundAttributes);
         }
     },
     scoreGuess: function(attribute, roundIndex){
@@ -111,6 +112,7 @@ GameModel.prototype = {
         currentRound[attribute + 'Key'] = true;
         if(currentRound[attribute] === pastRound[attribute]){
             currentRound[attribute + 'Guess'] = true;
+            console.log(currentRound[attribute + 'Guess'])
         }
     },
     scoreNonGuess: function(attribute, roundIndex){
@@ -122,24 +124,25 @@ GameModel.prototype = {
     }
 };
 
-function RoundModel(attributes){
+function RoundModel(roundNumber, attributes){
+    this.roundNumber = roundNumber;
     this.color = this.pickColor(attributes);
-    this.soundData = this.pickSound(attributes);
-    if(this.soundData){this.sound = this.soundData[1]};
+    this.sound = this.pickSound(attributes);
 };
 RoundModel.prototype = {
     pickColor: function(attributes){
         var colors = attributes.colors;
         if( colors ){
-            return colors[Math.floor(Math.random() * colors.length)];
+            this.colorId = Math.floor(Math.random() * colors.length) + 1;
+            return colors[this.colorId - 1];
         };
         return null;
     },
     pickSound: function(attributes){
         var sounds = attributes.sounds;
         if( sounds ){
-            var index = Math.floor(Math.random() * sounds.length)
-            return [index, sounds[index]];
+            this.soundId = Math.floor(Math.random() * sounds.length) + 1;
+            return sounds[this.soundId - 1];
         };
         return null;
     }
@@ -152,23 +155,36 @@ function RoundView(jQSelector, delegate){
 RoundView.prototype = {
     constructRound: function(roundData){
         if(roundData.color){
-            $(this.jQSelector).fadeOut(300)
+            $(this.jQSelector).fadeOut(200)
             $(this.jQSelector).css('background-color', roundData.color)
             $(this.jQSelector).fadeIn(300)
 
         };
         if(roundData.sound){
-            // debugger
             setTimeout(function(){
-                $("#soundElem"+roundData.soundData[0])[0].play();
+                $("#soundElem"+roundData.soundId)[0].play();
             }, 400)
         };
         this.turnOnBuzzers();
+        this.turnOnColorMatch();
+        this.turnOnSoundMatch();
     },
     turnOnBuzzers: function(){
         $(document).on('keyup', function(event){
             event.preventDefault();
             this.delegate.evalGuess(event.keyCode);
+        }.bind(this));
+    },
+    turnOnColorMatch: function(){
+        $("#color-button").on('click', function(event){
+            event.preventDefault();
+            this.delegate.evalGuess(81);
+        }.bind(this));
+    },
+    turnOnSoundMatch: function(){
+        $("#sound-button").on('click', function(event){
+            event.preventDefault();
+            this.delegate.evalGuess(82);
         }.bind(this));
     }
 };
@@ -176,6 +192,7 @@ RoundView.prototype = {
 function Announcer(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
+
     this.nBackNumberSelector = ".pagination";
     this.gameModeSelector = '#game-mode'
     this.postIntro();
@@ -183,6 +200,8 @@ function Announcer(jQSelector, delegate){
 Announcer.prototype = {
 
     postIntro: function(){
+        $("#graph_container").hide();
+        // $(this.jQSelector).append("Hello")
         this._listenForNbackNumber(this.nBackNumberSelector);
         this._listenForGameMode(this.gameModeSelector);
         this._listenForClick(this.jQSelector, this.nBackNumberSelector, this.gameModeSelector);
@@ -215,7 +234,6 @@ Announcer.prototype = {
         var activeNBack = this.nBackNumberSelector + ' .active';
         $(jQSelector).on('click', function(event){
             event.preventDefault();
-            console.log(this + "clicked")
             if ($(gameModeSelector).text().toLowerCase() == 'game mode') {
                 alert("Please select a Game Mode!");
             } else {
@@ -225,8 +243,16 @@ Announcer.prototype = {
             };
         }.bind(this))
     },
-    postResult: function(points){
-        $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 40 possible points!</h3><br><a href='#'>Play again!</a>")
+    postResult: function(points, gameMode){
+        var rounds;
+        if (gameMode == 'single') {
+            rounds = 20;
+        } else if (gameMode == 'dual') {
+            rounds = 40;
+        };
+        $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><p> See full results <a hre="#">below</a><br><br>OR<br><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>');
+        // $('#game-section').hide();
+        $('#graph_container').show();
     }
 }
 function SoundBuilder(){}
@@ -234,10 +260,10 @@ SoundBuilder.prototype = {
     buildSounds: function(soundUrlArray){
         // debugger
         for(var i = 0; i < soundUrlArray.length; i++){
-            this._buildSound(i, soundUrlArray[i])
+            this._buildSound(i+1, soundUrlArray[i]);
         }
     },
     _buildSound: function(i, url){
-        $('.container-fluid').append("<audio id='soundElem"+i+"'><source src='"+url+"' type='audio/mpeg'></audio>")
+        $('.container-fluid').append("<audio id='soundElem"+i+"'><source src='"+url+"' type='audio/mpeg'></audio>");
     }
-}
+};

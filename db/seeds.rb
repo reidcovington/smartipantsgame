@@ -7,14 +7,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 colors = [
-  '#d10000',
-  '#ff6622',
-  '#ffda21',
-  '#33dd00',
-  '#1133cc',
-  '#220066',
-  '#330044',
-  '#000000'
+  '#9B111E',
+  '#EB8921',
+  '#004225',
+  '#4099FF',
+  '#ca96fd'
 ]
 
 colors.each do |color|
@@ -26,10 +23,7 @@ audios = [
   '/assets/2.mp3',
   '/assets/3.mp3',
   '/assets/4.mp3',
-  '/assets/5.mp3',
-  '/assets/6.mp3',
-  '/assets/7.mp3',
-  '/assets/8.mp3'
+  '/assets/5.mp3'
 ]
 
 audios.each do |audio|

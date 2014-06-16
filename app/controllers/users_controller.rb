@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   # end
 
   def create
-    puts "*************this route is working *******************"
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
@@ -14,8 +13,20 @@ class UsersController < ApplicationController
       puts "didn't work"
       redirect_to root_path
     end
-    puts "outside the inner workings"
   end
+
+def show
+  p @color_correct = UserShowBrain.color_correct
+  p @audio_correct = UserShowBrain.audio_correct
+  p @total_correct = UserShowBrain.total_correct
+  @games = UserShowBrain.game_dates
+  # show_info = {games: "mneow"}.to_json
+  # show_info
+end
+
+def stats
+  format.json { render json: { ok: true } }
+end
 
   def login
     @user = User.find_and_auth(user_params[:email], user_params[:password])
@@ -29,9 +40,6 @@ class UsersController < ApplicationController
       redirect_to root_path
     end
   end
-
-  # def show
-  # end
 
   def logout
     session.clear

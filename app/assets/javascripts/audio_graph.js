@@ -1,82 +1,27 @@
 $(function () {
 
         var colors = Highcharts.getOptions().colors,
-            categories = ['Audio1', 'Audio2', 'Audio3', 'Audio4', 'Audio5', 'Audio6', 'Audio7', 'Audio8'],
+            categories = ['hit','miss'],
             name = 'Browser brands',
             data = [{
-                    y: 12.5,
+                    y: 25,
                     color: colors[0],
                     drilldown: {
-                        name: 'Audio1',
-                        categories: ['hit',' miss'],
-                        data: [6.25,6.25],
+                        name: 'Hit',
+                        categories: ['audio1','audio2','audio3','audio4','audio5','audio6','audio7', 'audio8'],
+                        data: [2,10,8,1,1,1,1,1],
                         color: colors[0]
                     }
                 }, {
-                    y: 12.5,
-                    color: colors[1],
-                    drilldown: {
-                        name: 'Audio2',
-                        categories: ['hit',' miss'],
-                        data: [6.25,6.25],
-                        color: colors[1]
-                    }
-                }, {
-                    y: 12.5,
-                    color: colors[2],
-                    drilldown: {
-                        name: 'Audio3',
-                        categories: ['hit',' miss'],
-                        data: [6.25,6.25],
-                        color: colors[2]
-                    }
-                }, {
-                    y: 12.5,
-                    color: colors[3],
-                    drilldown: {
-                        name: 'Audio4',
-                        categories: ['hit',' miss'],
-                        data: [6.25,6.25],
-                        color: colors[3]
-                    }
-                }, {
-                    y: 12.5,
+                    y: 75,
                     color: colors[4],
                     drilldown: {
-                        name: 'Audio5',
-                        categories: ['hit',' miss'],
-                        data: [6.25,6.25],
-                        color: colors[4]
-                    }
-                }, {
-                    y: 12.5,
-                    color: colors[5],
-                    drilldown: {
-                        name: 'Audio6',
-                        categories: ['hit',' miss'],
-                        data: [6.25,6.25],
-                        color: colors[4]
-                    }
-                }, {
-                    y: 12.5,
-                    color: colors[6],
-                    drilldown: {
-                        name: 'Audio7',
-                        categories: ['hit',' miss'],
-                        data: [6.25,6.25],
-                        color: colors[4]
-                    }
-                }, {
-                    y: 12.5,
-                    color: colors[7],
-                    drilldown: {
-                        name: 'Audio8',
-                        categories: ['hit',' miss'],
-                        data: [6.25,6.25],
+                        name: 'miss',
+                        categories: ['audio1','audio2','audio3','audio4','audio5','audio6','audio7', 'audio8'],
+                        data: [5,5,10,20,15,15,3,2],
                         color: colors[4]
                     }
                 }];
-
 
         // Build the data arrays
         var browserData = [];
