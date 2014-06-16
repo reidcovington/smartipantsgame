@@ -11,20 +11,20 @@ class UsersController < ApplicationController
   end
 
 def show
-  @color_correct = UserShowBrain.color_correct
-  @audio_correct = UserShowBrain.audio_correct
+  @color_correct = UserShowBrain.color_correct(session[:user_id])
+  @audio_correct = UserShowBrain.audio_correct(session[:user_id])
   @total_correct = UserShowBrain.total_correct
-  @games = UserShowBrain.game_dates
+  @games = UserShowBrain.game_dates(session[:user_id])
 end
 
   def data
-    render json: {games: UserShowBrain.game_dates,
+    render json: {games: UserShowBrain.game_dates(session[:user_id]),
          total_correct: UserShowBrain.total_correct,
-         audio_correct: UserShowBrain.audio_correct,
-         color_correct: UserShowBrain.color_correct,
-         last_game_color: UserShowBrain.color_correct[0],
-         last_game_audio: UserShowBrain.audio_correct[0],
-         colors_true: UserShowBrain.color_true,
+         audio_correct: UserShowBrain.audio_correct(session[:user_id]),
+         color_correct: UserShowBrain.color_correct(session[:user_id]),
+         last_game_color: UserShowBrain.color_correct(session[:user_id])[0],
+         last_game_audio: UserShowBrain.audio_correct(session[:user_id])[0],
+         colors_true: UserShowBrain.color_true(session[:user_id]),
          user_object: User.find(1)}.to_json
   end
 # def statistics

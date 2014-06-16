@@ -1,6 +1,9 @@
 class UserShowBrain
-  def self.game_dates
-    @user = User.find(1)
+  def self.user(player)
+    @user = player
+  end
+  def self.game_dates(player)
+    @user = User.find(player)
     @games = @user.games.all
     @game_dates = []
     @games.each do |game|
@@ -9,10 +12,10 @@ class UserShowBrain
     @game_dates
   end
 
-  def self.color_correct
+  def self.color_correct(player)
     @color_answer = []
     @color_id = []
-    User.first.games.all.each do |game|
+    User.find(player).games.all.each do |game|
       color_answer = []
       color_id = []
         game.rounds.each do |round|
@@ -32,16 +35,16 @@ class UserShowBrain
          end
         end
             @answer3 << response1.length
-            @answer << ((response1.length/5.0)*100)
+            @answer << ((response1.length/20.0)*100)
       end
       @answer3
       @answer
   end
 
-  def self.audio_correct
+  def self.audio_correct(player)
     @audio_answer = []
     @audio_id = []
-    User.find(1).games.all.each do |game|
+    User.find(player).games.all.each do |game|
       audio_answer = []
       audio_id = []
         game.rounds.each do |round|
@@ -61,7 +64,7 @@ class UserShowBrain
          end
         end
             @answer4 << response.length
-            @answer2 << ((response.length/5.0)*100)
+            @answer2 << ((response.length/20.0)*100)
       end
       @answer2
   end
@@ -69,21 +72,19 @@ class UserShowBrain
   def self.total_correct
     @total_correct = [@answer3,@answer4].transpose.map {|x| x.reduce(:+)}
     @total_correct.map! do |round|
-      ((round/10.0) * 100)
+      ((round/40.0) * 100)
     end
     p @total_correct
   end
 
-  def self.color_true
+  def self.color_true(player)
     @color_true_array = []
-    @user = User.find(1)
+    @user = User.find(player)
     @game = @user.games.last
     @true_rounds = @game.rounds.where(color_correct: true)
     @true_rounds.each do |round|
-      puts "[LOG] round: #{round.color_id}"
       @color_true_array << round.color_id
     end
-    puts "[LOG] @color_true_array: #{@color_true_array}"
     @color_true_array
   end
 
