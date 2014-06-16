@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-  # def index
-  # end
-
   def create
     @user = User.new(user_params)
     if @user.save
@@ -18,8 +15,6 @@ def show
   p @audio_correct = UserShowBrain.audio_correct
   p @total_correct = UserShowBrain.total_correct
   @games = UserShowBrain.game_dates
-  # show_info = {games: "mneow"}.to_json
-  # show_info
 end
 
 def stats
