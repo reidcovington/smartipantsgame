@@ -12,7 +12,7 @@ class GamesController < ApplicationController
   # end
 
   def create
-    GameBuilder.create_game(game_params)
+    GameBuilder.create_game(session[:user_id], game_params)
     redirect_to root_path
   end
 
