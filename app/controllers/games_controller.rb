@@ -1,11 +1,14 @@
 class GamesController < ApplicationController
   def play
-    # Landing page/game page
-    { colors: JSONFormatter.format(Color.all), audio: JSONFormatter.format(Audio.all) }.to_json
-  end 
+  end
+
+  def game_data
+    render json: {colors: JSONFormatter.format(Color, :hexcode),
+     sounds: JSONFormatter.format(Audio, :file_loc)}.to_json
+  end
 
   def create
-    GameBuilder.create_game(game_params)
+    GameBuilder.create_game(session[:user_id], game_params)
     redirect_to root_path
   end
 
