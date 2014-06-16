@@ -40,7 +40,6 @@ GameController.prototype = {
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
-        debugger
         if (gameMode == 'single') {
             return {colors: colorArr}
         } else if (gameMode == 'dual') {
@@ -58,10 +57,10 @@ GameController.prototype = {
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
             }
             else {
-                this.endGame(this.gameModel.rounds);
                 clearInterval(timeInt);
+                this.endGame(this.gameModel.rounds);
             }
-        }.bind(this), 3000);
+        }.bind(this), 600);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -82,7 +81,15 @@ GameController.prototype = {
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
         };
+        $.post('/games', {n: this.n, rounds: rounds})//_buildGameJson(this.gameModel))
+        .done(function(response){console.log(response)})
         this.delegate.announceResult(points);
+    },
+    _buildGameJson: function(gameModel){
+        var n = gameModel.n;
+        var rounds = gameModel.rounds;
+        console.log({n: n, rounds: rounds})
+        return {n: n, rounds: rounds}
     }
 };
 
