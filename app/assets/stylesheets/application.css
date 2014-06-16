@@ -22,11 +22,18 @@
 }
 
 #game-section tr {
-  height: 10em;
+  height: 15em;
 }
 
 #game-section td {
-  width: 10em;
+  width: 15em;
+}
+
+#start-button{
+  position: fixed;
+  z-index: 999;
+  top:330px;
+  left: 710px;
 }
 
 .form-group {
@@ -38,18 +45,47 @@
 	width: 10em;
 }
 
-#color-button {
-  width: 17em;
+#position-button {
+  width: 9em;
   height: 4em;
   margin: 2em 1em 1em 1em;
 }
 
 #sound-button {
-  width: 17em;
+  width: 9em;
+  height: 4em;
+  margin: 2em 1em 1em 1em;
+}
+
+#color-button {
+  width: 9em;
+  height: 4em;
+  margin: 2em 1em 1em 1em;
+}
+
+#shape-button {
+  width: 9em;
   height: 4em;
   margin: 2em 1em 1em 1em;
 }
 
 #graph_container{
 
+}
+
+#real-time-score{
+  width: 44em;
+  height: 3em;
+  border-radius: 20px;
+  background-color: #ECF0F1;
+}
+
+#real-time-score td {
+  width: 2em;
+}
+
+#current-score {
+  text-align: center;
+  background-color: #BDC3C7;
+  border-radius: 20px;
 }
