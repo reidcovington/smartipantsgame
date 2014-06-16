@@ -1,8 +1,24 @@
 if ((window.location.href.indexOf('/users/1'))>-1){
     $.ajax({url: '/users/data', async: false}).done(function(response){
             stats = response;
-            console.log(stats.games);
-            // onAjaxComplete();
+            color_correct = stats.color_correct
+            audio_correct = stats.audio_correct
+            total_correct = stats.total_correct
+            total_color_correct = []
+            total_audio_correct = []
+            total_compile_correct = []
+            for (i=0; i < color_correct.length; i++){
+                total_color_correct.push(Math.round((color_correct[i]/(20.0+stats.n)) * 100))
+            }
+
+            for(i=0; i < audio_correct.length; i++){
+                total_audio_correct.push(Math.round((audio_correct[i]/(20.0+stats.n)) * 100))
+            }
+
+             for(i=0; i < total_correct.length; i++){
+                total_compile_correct.push(Math.round((total_correct[i]/(40.0+2 * stats.n)) * 100))
+            }
+
         });
 }
 
@@ -55,7 +71,7 @@ if ((window.location.href.indexOf('/users/1'))>-1){
                 },
                 series: [{
                     name: 'Total',
-                    data: stats.total_correct,
+                    data: total_compile_correct,
                     cursor: 'pointer',
                         point: {
                             events: {
@@ -69,7 +85,7 @@ if ((window.location.href.indexOf('/users/1'))>-1){
                         },
                 },{
                     name: 'Audio',
-                    data: stats.audio_correct,
+                    data: total_audio_correct,
                     cursor: 'pointer',
                         point: {
                             events: {
@@ -81,7 +97,7 @@ if ((window.location.href.indexOf('/users/1'))>-1){
                         },
                 }, {
                     name: 'Color',
-                    data: stats.color_correct,
+                    data: total_color_correct,
                     cursor: 'pointer',
                         point: {
                             events: {

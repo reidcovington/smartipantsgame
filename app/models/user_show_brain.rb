@@ -35,10 +35,8 @@ class UserShowBrain
          end
         end
             @answer3 << response1.length
-            @answer << ((response1.length/20.0)*100)
       end
       @answer3
-      @answer
   end
 
   def self.audio_correct(player)
@@ -64,16 +62,12 @@ class UserShowBrain
          end
         end
             @answer4 << response.length
-            @answer2 << ((response.length/20.0)*100)
       end
-      @answer2
+      @answer4
   end
 
   def self.total_correct
     @total_correct = [@answer3,@answer4].transpose.map {|x| x.reduce(:+)}
-    @total_correct.map! do |round|
-      ((round/40.0) * 100)
-    end
     @total_correct
   end
 
@@ -129,10 +123,10 @@ class UserShowBrain
         @color_false_array << round.color_id
       end
     end
-    p @color_false_array
+    @color_false_array
     @color_hash = Hash.new(0)
     @color_false_array.each { | v | @color_hash.store(v, @color_hash[v]+1) }
-    p @color_hash
+    @color_hash
   end
 
   def self.n(player)
