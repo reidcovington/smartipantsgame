@@ -52,8 +52,8 @@ GameController.prototype = {
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
-            $('#color-button').attr("class", "btn btn-danger");
-            $('#sound-button').attr("class", "btn btn-danger");
+            $('#color-button').attr("class", "btn btn-inverse");
+            $('#sound-button').attr("class", "btn btn-inverse");
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -69,10 +69,8 @@ GameController.prototype = {
         if(keyCode === 81){
             $('#color-button').addClass('active');
             this.gameModel.scoreGuess('color', this.currentRound);
-        } else if(keyCode === 87){
-            console.log('hello')
+        } else if(keyCode === 87 && this.gameMode === "dual"){
             $('#sound-button').addClass('active');
-
             this.gameModel.scoreGuess('sound', this.currentRound);
         };
     },
@@ -117,8 +115,11 @@ GameModel.prototype = {
         var currentRound = this.rounds[roundIndex];
         currentRound[attribute + 'Key'] = true;
         if(currentRound[attribute] === pastRound[attribute]){
+            $('#' + attribute + '-button').attr("class", "btn btn-success")
             currentRound[attribute + 'Guess'] = true;
-            console.log(currentRound[attribute + 'Guess'])
+        }
+        else if (currentRound[attribute] != pastRound[attribute]){
+            $('#' + attribute + '-button').attr("class", "btn btn-danger")
         }
     },
     scoreNonGuess: function(attribute, roundIndex){
