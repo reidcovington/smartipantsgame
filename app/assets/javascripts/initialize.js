@@ -163,7 +163,7 @@ RoundView.prototype = {
         if(roundData.sound){
             setTimeout(function(){
                 $("#soundElem"+roundData.soundId)[0].play();
-            }, 400)
+            }, 2000)
         };
         this.turnOnBuzzers();
         this.turnOnColorMatch();
