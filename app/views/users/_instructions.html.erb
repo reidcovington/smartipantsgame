@@ -5,12 +5,13 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">How to Play</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id='instructions-body'>
         <p>The object of the game is to watch the colors or sounds that are presented to you in the game while keeping track of the order that they were presented to you.  When you identify a color, sound or any other stimuli that also happened "n" times ago then you would press the key corresponding to that stimuli.</p>
 		<p>For example, if you choose to play n-back of 2 in single mode, you will identify colors that match the color that was shown 2 colors ago (so not the previous color but the one before that. </p><br>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Got It!</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Got It!</button>
+        <button type="button" class="btn btn-warning" id='show-example' onclick="playExample();">Show Me An Example!</button>
       </div>
     </div>
   </div>
