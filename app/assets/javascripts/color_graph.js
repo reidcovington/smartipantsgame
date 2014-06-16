@@ -1,78 +1,24 @@
 $(function () {
 
         var colors = Highcharts.getOptions().colors,
-            categories = ['Color1', 'Color2', 'Color3', 'Color4', 'Color5', 'Color6', 'Color7', 'Color8'],
+            categories = ['hit','miss'],
             name = 'Browser brands',
             data = [{
-                    y: 12.5,
+                    y: 60,
                     color: colors[0],
                     drilldown: {
-                        name: 'Color1',
-                        categories: ['hit','miss'],
-                        data: [6.25,6.25],
+                        name: 'Hit',
+                        categories: ['color1','color2','color3','color4','color5','color6','color7', 'color8'],
+                        data: [5,10,15,5,5,10,10,5],
                         color: colors[0]
                     }
                 }, {
-                    y: 12.5,
-                    color: colors[1],
-                    drilldown: {
-                        name: 'Color2',
-                        categories: ['hit','miss'],
-                        data: [6.25,6.25],
-                        color: colors[1]
-                    }
-                }, {
-                    y: 12.5,
-                    color: colors[2],
-                    drilldown: {
-                        name: 'Color3',
-                        categories: ['hit','miss'],
-                        data: [6.25,6.25],
-                        color: colors[2]
-                    }
-                }, {
-                    y: 12.5,
-                    color: colors[3],
-                    drilldown: {
-                        name: 'Color4',
-                        categories: ['hit','miss'],
-                        data: [6.25,6.25],
-                        color: colors[3]
-                    }
-                }, {
-                    y: 12.5,
+                    y: 40,
                     color: colors[4],
                     drilldown: {
-                        name: 'Color5',
-                        categories: ['hit','miss'],
-                        data: [6.25,6.25],
-                        color: colors[4]
-                    }
-                }, {
-                    y: 12.5,
-                    color: colors[5],
-                    drilldown: {
-                        name: 'Color6',
-                        categories: ['hit','miss'],
-                        data: [6.25,6.25],
-                        color: colors[4]
-                    }
-                }, {
-                    y: 12.5,
-                    color: colors[6],
-                    drilldown: {
-                        name: 'Color7',
-                        categories: ['hit','miss'],
-                        data: [6.25,6.25],
-                        color: colors[4]
-                    }
-                }, {
-                    y: 12.5,
-                    color: colors[7],
-                    drilldown: {
-                        name: 'Color8',
-                        categories: ['hit','miss'],
-                        data: [6.25,6.25],
+                        name: 'miss',
+                        categories: ['color1','color2','color3','color4','color5','color6','color7', 'color8'],
+                        data: [5,5,5,5,5,5,5,5],
                         color: colors[4]
                     }
                 }];

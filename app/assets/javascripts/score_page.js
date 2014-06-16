@@ -113,7 +113,6 @@ $(function () {
             }
         }
 
-        // Create the chart
         $('#graph_container').highcharts({
             credits: {
                 enabled: false
@@ -162,4 +161,6 @@ $(function () {
                 }
             }]
         });
-    });
+
+})
+
