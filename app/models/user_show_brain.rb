@@ -81,22 +81,64 @@ class UserShowBrain
     @color_true_array = []
     @user = User.find(player)
     @game = @user.games.last
-    p @true_rounds = @game.rounds.where(color_correct: true)
+    @true_rounds = @game.rounds.where(color_correct: true)
     @true_rounds.each do |round|
         @color_true_array << round.color_id
       end
-    p @color_true_array
+      p @color_true_array
+    @color_hash = Hash.new(0)
+    @color_true_array.each { | v | @color_hash.store(v, @color_hash[v]+1) }
+    @color_hash
   end
 
   def self.audio_true(player)
     @audio_true_array = []
     @user = User.find(player)
     @game = @user.games.last
-    p @true_rounds = @game.rounds.where(audio_correct: true)
+    @true_rounds = @game.rounds.where(audio_correct: true)
     @true_rounds.each do |round|
         @audio_true_array << round.audio_id
       end
-    p @audio_true_array
+     @audio_hash = Hash.new(0)
+     @audio_true_array.each { | v | @audio_hash.store(v, @audio_hash[v]+1) }
+     @audio_hash
+  end
+
+  def self.audios_false(player)
+    @audio_false_array = []
+    @user = User.find(player)
+    @game = @user.games.last
+    @false_rounds = @game.rounds
+    @false_rounds.each do |round|
+       if round.audio_correct != true
+          @audio_false_array << round.audio_id
+        end
+      end
+     @audio_hash = Hash.new(0)
+     @audio_false_array.each { | v | @audio_hash.store(v, @audio_hash[v]+1) }
+     @audio_hash
+  end
+
+  def self.color_false(player)
+    @color_false_array = []
+    @user = User.find(player)
+    @game = @user.games.last
+    @false_rounds = @game.rounds
+    @false_rounds.each do |round|
+      if round.color_correct != true
+        @color_false_array << round.color_id
+      end
+    end
+    p @color_false_array
+    @color_hash = Hash.new(0)
+    @color_false_array.each { | v | @color_hash.store(v, @color_hash[v]+1) }
+    p @color_hash
+  end
+
+  def self.n(player)
+    @user = User.find(player)
+    @game = @user.games.last
+    @n = @game.n
   end
 
 end
