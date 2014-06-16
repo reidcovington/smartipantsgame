@@ -66,7 +66,7 @@ GameController.prototype = {
 
     },
     evalGuess: function(keyCode){
-        if(keyCode === 81){
+        if(keyCode === 69){
             $('#color-button').addClass('active');
             this.gameModel.scoreGuess('color', this.currentRound);
         } else if(keyCode === 87 && this.gameMode === "dual"){
@@ -185,7 +185,7 @@ RoundView.prototype = {
     turnOnColorMatch: function(){
         $("#color-button").on('click', function(event){
             event.preventDefault();
-            this.delegate.evalGuess(81);
+            this.delegate.evalGuess(69);
         }.bind(this));
     },
     turnOnSoundMatch: function(){
