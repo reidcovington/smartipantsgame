@@ -75,8 +75,16 @@ class UserShowBrain
   end
 
   def self.color_true
+    @color_true_array = []
     @user = User.find(1)
-    @games = @user.games
+    @game = @user.games.last
+    @true_rounds = @game.rounds.where(color_correct: true)
+    @true_rounds.each do |round|
+      puts "[LOG] round: #{round.color_id}"
+      @color_true_array << round.color_id
+    end
+    puts "[LOG] @color_true_array: #{@color_true_array}"
+    @color_true_array
   end
 
 end
