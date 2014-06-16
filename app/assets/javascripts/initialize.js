@@ -18,13 +18,14 @@ ApplicationController.prototype = {
     buildGame: function(n, gameMode){
         this.gameController = new GameController(n, gameMode, this.jQSelector, this);
     },
-    announceResult: function(points){
-        this.announcer.postResult(points);
+    announceResult: function(points, gameMode){
+        this.announcer.postResult(points, gameMode);
     }
 };
 
 function GameController(n, gameMode, jQSelector, delegate){
     this.n = n;
+    this.gameMode = gameMode;
     this.delegate = delegate;
     this.soundBuilder = new SoundBuilder()
     this.gameModel = new GameModel(n, this.fetchGameStructure(gameMode));
@@ -36,7 +37,7 @@ GameController.prototype = {
     fetchGameStructure: function(gameMode){
         var colorArr = [];
         var soundArr = [];
-        for(var i = 1; i < 9; i++){
+        for(var i = 1; i < 6; i++){
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
@@ -52,7 +53,6 @@ GameController.prototype = {
         var timeInt = window.setInterval(function(){
             console.log(this.gameModel.rounds[this.currentRound])
             this.evalRound();
-            console.log(this.currentRound + " out of " + this.gameModel.rounds.length)
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -61,7 +61,7 @@ GameController.prototype = {
                 clearInterval(timeInt);
                 this.endGame(this.gameModel.rounds);
             }
-        }.bind(this), 600);
+        }.bind(this), 2500);
     },
     evalGuess: function(keyCode){
         if(keyCode === 81){
@@ -78,6 +78,7 @@ GameController.prototype = {
     },
     endGame: function(rounds){
         var points = 0;
+        var self = this;
         for(var i = 0; i < rounds.length; i++){
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
@@ -85,7 +86,7 @@ GameController.prototype = {
 
         $.post('/games', {n: this.n, rounds: rounds} )
         .done(function(response){console.log(response)})
-        this.delegate.announceResult(points);
+        this.delegate.announceResult(points, this.gameMode);
     }//,
     // _buildGameJson: function(gameModel){
     //     var n = gameModel.n;
@@ -113,6 +114,7 @@ GameModel.prototype = {
         currentRound[attribute + 'Key'] = true;
         if(currentRound[attribute] === pastRound[attribute]){
             currentRound[attribute + 'Guess'] = true;
+            console.log(currentRound[attribute + 'Guess'])
         }
     },
     scoreNonGuess: function(attribute, roundIndex){
@@ -131,6 +133,7 @@ function RoundModel(attributes){
 };
 RoundModel.prototype = {
     pickColor: function(attributes){
+        console.log(attributes)
         var colors = attributes.colors;
         if( colors ){
             return colors[Math.floor(Math.random() * colors.length)];
@@ -154,23 +157,36 @@ function RoundView(jQSelector, delegate){
 RoundView.prototype = {
     constructRound: function(roundData){
         if(roundData.color){
-            $(this.jQSelector).fadeOut(300)
+            $(this.jQSelector).fadeOut(200)
             $(this.jQSelector).css('background-color', roundData.color)
             $(this.jQSelector).fadeIn(300)
 
         };
         if(roundData.sound){
-            // debugger
             setTimeout(function(){
                 $("#soundElem"+roundData.soundData[0])[0].play();
             }, 400)
         };
         this.turnOnBuzzers();
+        this.turnOnColorMatch();
+        this.turnOnSoundMatch();
     },
     turnOnBuzzers: function(){
         $(document).on('keyup', function(event){
             event.preventDefault();
             this.delegate.evalGuess(event.keyCode);
+        }.bind(this));
+    },
+    turnOnColorMatch: function(){
+        $("#color-button").on('click', function(event){
+            event.preventDefault();
+            this.delegate.evalGuess(81);
+        }.bind(this));
+    },
+    turnOnSoundMatch: function(){
+        $("#sound-button").on('click', function(event){
+            event.preventDefault();
+            this.delegate.evalGuess(82);
         }.bind(this));
     }
 };
@@ -226,8 +242,14 @@ Announcer.prototype = {
             };
         }.bind(this))
     },
-    postResult: function(points){
-        $(this.jQSelector).empty().append("<h3>You scored "+points+" out of 40 possible points!</h3><br><a href='#'>Play again!</a>")
+    postResult: function(points, gameMode){
+        var rounds;
+        if (gameMode == 'single') {
+            rounds = 20;
+        } else if (gameMode == 'dual') {
+            rounds = 40;
+        };
+        $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>');
     }
 }
 function SoundBuilder(){}
@@ -235,10 +257,10 @@ SoundBuilder.prototype = {
     buildSounds: function(soundUrlArray){
         // debugger
         for(var i = 0; i < soundUrlArray.length; i++){
-            this._buildSound(i, soundUrlArray[i])
+            this._buildSound(i, soundUrlArray[i]);
         }
     },
     _buildSound: function(i, url){
-        $('.container-fluid').append("<audio id='soundElem"+i+"'><source src='"+url+"' type='audio/mpeg'></audio>")
+        $('.container-fluid').append("<audio id='soundElem"+i+"'><source src='"+url+"' type='audio/mpeg'></audio>");
     }
-}
+};
