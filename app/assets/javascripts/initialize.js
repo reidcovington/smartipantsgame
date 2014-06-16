@@ -50,8 +50,9 @@ GameController.prototype = {
     initiateGame: function(){
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
+            console.log(this.gameModel.rounds[this.currentRound])
             this.evalRound();
-            console.log(this.gameModel.rounds.length)
+            console.log(this.currentRound + " out of " + this.gameModel.rounds.length)
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -81,16 +82,17 @@ GameController.prototype = {
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
         };
-        $.post('/games', {n: this.n, rounds: rounds})//_buildGameJson(this.gameModel))
+        console.log(JSON.stringify({n: this.n, rounds: rounds}));
+        $.post('/games', JSON.stringify({n: this.n, rounds: rounds}))//_buildGameJson(this.gameModel))
         .done(function(response){console.log(response)})
         this.delegate.announceResult(points);
-    },
-    _buildGameJson: function(gameModel){
-        var n = gameModel.n;
-        var rounds = gameModel.rounds;
-        console.log({n: n, rounds: rounds})
-        return {n: n, rounds: rounds}
-    }
+    }//,
+    // _buildGameJson: function(gameModel){
+    //     var n = gameModel.n;
+    //     var rounds = gameModel.rounds;
+    //     console.log({n: n, rounds: rounds})
+    //     return {n: n, rounds: rounds}
+    // }
 };
 
 function GameModel(n, roundAttributes){
@@ -215,7 +217,6 @@ Announcer.prototype = {
         var activeNBack = this.nBackNumberSelector + ' .active';
         $(jQSelector).on('click', function(event){
             event.preventDefault();
-            console.log(this + "clicked")
             if ($(gameModeSelector).text().toLowerCase() == 'game mode') {
                 alert("Please select a Game Mode!");
             } else {
