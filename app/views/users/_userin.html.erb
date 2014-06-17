@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/users/<%= session[:user_id] %>" id="profile-link">Profile</a></li>
-            <li><a href="/users/logout" id='logout'>Logout</a></li>
+            <li><%= link_to("Logout", users_logout_path, id:"logout") %></li>
           </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
