@@ -70,7 +70,7 @@ GameController.prototype = {
                 clearInterval(timeInt);
                 this.endGame(this.gameModel.rounds);
             }
-        }.bind(this), 2500);
+        }.bind(this), 2300);
 
 
     },
@@ -195,7 +195,7 @@ RoundView.prototype = {
         if(roundData.sound){
             setTimeout(function(){
                 $("#soundElem"+roundData.soundId)[0].play();
-            }, 400)
+            }, 300)
         };
         this.turnOnBuzzers();
         this.turnOnColorMatch();
