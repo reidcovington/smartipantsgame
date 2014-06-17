@@ -16,11 +16,14 @@
 </head>
 <body data-no-turbolink>
 
-  <% if session[:user_id] %>
-    <%= render "users/userin" %>
-  <% else %>
-    <%= render "users/nouser" %>
-  <% end %>
+  <nav class="nav navbar-default" role="navigation" id='user-navbar'>
+    <% if session[:user_id] %>
+      <%= render "users/userin" %>
+    <% else %>
+      <%= render "users/nouser" %>
+    <% end %>
+  </nav>
+
 
 <%= yield %>
     

@@ -1,11 +1,4 @@
 describe("GameController", function() {
-
-  it("should test that jasmine is running", function() {
-    var player = "player";
-    expect(typeof player).toBe("string");
-  });
-
-
   describe("#initialize", function() {
     var applicationController = new ApplicationController
     var gameController =  new GameController( 2, "dual", '#game-section', applicationController);
@@ -58,18 +51,13 @@ describe("GameController", function() {
     it('if "q" is pressed, calls #scoreGuess method and evals for color match', function(){
       expect(gameController.gameModel.scoreGuess("color", gameController.currentRound )).toBeDefined();
     });
-
   });
 
-
-    // it("acceptes color and sound attributes", function(){
-    //   var round =  new RoundModel( {colors: ["Magenta"], sounds: ["chewbacca growl"]})
-    //   expect(round.color).toEqual("Magenta");
-    //   expect(round.sound).toEqual("chewbacca growl");
-    // });
-
-  // });
-
+    it("acceptes color and sound attributes", function(){
+      var round =  new RoundModel( {colors: ["Magenta"], sounds: ["chewbacca growl"]})
+      expect(round.color).toEqual("Magenta");
+      expect(round.sound).toEqual("chewbacca growl");
+    });
 });
 
 
