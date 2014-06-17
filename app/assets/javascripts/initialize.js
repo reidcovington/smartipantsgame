@@ -1,6 +1,8 @@
 var stats;
 var gameData;
-$(document).ready(function() {
+var ready;
+ready = function() {
+
     $.get('/games/game_data').done(function(response){
         gameData = response;
     });
@@ -10,7 +12,12 @@ $(document).ready(function() {
             // console.log(response);
         });
     new ApplicationController("#game-section")
-})
+
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
+
 
 function ApplicationController(jQSelector){
     this.jQSelector = jQSelector;
