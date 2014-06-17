@@ -1,3 +1,19 @@
+// ResultsGraphMaker = function(gameObject){
+//     this.makeBadassGraphdude(gameObject);
+// };
+
+// ResultsGraphMaker.prototype = {
+//     makeBadassGraphdude: function(){
+//         this.tweekWeirdBits();
+//     }
+
+//     tweekWeirdBits: function(){
+
+//     }
+// }
+
+
+
 var ready;
 ready = function() {
 
