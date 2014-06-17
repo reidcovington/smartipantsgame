@@ -51,11 +51,11 @@
   border-radius: 15px
 }
 
-#start-button{
-  position: absolute;
-  z-index: 999;
-  top:430px;
-  left: 540px;
+#start-button {
+    height: 100px;
+    width: 200px;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .form-group {
