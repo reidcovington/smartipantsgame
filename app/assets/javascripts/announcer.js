@@ -12,7 +12,7 @@ Announcer.prototype = {
         // $(this.jQSelector).append("Hello")
         this._listenForNbackNumber();
         this._listenForGameMode(this.gameModeSelector);
-        this._listenForClick(this.jQSelector, this.nSelector, this.gameModeSelector);
+        this._listenForStartClick(this.jQSelector, this.gameModeSelector);
     },
     _listenForNbackNumber: function() {
         $('.pagination ul li').click(function(event) {
@@ -36,7 +36,7 @@ Announcer.prototype = {
             $(gameModeSelector).text(event.target.innerHTML).append('<span class="caret"></span>');
         })
     },
-    _listenForClick: function(jQSelector, nBackNumberSelector, gameModeSelector){
+    _listenForStartClick: function(jQSelector, gameModeSelector){
         var activeNBack = this.nSelector + ' .active';
         $(document).on('click', "#start-button", function(event){
             event.preventDefault();
