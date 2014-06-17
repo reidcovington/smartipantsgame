@@ -687,7 +687,7 @@ fieldset[disabled] .btn-info.active {
 .btn-danger:active,
 .btn-danger.active,
 .open .dropdown-toggle.btn-danger {
-  color: #ffffff;
+  color: #1ABC9C;
   background-color: #ec7063;
   border-color: #ec7063;
 }
@@ -798,14 +798,14 @@ fieldset[disabled] .btn-warning.active {
 .btn-inverse:active,
 .btn-inverse.active,
 .open .dropdown-toggle.btn-inverse {
-  color: #ffffff;
-  background-color: #415b76;
+  color: #1ABC9C;
+  background-color: #4f708f;
   border-color: #415b76;
 }
 .btn-inverse:active,
 .btn-inverse.active,
 .open .dropdown-toggle.btn-inverse {
-  background: #2c3e50;
+  background: #4f708f;
   border-color: #2c3e50;
 }
 .btn-inverse.disabled,

@@ -1,12 +1,15 @@
+var stats;
 var gameData;
 $(document).ready(function() {
-    // if (window.location.href.indexOf('/games/play') > -1){
     $.get('/games/game_data').done(function(response){
         gameData = response;
     });
-    new ApplicationController("#game-section")
-    // }
 
+    $.get('/users/data').done(function(response){
+            stats = response;
+            // console.log(response);
+        });
+    new ApplicationController("#game-section")
 })
 
 function ApplicationController(jQSelector){
@@ -37,21 +40,28 @@ GameController.prototype = {
     fetchGameStructure: function(gameMode){
         var colorArr = [];
         var soundArr = [];
-        for(var i = 1; i < 6; i++){
+        var positionArr = [1,2,3,4];
+        for(var i = 1; i < 5; i++){
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
         if (gameMode == 'single') {
-            return {colors: colorArr}
+            return {positions: positionArr}
         } else if (gameMode == 'dual') {
             this.soundBuilder.buildSounds(soundArr)
-            return {colors: colorArr, sounds: soundArr}
+            return {positions: positionArr, sounds: soundArr}
+        } else if (gameMode == 'triple'){
+            this.soundBuilder.buildSounds(soundArr)
+            return {colors: colorArr, sounds: soundArr, positions: positionArr}
         }
     },
     initiateGame: function(){
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
+            $('#color-button').attr("class", "btn btn-inverse");
+            $('#sound-button').attr("class", "btn btn-inverse");
+            $('#position-button').attr("class", "btn btn-inverse");
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -60,13 +70,19 @@ GameController.prototype = {
                 clearInterval(timeInt);
                 this.endGame(this.gameModel.rounds);
             }
-        }.bind(this), 1000);
+        }.bind(this), 2300);
+
 
     },
     evalGuess: function(keyCode){
-        if(keyCode === 81){
+        if(keyCode === 69 && this.gameMode === 'triple'){
+            $('#color-button').addClass('active');
             this.gameModel.scoreGuess('color', this.currentRound);
-        } else if(keyCode === 82){
+        } else if(keyCode === 81){
+            $('#position-button').addClass('active');
+            this.gameModel.scoreGuess('position', this.currentRound);
+        } else if(keyCode === 87 && this.gameMode != 'single'){
+            $('#sound-button').addClass('active');
             this.gameModel.scoreGuess('sound', this.currentRound);
         };
     },
@@ -74,6 +90,7 @@ GameController.prototype = {
         if(this.currentRound >= this.n){
             this.gameModel.scoreNonGuess('color', this.currentRound);
             this.gameModel.scoreNonGuess('sound', this.currentRound);
+            this.gameModel.scoreNonGuess('position', this.currentRound);
         }
     },
     endGame: function(rounds){
@@ -81,6 +98,7 @@ GameController.prototype = {
         for(var i = 0; i < rounds.length; i++){
             if(rounds[i].colorGuess){ points++ };
             if(rounds[i].soundGuess){ points++ };
+            if(rounds[i].positionGuess){ points++ };
         };
         $.ajax({
             url: '/games',
@@ -111,9 +129,11 @@ GameModel.prototype = {
         var currentRound = this.rounds[roundIndex];
         currentRound[attribute + 'Key'] = true;
         if(currentRound[attribute] === pastRound[attribute]){
+            $('#' + attribute + '-button').attr("class", "btn btn-success")
             currentRound[attribute + 'Guess'] = true;
-            console.log(currentRound[attribute + 'Guess'])
-        }
+        } else if (currentRound[attribute] != pastRound[attribute]){
+            $('#' + attribute + '-button').attr("class", "btn btn-danger")
+        };
     },
     scoreNonGuess: function(attribute, roundIndex){
         var pastRound = this.rounds[roundIndex - this.n];
@@ -128,6 +148,7 @@ function RoundModel(roundNumber, attributes){
     this.roundNumber = roundNumber;
     this.color = this.pickColor(attributes);
     this.sound = this.pickSound(attributes);
+    this.position = this.pickPosition(attributes);
 };
 RoundModel.prototype = {
     pickColor: function(attributes){
@@ -145,6 +166,13 @@ RoundModel.prototype = {
             return sounds[this.soundId - 1];
         };
         return null;
+    },
+    pickPosition: function(attributes){
+        var positions = attributes.positions;
+        if( positions ){
+            return positions[Math.floor(Math.random()*positions.length)]
+        }
+        return null
     }
 };
 
@@ -154,20 +182,25 @@ function RoundView(jQSelector, delegate){
 };
 RoundView.prototype = {
     constructRound: function(roundData){
-        if(roundData.color){
-            $(this.jQSelector).fadeOut(200)
-            $(this.jQSelector).css('background-color', roundData.color)
-            $(this.jQSelector).fadeIn(300)
-
-        };
+        $('#game-section td').fadeOut(200)
+        setTimeout(function(){
+            $('#game-section td').css('background-color', 'transparent')
+            if(roundData.color){
+                $('td.'+roundData.position).css('background-color', roundData.color)
+            } else{
+                $('td.'+roundData.position).css('background-color', '#fff51b')
+            };
+            $('#game-section td').fadeIn(200)
+        }, 200)
         if(roundData.sound){
             setTimeout(function(){
                 $("#soundElem"+roundData.soundId)[0].play();
-            }, 400)
+            }, 300)
         };
         this.turnOnBuzzers();
         this.turnOnColorMatch();
         this.turnOnSoundMatch();
+        this.turnOnPositionMatch();
     },
     turnOnBuzzers: function(){
         $(document).on('keyup', function(event){
@@ -178,13 +211,19 @@ RoundView.prototype = {
     turnOnColorMatch: function(){
         $("#color-button").on('click', function(event){
             event.preventDefault();
-            this.delegate.evalGuess(81);
+            this.delegate.evalGuess(69);
         }.bind(this));
     },
     turnOnSoundMatch: function(){
         $("#sound-button").on('click', function(event){
             event.preventDefault();
             this.delegate.evalGuess(82);
+        }.bind(this));
+    },
+    turnOnPositionMatch: function(){
+        $("#position-button").on('click', function(event){
+            event.preventDefault();
+            this.delegate.evalGuess(69);
         }.bind(this));
     }
 };
@@ -232,13 +271,15 @@ Announcer.prototype = {
     },
     _listenForClick: function(jQSelector, nBackNumberSelector, gameModeSelector){
         var activeNBack = this.nBackNumberSelector + ' .active';
-        $(jQSelector).on('click', function(event){
+        $(document).on('click', "#start-button", function(event){
             event.preventDefault();
+            $(this.jQSelector).empty().append('<tr><td class="1"></td><td class="2"></td></tr><tr><td class="3"></td><td class="4"></td></tr>');
             if ($(gameModeSelector).text().toLowerCase() == 'game mode') {
                 alert("Please select a Game Mode!");
             } else {
                 $("#start-button").hide();
-                $( jQSelector ).css("pointer-events", "none")
+                // $( "#start-button" ).css("pointer-events", "none");
+                // $( "#start-button").unbind( "click" );
                 this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())
             };
         }.bind(this))
@@ -249,9 +290,12 @@ Announcer.prototype = {
             rounds = 20;
         } else if (gameMode == 'dual') {
             rounds = 40;
+        } else if (gameMode == 'triple'){
+            rounds = 60;
         };
         $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><p> See full results <a hre="#">below</a><br><br>OR<br><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>');
-        // $('#game-section').hide();
+        // $( "#start-button" ).css("pointer-events", "auto");
+         // $( "#start-button").bind( "click" );
         $('#graph_container').show();
     }
 }

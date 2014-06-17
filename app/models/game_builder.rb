@@ -22,6 +22,12 @@ class GameBuilder
   end
 
   def self.build_round(round)
-    Round.new(round_number: round[:roundNumber], color_id: round[:colorId], color_correct: round[:colorGuess], audio_id: round[:soundId], audio_correct: round[:soundGuess])
+    Round.new(round_number: round[:roundNumber], 
+              color_id: round[:colorId], 
+              audio_id: round[:soundId], 
+              position: round[:position],
+              color_correct: round[:colorGuess], 
+              audio_correct: round[:soundGuess],
+              position_correct: round[:positionGuess])
   end
 end
