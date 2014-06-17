@@ -1,4 +1,4 @@
-if ((window.location.href.indexOf('/users/1'))>-1){
+if((window.location.href.indexOf('/users/1'))>-1){
     $.ajax({url: '/users/data', async: false}).done(function(response){
             stats = response;
             stats_data2 = []

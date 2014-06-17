@@ -12,10 +12,11 @@ $(document).ready(function(){
         $.post('/users', $( '#submit-signup' ).serialize());
     })
 
-    $('#logout').click(function(e){
-        e.preventDefault();
-        $.post('/users/logout').done(function(response){
-            location.reload();
-        });
-    });
+    // $('#logout').click(function(e){
+    //     e.preventDefault();
+    //     console.log('derp')
+    //     $.get('/users/logout').done(function(response){
+    //         window.location.reload();
+    //     });
+    // });
 });

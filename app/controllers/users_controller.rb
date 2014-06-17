@@ -49,6 +49,7 @@ end
 
   def logout
     session.clear
+    puts "[LOG] session[:user_id] = #{session[:user_id]}"
     redirect_to root_path
   end
 

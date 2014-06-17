@@ -3,15 +3,15 @@ Rails.application.routes.draw do
 
   root to: 'games#play'
   get '/users/data', to: 'users#data'
-  resources :users
 
   post '/users/login', to: 'users#login'
   get '/users/logout', to: 'users#logout'
+  get '/users/stats', to: 'users#stats'
   # get '/users/statistics', to: 'users#statistics'
 
 
-  get '/users/:id', to: 'user#show'
-  get '/users/stats', to: 'users#stats'
+  # get '/users/:id', to: 'user#show'
+  resources :users
 
   post '/games', to: 'games#create', defaults: { format: 'json' }
 
