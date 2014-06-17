@@ -1,5 +1,3 @@
-
-
 describe("GameModel", function() {
 
   describe("Game Model initialization", function() {

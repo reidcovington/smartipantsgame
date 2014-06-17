@@ -28,7 +28,7 @@ function GameController(n, gameMode, jQSelector, delegate){
     this.gameMode = gameMode;
     this.delegate = delegate;
     this.soundBuilder = new SoundBuilder()
-    this.gameModel = new GameModel(n, this.fetchGameStructure(gameMode));
+    this.gameModel = new GameModel(n, this.fetchGameStructure(gameMode), this);
     this.roundView = new RoundView(jQSelector, this);
     this.currentRound = 0;
     this.initiateGame();
@@ -56,9 +56,6 @@ GameController.prototype = {
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
-            $('#color-button').attr("class", "btn btn-inverse");
-            $('#sound-button').attr("class", "btn btn-inverse");
-            $('#position-button').attr("class", "btn btn-inverse");
             if(this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
                 this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
@@ -68,18 +65,16 @@ GameController.prototype = {
                 this.endGame(this.gameModel.rounds);
             }
         }.bind(this), 2300);
-
-
     },
     evalGuess: function(keyCode){
         if(keyCode === 69 && this.gameMode === 'triple'){
-            $('#color-button').addClass('active');
+            this.roundView.markActive('color');
             this.gameModel.scoreGuess('color', this.currentRound);
         } else if(keyCode === 81){
-            $('#position-button').addClass('active');
+            this.roundView.markActive('position');
             this.gameModel.scoreGuess('position', this.currentRound);
         } else if(keyCode === 87 && this.gameMode != 'single'){
-            $('#sound-button').addClass('active');
+            this.roundView.markActive('sound');
             this.gameModel.scoreGuess('sound', this.currentRound);
         };
     },
@@ -89,6 +84,10 @@ GameController.prototype = {
             this.gameModel.scoreNonGuess('sound', this.currentRound);
             this.gameModel.scoreNonGuess('position', this.currentRound);
         }
+        this.roundView.resetButtons()
+    },
+    provideFeedback: function(button, feedback){
+        this.roundView.updateButtonStatus(button, feedback);
     },
     endGame: function(rounds){
         var points = 0;
@@ -109,7 +108,8 @@ GameController.prototype = {
     }
 };
 
-function GameModel(n, roundAttributes){
+function GameModel(n, roundAttributes, delegate){
+    this.delegate = delegate;
     this.n = n;
     this.roundAttributes = roundAttributes;
     this.rounds = [];
@@ -126,10 +126,10 @@ GameModel.prototype = {
         var currentRound = this.rounds[roundIndex];
         currentRound[attribute + 'Key'] = true;
         if(currentRound[attribute] === pastRound[attribute]){
-            $('#' + attribute + '-button').attr("class", "btn btn-success")
+            this.delegate.provideFeedback(attribute, 'success')
             currentRound[attribute + 'Guess'] = true;
         } else if (currentRound[attribute] != pastRound[attribute]){
-            $('#' + attribute + '-button').attr("class", "btn btn-danger")
+            this.delegate.provideFeedback(attribute, 'danger')
         };
     },
     scoreNonGuess: function(attribute, roundIndex){
@@ -185,20 +185,20 @@ RoundView.prototype = {
             $('#game-section td').css('background-color', 'transparent')
             if(roundData.color){
                 $('td.'+roundData.position).css('background-color', roundData.color)
+                this.turnOnColorMatch();
             } else{
                 $('td.'+roundData.position).css('background-color', '#555')
             };
+            this.turnOnPositionMatch();
             $('#game-section td').fadeIn(200)
-        }, 200)
+        }.bind(this), 200)
         if(roundData.sound){
             setTimeout(function(){
                 $("#soundElem"+roundData.soundId)[0].play();
-            }, 300)
+                this.turnOnSoundMatch();
+            }.bind(this), 300)
         };
         this.turnOnBuzzers();
-        this.turnOnColorMatch();
-        this.turnOnSoundMatch();
-        this.turnOnPositionMatch();
     },
     turnOnBuzzers: function(){
         $(document).on('keyup', function(event){
@@ -207,22 +207,33 @@ RoundView.prototype = {
         }.bind(this));
     },
     turnOnColorMatch: function(){
-        $("#color-button").on('click', function(event){
+        $(document).on('click', "#color-button", function(event){
             event.preventDefault();
             this.delegate.evalGuess(69);
         }.bind(this));
     },
     turnOnSoundMatch: function(){
-        $("#sound-button").on('click', function(event){
+        $(document).on('click', "#sound-button", function(event){
             event.preventDefault();
-            this.delegate.evalGuess(82);
+            this.delegate.evalGuess(87);
         }.bind(this));
     },
     turnOnPositionMatch: function(){
         $("#position-button").on('click', function(event){
             event.preventDefault();
-            this.delegate.evalGuess(69);
+            this.delegate.evalGuess(81);
         }.bind(this));
+    },
+    resetButtons: function(){
+        $('#color-button').attr("class", "btn btn-inverse");
+        $('#sound-button').attr("class", "btn btn-inverse");
+        $('#position-button').attr("class", "btn btn-inverse");
+    },
+    markActive: function(button){
+        $('#'+button+'-button').addClass('active');
+    },
+    updateButtonStatus: function(button, feedback){
+        $('#' + button + '-button').attr("class", "btn btn-" + feedback );
     }
 };
 
@@ -276,8 +287,6 @@ Announcer.prototype = {
                 alert("Please select a Game Mode!");
             } else {
                 $("#start-button").hide();
-                // $( "#start-button" ).css("pointer-events", "none");
-                // $( "#start-button").unbind( "click" );
                 this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())
             };
         }.bind(this))

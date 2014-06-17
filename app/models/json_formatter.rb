@@ -13,5 +13,5 @@ class JSONFormatter
   def self.pull_values(klass, property)
     klass.all.map{|instance| instance.send(property) }
   end
-
+  
 end
