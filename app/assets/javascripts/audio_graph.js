@@ -1,23 +1,22 @@
 var ready;
 ready = function() {
-
-
     if ((window.location.href.indexOf('profile'))>-1){
         $.ajax({url: '/users/data', async: false}).done(function(response){
                 stats = response;
                 stats_data2 = []
                 stats_data4 = []
-                stats_data2.push(Math.round((stats.audios_true[1] || 0)/(20.0 + stats.n) *100))
-                stats_data2.push(Math.round((stats.audios_true[2] || 0)/(20.0 + stats.n) *100))
-                stats_data2.push(Math.round((stats.audios_true[3] || 0)/(20.0 + stats.n) *100))
-                stats_data2.push(Math.round((stats.audios_true[4] || 0)/(20.0 + stats.n) *100))
-                stats_data2.push(Math.round((stats.audios_true[5] || 0)/(20.0 + stats.n) *100))
+                false_states_array = []
+                stats_data2.push(Math.round((stats.audios_true[1] || 0)/(20.0) *100))
+                stats_data2.push(Math.round((stats.audios_true[2] || 0)/(20.0) *100))
+                stats_data2.push(Math.round((stats.audios_true[3] || 0)/(20.0) *100))
+                stats_data2.push(Math.round((stats.audios_true[4] || 0)/(20.0) *100))
+                stats_data2_total = (eval(stats_data2.join('+')))
+                false_states_array.push(100 - stats_data2_total)
 
-                stats_data4.push(Math.round((stats.audios_false[1] || 0)/(20.0 + stats.n) *100))
-                stats_data4.push(Math.round((stats.audios_false[2] || 0)/(20.0 + stats.n) *100))
-                stats_data4.push(Math.round((stats.audios_false[3] || 0)/(20.0 + stats.n) *100))
-                stats_data4.push(Math.round((stats.audios_false[4] || 0)/(20.0 + stats.n) *100))
-                stats_data4.push(Math.round((stats.audios_false[5] || 0)/(20.0 + stats.n) *100))
+                stats_data4.push(Math.round((stats.audios_false[1] || 0)/(20.0) *35))
+                stats_data4.push(Math.round((stats.audios_false[2] || 0)/(20.0) *35))
+                stats_data4.push(Math.round((stats.audios_false[3] || 0)/(20.0) *35))
+                stats_data4.push(Math.round((stats.audios_false[4] || 0)/(20.0) *35))
                 stats_data2_total = (eval(stats_data2.join('+')))
                 stats_data4_total = (eval(stats_data4.join('+')))
             });
@@ -31,17 +30,17 @@ ready = function() {
                         color: colors[0],
                         drilldown: {
                             name: 'Hit',
-                            categories: ['audio1','audio2','audio3','audio4','audio5'],
+                            categories: ['audio1','audio2','audio3','audio4'],
                             data: stats_data2,
                             color: colors[0]
                         }
                     }, {
-                        y: stats_data4_total,
+                        y: 100 - stats_data2_total,
                         color: colors[4],
                         drilldown: {
                             name: 'miss',
-                            categories: ['audio1','audio2','audio3','audio4','audio5'],
-                            data: stats_data4,
+                            categories: ['Incorrect'],
+                            data: false_states_array,
                             color: colors[4]
                         }
                     }];
@@ -95,7 +94,7 @@ ready = function() {
                   valueSuffix: '%'
                 },
                 series: [{
-                    name: 'Browsers',
+                    name: 'Answers',
                     data: browserData,
                     size: '60%',
                     dataLabels: {

@@ -26,7 +26,6 @@ ready = function() {
 
              for(i=0; i < total_correct.length; i++){
                 total_compile_correct.push(Math.round((total_correct[i][1]/60 * 100)))
-                console.log(audio_correct[i][0])
             }
         });
 

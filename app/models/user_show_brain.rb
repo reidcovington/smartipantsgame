@@ -171,7 +171,7 @@ class UserShowBrain
     @color_false_array
     @color_hash = Hash.new(0)
     @color_false_array.each { | v | @color_hash.store(v, @color_hash[v]+1) }
-    @color_hash
+    p @color_hash
   end
 
   def self.n(player)
