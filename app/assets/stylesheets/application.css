@@ -24,6 +24,24 @@
   border-radius: 15px;
 }
 
+.pagination ul {
+  padding: .5em;
+}
+
+.dropdown {
+  display: inline;
+  margin-left: 1em;
+}
+
+#game-mode {
+  padding: .8em 1em .8em 1em;
+  background-color: #7AABED;
+}
+
+#game-mode-selection {
+  background-color: #C966D6;
+}
+
 #game-section tr {
   height: 15em;
 }
@@ -36,8 +54,8 @@
 #start-button{
   position: absolute;
   z-index: 999;
-  top:330px;
-  left: 740px;
+  top:430px;
+  left: 540px;
 }
 
 .form-group {
@@ -50,24 +68,21 @@
 }
 
 #position-button {
+  background-color: #7AABED;
   width: 9em;
   height: 4em;
   margin: 2em 1em 1em 1em;
 }
 
 #sound-button {
+  background-color: #7AABED;
   width: 9em;
   height: 4em;
   margin: 2em 1em 1em 1em;
 }
 
 #color-button {
-  width: 9em;
-  height: 4em;
-  margin: 2em 1em 1em 1em;
-}
-
-#shape-button {
+  background-color: #7AABED;
   width: 9em;
   height: 4em;
   margin: 2em 1em 1em 1em;
