@@ -606,7 +606,7 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-primary {
   color: #ffffff;
-  background-color: #1abc9c;
+  background-color: #C966D6;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -614,13 +614,13 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
   color: #ffffff;
-  background-color: #48c9b0;
+  background-color: #7AABED;
   border-color: #48c9b0;
 }
 .btn-primary:active,
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
-  background: #16a085;
+  background: #7AABED;
   border-color: #16a085;
 }
 .btn-primary.disabled,
@@ -3053,7 +3053,7 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
   position: relative;
 }
 .pagination ul {
-  background: #d6dbdf;
+  background: #7AABED;
   color: #ffffff;
   padding: 0;
   margin: 0;
@@ -3064,6 +3064,7 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
   display: inline-block;
   margin-right: -3px;
   vertical-align: middle;
+
 }
 .pagination ul li:first-child {
   border-radius: 6px 0 0 6px;
@@ -3113,6 +3114,11 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
 .pagination ul li.next {
   margin-left: 9px;
 }
+
+.pagination ul {
+  padding: .2em .6em .2em .6em;
+}
+
 .pagination ul li.next > a,
 .pagination ul li.next > span {
   border-left: 2px solid #e4e7ea;
@@ -3122,7 +3128,7 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
 }
 .pagination ul li.active > a,
 .pagination ul li.active > span {
-  background-color: #1ABC9C;
+  background-color: #66D683;
   border-color: #ffffff;
   border-width: 2px !important;
   color: #ffffff;
@@ -3158,7 +3164,7 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
 .pagination ul li.active.next > a:focus,
 .pagination ul li.active.previous > span:focus,
 .pagination ul li.active.next > span:focus {
-  background-color: #1abc9c;
+  background-color: #1ABC9C;
   color: #ffffff;
 }
 .pagination ul li.active.previous {
@@ -3168,7 +3174,7 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
 .pagination ul li > span {
   display: inline-block;
   background: #ffffff;
-  border: 5px solid #d6dbdf;
+  border: 5px solid #f7ea7d;
   color: #ffffff;
   font-size: 14px;
   line-height: 16px;
@@ -3184,8 +3190,8 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
 .pagination ul li > span:hover,
 .pagination ul li > a:focus,
 .pagination ul li > span:focus {
-  background-color: #1abc9c;
-  border-color: #1abc9c;
+  background-color: #66D683;
+  border-color: #66D683;
   color: #ffffff;
   -webkit-transition: background .2s ease-out, border-color .2s ease-out, color .2s ease-out;
   transition: background .2s ease-out, border-color .2s ease-out, color .2s ease-out;
