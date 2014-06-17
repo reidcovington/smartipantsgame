@@ -81,6 +81,8 @@ GameController.prototype = {
             processData: false,
             dataType: 'json'
         });
+        console.log("[LOG] here's your game object:")
+        console.log(this.gameModel);
         this.delegate.announceResult(points, this.gameMode);
     }
 };
