@@ -41,7 +41,7 @@ GameController.prototype = {
         var colorArr = [];
         var soundArr = [];
         var positionArr = [1,2,3,4];
-        for(var i = 1; i < 6; i++){
+        for(var i = 1; i < 5; i++){
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
@@ -188,7 +188,7 @@ RoundView.prototype = {
             if(roundData.color){
                 $('td.'+roundData.position).css('background-color', roundData.color)
             } else{
-                $('td.'+roundData.position).css('background-color', 'orange')
+                $('td.'+roundData.position).css('background-color', '#fff51b')
             };
             $('#game-section td').fadeIn(200)
         }, 200)
@@ -271,13 +271,15 @@ Announcer.prototype = {
     },
     _listenForClick: function(jQSelector, nBackNumberSelector, gameModeSelector){
         var activeNBack = this.nBackNumberSelector + ' .active';
-        $("#start-button").on('click', function(event){
+        $(document).on('click', "#start-button", function(event){
             event.preventDefault();
+            $(this.jQSelector).empty().append('<tr><td class="1"></td><td class="2"></td></tr><tr><td class="3"></td><td class="4"></td></tr>');
             if ($(gameModeSelector).text().toLowerCase() == 'game mode') {
                 alert("Please select a Game Mode!");
             } else {
                 $("#start-button").hide();
                 // $( "#start-button" ).css("pointer-events", "none");
+                // $( "#start-button").unbind( "click" );
                 this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())
             };
         }.bind(this))
@@ -293,6 +295,7 @@ Announcer.prototype = {
         };
         $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><p> See full results <a hre="#">below</a><br><br>OR<br><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>');
         // $( "#start-button" ).css("pointer-events", "auto");
+         // $( "#start-button").bind( "click" );
         $('#graph_container').show();
     }
 }
