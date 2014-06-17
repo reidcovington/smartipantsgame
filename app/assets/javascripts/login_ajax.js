@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    $('#signup').submit(function(e){
+    // $('#signup').submit(function(e){
         // e.preventDefault();
         // $.post('/users', $( 'signup' ).serialize());
-    })
+    // })
 
     // $('#logout').click(function(e){
     //     e.preventDefault();
