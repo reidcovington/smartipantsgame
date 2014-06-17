@@ -33,9 +33,8 @@ end
          last_game_audio: UserShowBrain.audio_correct(session[:user_id]).last,
          colors_true: UserShowBrain.color_true(session[:user_id]),
          audios_true: UserShowBrain.audio_true(session[:user_id]),
+         positions_true: UserShowBrain.position_true(session[:user_id]),
          n: UserShowBrain.n(session[:user_id]),
-         colors_false: UserShowBrain.color_false(session[:user_id]),
-         audios_false: UserShowBrain.audios_false(session[:user_id]),
          user_object: User.find(session[:user_id])}.to_json
   end
 
