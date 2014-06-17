@@ -3,26 +3,31 @@ ready = function() {
     if ((window.location.href.indexOf('profile'))>-1){
         $(document).ready(function(){
             $.ajax({url: '/users/data', async: false}).done(function(response){
-                    stats = response;
-                    color_correct = stats.color_correct
-                    audio_correct = stats.audio_correct
-                    total_correct = stats.total_correct
-                    total_color_correct = []
-                    total_audio_correct = []
-                    total_compile_correct = []
-                    for (i=0; i < color_correct.length; i++){
-                        total_color_correct.push(Math.round((color_correct[i]/(20.0+stats.n)) * 100))
-                    }
+                 stats = response;
+            color_correct = stats.color_correct
+            audio_correct = stats.audio_correct
+            total_correct = stats.total_correct
+            position_correct = stats.position_correct
+            total_position_correct = []
+            total_color_correct = []
+            total_audio_correct = []
+            total_compile_correct = []
+            for(i=0; i < position_correct.length; i++){
+                total_position_correct.push(Math.round((position_correct[i]/20.0 * 100)))
+            }
 
-                    for(i=0; i < audio_correct.length; i++){
-                        total_audio_correct.push(Math.round((audio_correct[i]/(20.0+stats.n)) * 100))
-                    }
+            for (i=0; i < color_correct.length; i++){
+                total_color_correct.push(Math.round((color_correct[i]/20.0 * 100)))
+            }
 
-                     for(i=0; i < total_correct.length; i++){
-                        total_compile_correct.push(Math.round((total_correct[i]/(40.0+2 * stats.n)) * 100))
-                    }
+            for(i=0; i < audio_correct.length; i++){
+                total_audio_correct.push(Math.round((audio_correct[i][1]/20.0 * 100)))
+            }
 
-                });
+             for(i=0; i < total_correct.length; i++){
+                total_compile_correct.push(Math.round((total_correct[i][1]/60 * 100)))
+            }
+        });
 
                 $(function() {
                     // $('#profile-page').append()
@@ -110,7 +115,19 @@ ready = function() {
                                         }
                                     }
                                 }
-                        }]
+                        }, {
+                    name: 'Position',
+                    data: total_position_correct,
+                    cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function (e) {
+                                    x: e.pageX
+                                    console.log(this.x);
+                                }
+                            }
+                        }
+                }]
                     })
                 })
 
