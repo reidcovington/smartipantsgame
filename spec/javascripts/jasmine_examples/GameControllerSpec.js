@@ -1,11 +1,4 @@
 describe("GameController", function() {
-
-  it("should test that jasmine is running", function() {
-    var player = "player";
-    expect(typeof player).toBe("string");
-  });
-
-
   describe("#initialize", function() {
     var applicationController = new ApplicationController
     var gameController =  new GameController( 2, "dual", '#game-section', applicationController);

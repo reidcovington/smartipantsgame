@@ -1,11 +1,4 @@
 describe("RoundModel", function() {
-
-  it("should test that JASMINE is running", function() {
-    var player = "player";
-    expect(typeof player).toBe("string");
-  });
-
-
   describe("#initialize", function() {
     var round =  new RoundModel( {colors: ["Magenta"], sounds: ["chewbacca growl"]});
       it("creates a new RoundModel instance with the specified color attribute", function(){
