@@ -36,9 +36,6 @@ end
          audios_false: UserShowBrain.audios_false(session[:user_id]),
          user_object: User.find(session[:user_id])}.to_json
   end
-# def statistics
-#
-# end
 
   def login
     @user = User.find_and_auth(user_params[:email], user_params[:password])
