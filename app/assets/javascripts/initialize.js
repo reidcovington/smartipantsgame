@@ -28,7 +28,6 @@ function GameController(n, gameMode, jQSelector, delegate){
     this.gameMode = gameMode;
     this.delegate = delegate;
     this.soundBuilder = new SoundBuilder()
-    this.gameModel = new GameModel(n, this.fetchGameStructure(gameMode), this);
     this.roundView = new RoundView(jQSelector, this);
     this.currentRound = 0;
     this.initiateGame();
@@ -53,6 +52,7 @@ GameController.prototype = {
         }
     },
     initiateGame: function(){
+        this.gameModel = new GameModel(this.n, this.fetchGameStructure(this.gameMode), this);
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
@@ -96,6 +96,7 @@ GameController.prototype = {
             if(rounds[i].soundGuess){ points++ };
             if(rounds[i].positionGuess){ points++ };
         };
+        this.gameModel.delegate = null;
         $.ajax({
             url: '/games',
             type: 'POST',
@@ -240,7 +241,6 @@ RoundView.prototype = {
 function Announcer(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
-
     this.nBackNumberSelector = ".pagination";
     this.gameModeSelector = '#game-mode'
     this.postIntro();
