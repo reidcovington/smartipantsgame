@@ -13,19 +13,20 @@ ready = function() {
             total_audio_correct = []
             total_compile_correct = []
             for(i=0; i < position_correct.length; i++){
-                total_position_correct.push(Math.round((position_correct[i]/(20.0+audio_correct[i][0])) * 100))
+                total_position_correct.push(Math.round((position_correct[i]/20.0 * 100)))
             }
 
             for (i=0; i < color_correct.length; i++){
-                total_color_correct.push(Math.round((color_correct[i]/(20.0+audio_correct[i][0])) * 100))
+                total_color_correct.push(Math.round((color_correct[i]/20.0 * 100)))
             }
 
             for(i=0; i < audio_correct.length; i++){
-                total_audio_correct.push(Math.round((audio_correct[i][1]/(20.0+audio_correct[i][0])) * 100))
+                total_audio_correct.push(Math.round((audio_correct[i][1]/20.0 * 100)))
             }
 
              for(i=0; i < total_correct.length; i++){
-                total_compile_correct.push(Math.round((total_correct[i][1]/((20*[total_correct[i][0]])+2 * audio_correct[i][0])) * 100))
+                total_compile_correct.push(Math.round((total_correct[i][1]/60 * 100)))
+                console.log(audio_correct[i][0])
             }
         });
 
