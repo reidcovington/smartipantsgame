@@ -22,6 +22,10 @@ $(document).ready(function() {
 		$('#reset-instructions').hide()
 		$('#show-example').show()
 	})
+
+	$(function ()  { $("#test").popover({
+		trigger: 'hover', title: 'Example', content: 'This is popover', placement: 'bottom'});
+	});
 });
 
 
