@@ -41,9 +41,11 @@ class UserShowBrain
   def self.audio_correct(player)
     @audio_answer = []
     @audio_id = []
+    @game_n = []
     User.find(player).games.all.each do |game|
       audio_answer = []
       audio_id = []
+      @game_n << game.n
         game.rounds.each do |round|
           audio_answer << round.audio_correct
           audio_id << round.audio_id
@@ -61,7 +63,11 @@ class UserShowBrain
         end
             @answer4 << response.length
       end
+
+      @game_n = @game_n.zip(@answer4).flatten.compact
+      @game_n = @game_n.each_slice(2).to_a
       @answer4
+      @game_n
   end
 
   def self.position_correct(player)
