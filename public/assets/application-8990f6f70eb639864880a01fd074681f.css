@@ -1,3 +1,30 @@
+#n {
+  width: 3em
+  bor
+}
+
+.rounded {
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+}
+#ColorGraph {
+  float: left;
+  margin-right: 0%;
+}
+
+#AudioGraph {
+  margin-left: 0%;
+  display: inline;
+}
+
+#profile_page_graphs {
+  margin-left: 18%;
+}
+
+#score_header {
+  text-align: center;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -10,11 +37,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require bootstrap
 
- *= require_self
- *= require flat-ui
+
+ *= require_flat-ui
  */
 
 #game-section {
@@ -32,10 +57,10 @@
 }
 
 #start-button{
-  position: absolute;
+  position: fixed;
   z-index: 999;
   top:330px;
-  left: 740px;
+  left: 710px;
 }
 
 .form-group {
