@@ -10,12 +10,16 @@ class UsersController < ApplicationController
     end
   end
 
-def show
-  @color_correct = UserShowBrain.color_correct(session[:user_id])
-  @audio_correct = UserShowBrain.audio_correct(session[:user_id])
-  @total_correct = UserShowBrain.total_correct
-  @games = UserShowBrain.game_dates(session[:user_id])
-  @username = User.find(session[:user_id]).username
+def profile
+  if session[:user_id]
+    @color_correct = UserShowBrain.color_correct(session[:user_id])
+    @audio_correct = UserShowBrain.audio_correct(session[:user_id])
+    @total_correct = UserShowBrain.total_correct
+    @games = UserShowBrain.game_dates(session[:user_id])
+    @username = User.find(session[:user_id]).username
+  else
+    redirect_to root_path
+  end
 end
 
   def data
@@ -32,9 +36,6 @@ end
          audios_false: UserShowBrain.audios_false(session[:user_id]),
          user_object: User.find(session[:user_id])}.to_json
   end
-# def statistics
-#
-# end
 
   def login
     @user = User.find_and_auth(user_params[:email], user_params[:password])
