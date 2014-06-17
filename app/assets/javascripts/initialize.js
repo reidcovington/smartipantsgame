@@ -1,16 +1,22 @@
 var stats;
 var gameData;
-$(document).ready(function() {
+var ready;
+ready = function() {
+
     $.get('/games/game_data').done(function(response){
         gameData = response;
     });
 
     $.get('/users/data').done(function(response){
             stats = response;
-            // console.log(response);
         });
     new ApplicationController("#game-section")
-})
+
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
+
 
 function ApplicationController(jQSelector){
     this.jQSelector = jQSelector;
@@ -189,7 +195,7 @@ RoundView.prototype = {
             if(roundData.color){
                 $('td.'+roundData.position).css('background-color', roundData.color)
             } else{
-                $('td.'+roundData.position).css('background-color', '#fff51b')
+                $('td.'+roundData.position).css('background-color', '#555')
             };
             $('#game-section td').fadeIn(200)
         }, 200)

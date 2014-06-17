@@ -14,7 +14,7 @@
   xhr.setRequestHeader("X-CSRF-Token", token);
 });</script>
 </head>
-<body>
+<body data-no-turbolink>
 
   <nav class="nav navbar-default" role="navigation" id='user-navbar'>
     <% if session[:user_id] %>
