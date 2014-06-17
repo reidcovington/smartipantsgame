@@ -195,7 +195,7 @@ RoundView.prototype = {
             if(roundData.color){
                 $('td.'+roundData.position).css('background-color', roundData.color)
             } else{
-                $('td.'+roundData.position).css('background-color', '#fff51b')
+                $('td.'+roundData.position).css('background-color', '#555')
             };
             $('#game-section td').fadeIn(200)
         }, 200)

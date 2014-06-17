@@ -11,12 +11,4 @@ $(document).ready(function(){
         e.preventDefault();
         $.post('/users', $( '#submit-signup' ).serialize());
     })
-
-    // $('#logout').click(function(e){
-    //     e.preventDefault();
-    //     console.log('derp')
-    //     $.get('/users/logout').done(function(response){
-    //         window.location.reload();
-    //     });
-    // });
 });

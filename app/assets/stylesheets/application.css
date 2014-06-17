@@ -21,6 +21,7 @@
   width: 30em;
   height: 30em;
   background-color: #ECF0F1;
+  border-radius: 25px;
 }
 
 #game-section tr {
@@ -29,6 +30,7 @@
 
 #game-section td {
   width: 15em;
+  border-radius: 25px
 }
 
 #start-button{
