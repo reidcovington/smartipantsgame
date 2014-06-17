@@ -9,7 +9,6 @@ ready = function() {
 
     $.get('/users/data').done(function(response){
             stats = response;
-            // console.log(response);
         });
     new ApplicationController("#game-section")
 
