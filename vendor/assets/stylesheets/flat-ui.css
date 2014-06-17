@@ -203,7 +203,7 @@ body {
   font-size: 18px;
   line-height: 1.72222;
   color: #34495e;
-  background-color: #f7f7f7f;
+  background-color: #FFFFF0;
 }
 a {
   color: #16a085;
@@ -2246,8 +2246,7 @@ select[multiple].navbar-form .btn {
   background-color: #7AABED;
 }
 .navbar-default .navbar-brand {
-  color: #f7ea7d;
-  /*color: #34495e;*/
+  color: #FFFF7E;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
@@ -2271,7 +2270,7 @@ select[multiple].navbar-form .btn {
   border-width: 2px;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #f7ea7d;
+  color: #FFFF7E;
   /*color: #34495e;*/
 }
 .navbar-default .navbar-nav > li > a:hover,
@@ -3116,7 +3115,8 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
 }
 
 .pagination ul {
-  padding: .2em .6em .2em .6em;
+  padding: .26em .6em .26em .6em;
+  margin-top: 1px;
 }
 
 .pagination ul li.next > a,
