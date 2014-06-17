@@ -53,7 +53,6 @@ describe("GameController", function() {
     });
   });
 
-
     it("acceptes color and sound attributes", function(){
       var round =  new RoundModel( {colors: ["Magenta"], sounds: ["chewbacca growl"]})
       expect(round.color).toEqual("Magenta");
