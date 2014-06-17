@@ -20,8 +20,8 @@
 #game-section {
   width: 30em;
   height: 30em;
-  background-color: #ECF0F1;
-  border-radius: 25px;
+  background-color: #fff;
+  border-radius: 15px;
 }
 
 #game-section tr {
@@ -30,7 +30,7 @@
 
 #game-section td {
   width: 15em;
-  border-radius: 25px
+  border-radius: 15px
 }
 
 #start-button{
@@ -92,4 +92,12 @@
   text-align: center;
   background-color: #BDC3C7;
   border-radius: 20px;
+}
+
+.game-box {
+    margin-top: 20px;
+    width: 750px;
+    padding: 20px 60px;
+    border-radius: 25px;
+    background-color: #f6f6f6;
 }

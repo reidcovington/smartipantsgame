@@ -14,7 +14,7 @@
   xhr.setRequestHeader("X-CSRF-Token", token);
 });</script>
 </head>
-<body>
+<body data-no-turbolink>
 
   <% if session[:user_id] %>
     <%= render "users/userin" %>
