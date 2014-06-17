@@ -1,21 +1,12 @@
 var stats;
 var gameData;
 var ready;
-ready = function() {
 
-    $.get('/games/game_data').done(function(response){
-        gameData = response;
-    });
-
-    $.get('/users/data').done(function(response){
-            stats = response;
-        });
+$(document).ready(function(){
+    $.get('/games/game_data').done(function(response){ gameData = response; });
+    $.get('/users/data').done(function(response){ stats = response; });
     new ApplicationController("#game-section")
-
-};
-
-$(document).ready(ready);
-$(document).on('page:load', ready);
+});
 
 
 function ApplicationController(jQSelector){

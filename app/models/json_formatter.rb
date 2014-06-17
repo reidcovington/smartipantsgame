@@ -1,17 +1,17 @@
 class JSONFormatter
-  def self.format(klass, method)
-    formatted_data = Hash.new
+  def self.format(klass, property)
+    hash_of_property_values = Hash.new
 
-    self.pull_values(klass, method).each_with_index do |datum, index|
-      formatted_data[index + 1] = datum
+    self.pull_values(klass, property).each_with_index do |property_value, index|
+      hash_of_property_values[index + 1] = property_value
     end
-    formatted_data
+    hash_of_property_values
   end
 
   private
 
-  def self.pull_values(klass, method)
-    klass.all.map{|instance| instance.send(method) }
+  def self.pull_values(klass, property)
+    klass.all.map{|instance| instance.send(property) }
   end
 
 end
