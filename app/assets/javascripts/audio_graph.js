@@ -1,24 +1,44 @@
+if ((window.location.href.indexOf('/users/1'))>-1){
+    $.ajax({url: '/users/data', async: false}).done(function(response){
+            stats = response;
+            stats_data2 = []
+            stats_data4 = []
+            stats_data2.push(Math.round((stats.audios_true[1] || 0)/(20.0 + stats.n) *100))
+            stats_data2.push(Math.round((stats.audios_true[2] || 0)/(20.0 + stats.n) *100))
+            stats_data2.push(Math.round((stats.audios_true[3] || 0)/(20.0 + stats.n) *100))
+            stats_data2.push(Math.round((stats.audios_true[4] || 0)/(20.0 + stats.n) *100))
+            stats_data2.push(Math.round((stats.audios_true[5] || 0)/(20.0 + stats.n) *100))
+
+            stats_data4.push(Math.round((stats.audios_false[1] || 0)/(20.0 + stats.n) *100))
+            stats_data4.push(Math.round((stats.audios_false[2] || 0)/(20.0 + stats.n) *100))
+            stats_data4.push(Math.round((stats.audios_false[3] || 0)/(20.0 + stats.n) *100))
+            stats_data4.push(Math.round((stats.audios_false[4] || 0)/(20.0 + stats.n) *100))
+            stats_data4.push(Math.round((stats.audios_false[5] || 0)/(20.0 + stats.n) *100))
+            stats_data2_total = (eval(stats_data2.join('+')))
+            stats_data4_total = (eval(stats_data4.join('+')))
+        });
+}
 $(function () {
 
         var colors = Highcharts.getOptions().colors,
             categories = ['hit','miss'],
-            name = 'Browser brands',
+            name = 'Audio',
             data = [{
-                    y: 25,
+                    y: stats_data2_total,
                     color: colors[0],
                     drilldown: {
                         name: 'Hit',
-                        categories: ['audio1','audio2','audio3','audio4','audio5','audio6','audio7', 'audio8'],
-                        data: [2,10,8,1,1,1,1,1],
+                        categories: ['audio1','audio2','audio3','audio4','audio5'],
+                        data: stats_data2,
                         color: colors[0]
                     }
                 }, {
-                    y: 75,
+                    y: stats_data4_total,
                     color: colors[4],
                     drilldown: {
                         name: 'miss',
-                        categories: ['audio1','audio2','audio3','audio4','audio5','audio6','audio7', 'audio8'],
-                        data: [5,5,10,20,15,15,3,2],
+                        categories: ['audio1','audio2','audio3','audio4','audio5'],
+                        data: stats_data4,
                         color: colors[4]
                     }
                 }];

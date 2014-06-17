@@ -11,15 +11,30 @@ class UsersController < ApplicationController
   end
 
 def show
-  p @color_correct = UserShowBrain.color_correct
-  p @audio_correct = UserShowBrain.audio_correct
-  p @total_correct = UserShowBrain.total_correct
-  @games = UserShowBrain.game_dates
+  @color_correct = UserShowBrain.color_correct(session[:user_id])
+  @audio_correct = UserShowBrain.audio_correct(session[:user_id])
+  @total_correct = UserShowBrain.total_correct
+  @games = UserShowBrain.game_dates(session[:user_id])
+  @username = User.find(session[:user_id]).username
 end
 
-def stats
-  format.json { render json: { ok: true } }
-end
+  def data
+    render json: {games: UserShowBrain.game_dates(session[:user_id]),
+         total_correct: UserShowBrain.total_correct,
+         audio_correct: UserShowBrain.audio_correct(session[:user_id]),
+         color_correct: UserShowBrain.color_correct(session[:user_id]),
+         last_game_color: UserShowBrain.color_correct(session[:user_id]).last,
+         last_game_audio: UserShowBrain.audio_correct(session[:user_id]).last,
+         colors_true: UserShowBrain.color_true(session[:user_id]),
+         audios_true: UserShowBrain.audio_true(session[:user_id]),
+         n: UserShowBrain.n(session[:user_id]),
+         colors_false: UserShowBrain.color_false(session[:user_id]),
+         audios_false: UserShowBrain.audios_false(session[:user_id]),
+         user_object: User.find(session[:user_id])}.to_json
+  end
+# def statistics
+#
+# end
 
   def login
     @user = User.find_and_auth(user_params[:email], user_params[:password])

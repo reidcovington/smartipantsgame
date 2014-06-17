@@ -1,14 +1,28 @@
-// $(document).ready(function(){
-// if(location.href === 'http://0.0.0.0:3000/users/1'){
-//     $.ajax({
-//         type: "get"
-//         , url: "/users/stats"
-//         , dataType: 'JSON'
-//         , complete: function(response){
-//             console.log(response)
-//         }
-//     })
-    $(function () {
+if ((window.location.href.indexOf('/users/1'))>-1){
+    $.ajax({url: '/users/data', async: false}).done(function(response){
+            stats = response;
+            color_correct = stats.color_correct
+            audio_correct = stats.audio_correct
+            total_correct = stats.total_correct
+            total_color_correct = []
+            total_audio_correct = []
+            total_compile_correct = []
+            for (i=0; i < color_correct.length; i++){
+                total_color_correct.push(Math.round((color_correct[i]/(20.0+stats.n)) * 100))
+            }
+
+            for(i=0; i < audio_correct.length; i++){
+                total_audio_correct.push(Math.round((audio_correct[i]/(20.0+stats.n)) * 100))
+            }
+
+             for(i=0; i < total_correct.length; i++){
+                total_compile_correct.push(Math.round((total_correct[i]/(40.0+2 * stats.n)) * 100))
+            }
+
+        });
+}
+
+        $(function() {
             $('#total_progress_graph').highcharts({
                 credits: {
                     enabled: false
@@ -20,14 +34,17 @@
                     type: 'spline'
                 },
                 title: {
-                    text: 'Username'
+                    text: ''
                 },
                 subtitle: {
                     text: 'SmartiPants Progress'
                 },
                 xAxis: {
-                    categories: ['game1', 'game2', 'game3', 'gam4', 'game5']
-                },
+                categories: stats.games,
+                title: {
+                    text: null
+                }
+            },
                 yAxis: {
                     title: {
                         text: 'Percent correct'
@@ -54,19 +71,21 @@
                 },
                 series: [{
                     name: 'Total',
-                    data: [20, 50, 15, 30, 85],
+                    data: total_compile_correct,
                     cursor: 'pointer',
                         point: {
                             events: {
                                 click: function (e) {
                                     x: e.pageX
                                     console.log(this.x);
+                                    console.log(stats);
+                                    $('#profile_page_graphs').hide();
                                 }
                             }
                         },
                 },{
                     name: 'Audio',
-                    data: [14, 40, 35, 55, 90],
+                    data: total_audio_correct,
                     cursor: 'pointer',
                         point: {
                             events: {
@@ -78,7 +97,7 @@
                         },
                 }, {
                     name: 'Color',
-                    data: [19, 35, 70, 50, 80],
+                    data: total_color_correct,
                     cursor: 'pointer',
                         point: {
                             events: {
@@ -87,9 +106,8 @@
                                     console.log(this.x);
                                 }
                             }
-                        },
+                        }
                 }]
             })
         })
-//     }
-// });
+

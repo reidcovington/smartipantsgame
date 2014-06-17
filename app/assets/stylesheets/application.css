@@ -32,10 +32,10 @@
 }
 
 #start-button{
-  position: fixed;
+  position: absolute;
   z-index: 999;
   top:330px;
-  left: 710px;
+  left: 740px;
 }
 
 .form-group {
