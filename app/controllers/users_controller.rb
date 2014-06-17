@@ -14,7 +14,8 @@ def profile
   if session[:user_id]
     @color_correct = UserShowBrain.color_correct(session[:user_id])
     @audio_correct = UserShowBrain.audio_correct(session[:user_id])
-    @total_correct = UserShowBrain.total_correct
+    @position_correct = UserShowBrain.position_correct(session[:user_id])
+    @total_correct = UserShowBrain.total_correct(session[:user_id])
     @games = UserShowBrain.game_dates(session[:user_id])
     @username = User.find(session[:user_id]).username
   else
@@ -24,7 +25,8 @@ end
 
   def data
     render json: {games: UserShowBrain.game_dates(session[:user_id]),
-         total_correct: UserShowBrain.total_correct,
+         total_correct: UserShowBrain.total_correct(session[:user_id]),
+         position_correct: UserShowBrain.position_correct(session[:user_id]),
          audio_correct: UserShowBrain.audio_correct(session[:user_id]),
          color_correct: UserShowBrain.color_correct(session[:user_id]),
          last_game_color: UserShowBrain.color_correct(session[:user_id]).last,
