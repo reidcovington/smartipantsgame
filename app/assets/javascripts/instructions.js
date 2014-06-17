@@ -8,17 +8,35 @@ $(document).ready(function() {
 		e.preventDefault();
 		$('#instructions-pane').hide();
 	})
+
+	$('#show-example').on("click", function(e) {
+		e.preventDefault();
+		playExample();
+	})
+
+	$('#reset-instructions').on("click", function(e) {
+		e.preventDefault();
+		$('#example').empty();
+		$('#instructions-body p').show();
+
+		$('#reset-instructions').hide()
+		$('#show-example').show()
+	})
 });
 
 
 var playExample = function(target) {
+
+	$('#show-example').hide();
+	$('#reset-instructions').show();
+
 	exampleTarget = $( "#example" )
+	
+	$( "#instructions-body p" ).hide()
+	
 	ex1 = $('#ex-1')
 	ex2 = $('#ex-2')
 	ex3 = $('#ex-3')
-
-	$( "#instructions-body p" ).hide()
-	$('#show-example').attr('disabled', true);
 
 	$( "<td id='ex-1' class='btn' style='display: none; height:10em; width: 10em; background-color: blue; margin-right: .5em'></td>" ).appendTo(exampleTarget)
 	$( "<td id='ex-2' class='btn' style='display: none; height:10em; width: 10em; background-color: red; margin-right: .5em'></td>" ).appendTo(exampleTarget)
@@ -33,5 +51,4 @@ var playExample = function(target) {
 	setTimeout(function() {
 		$('#ex-3').fadeIn()
 	}, 2000);
-
 }
