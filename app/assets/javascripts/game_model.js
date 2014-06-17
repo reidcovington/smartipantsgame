@@ -1,6 +1,7 @@
-function GameModel(n, roundAttributes, delegate){
+function GameModel(n, roundAttributes, gameMode, delegate){
     this.delegate = delegate;
     this.n = n;
+    this.gameMode = gameMode;
     this.roundAttributes = roundAttributes;
     this.rounds = [];
     this.makeRounds();

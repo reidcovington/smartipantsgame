@@ -28,7 +28,7 @@ GameController.prototype = {
         }
     },
     initiateGame: function(){
-        this.gameModel = new GameModel(this.n, this.fetchGameStructure(this.gameMode), this);
+        this.gameModel = new GameModel(this.n, this.fetchGameStructure(this.gameMode), this.gameMode, this);
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
