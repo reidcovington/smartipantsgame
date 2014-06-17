@@ -141,6 +141,7 @@ GameModel.prototype = {
         if(!currentRound[attribute + 'Key'] && !(currentRound[attribute] === pastRound[attribute])){
             currentRound[attribute + 'Guess'] = true;
         }
+        console.log(attribute + "Guess: " + currentRound[attribute + 'Guess'])
     }
 };
 

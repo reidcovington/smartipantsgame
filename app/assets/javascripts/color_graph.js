@@ -17,7 +17,6 @@ if ((window.location.href.indexOf('/users/1'))>-1){
             stats_data_total = (eval(stats_data.join('+')))
             stats_data3_total = (eval(stats_data3.join('+')))
         });
-}
 
 $(function () {
         var colors = Highcharts.getOptions().colors,
@@ -117,3 +116,4 @@ $(function () {
         });
     });
 
+}

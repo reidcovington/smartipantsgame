@@ -20,7 +20,6 @@ if ((window.location.href.indexOf('/users/1'))>-1){
             }
 
         });
-}
 
         $(function() {
             $('#total_progress_graph').highcharts({
@@ -111,3 +110,4 @@ if ((window.location.href.indexOf('/users/1'))>-1){
             })
         })
 
+}
