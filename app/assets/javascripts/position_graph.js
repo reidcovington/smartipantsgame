@@ -3,38 +3,37 @@ ready = function() {
     if ((window.location.href.indexOf('profile'))>-1){
         $.ajax({url: '/users/data', async: false}).done(function(response){
                 stats = response;
-                stats_data2 = []
                 stats_data4 = []
-                false_states_array_audio = []
-                stats_data2.push(Math.round((stats.audios_true[1] || 0)/(20.0) *100))
-                stats_data2.push(Math.round((stats.audios_true[2] || 0)/(20.0) *100))
-                stats_data2.push(Math.round((stats.audios_true[3] || 0)/(20.0) *100))
-                stats_data2.push(Math.round((stats.audios_true[4] || 0)/(20.0) *100))
-                stats_data2_total = (eval(stats_data2.join('+')))
-                false_states_array_audio.push(100 - stats_data2_total)
-                console.log(false_states_array_audio)
+                false_states_array = []
+                stats_data4.push(Math.round((stats.positions_true[1] || 0)/(20.0) *100))
+                stats_data4.push(Math.round((stats.positions_true[2] || 0)/(20.0) *100))
+                stats_data4.push(Math.round((stats.positions_true[3] || 0)/(20.0) *100))
+                stats_data4.push(Math.round((stats.positions_true[4] || 0)/(20.0) *100))
+                stats_data4_total = (eval(stats_data4.join('+')))
+                false_states_array.push(100 - stats_data4_total)
+
             });
     $(function () {
 
             var colors = Highcharts.getOptions().colors,
                 categories = ['hit','miss'],
-                name = 'Audio',
+                name = 'Position',
                 data = [{
-                        y: stats_data2_total,
+                        y: stats_data4_total,
                         color: colors[0],
                         drilldown: {
                             name: 'Hit',
-                            categories: ['audio1','audio2','audio3','audio4'],
-                            data: stats_data2,
+                            categories: ['position1','position2','position3','position4'],
+                            data: stats_data4,
                             color: colors[0]
                         }
                     }, {
-                        y: 100 - stats_data2_total,
+                        y: 100 - stats_data4_total,
                         color: colors[4],
                         drilldown: {
                             name: 'miss',
                             categories: ['Incorrect'],
-                            data: false_states_array_audio,
+                            data: false_states_array,
                             color: colors[4]
                         }
                     }];
@@ -63,7 +62,7 @@ ready = function() {
             }
 
             // Create the chart
-            $('#AudioGraph').highcharts({
+            $('#PositionGraph').highcharts({
                 credits: {
                     enabled: false
                 },
@@ -71,7 +70,7 @@ ready = function() {
                     type: 'pie'
                 },
                 title: {
-                    text: 'Audio Graph'
+                    text: 'Position Graph'
                 },
                 yAxis: {
                     title: {
