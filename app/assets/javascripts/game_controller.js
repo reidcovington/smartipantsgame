@@ -18,7 +18,6 @@ GameController.prototype = {
             soundArr.push(gameData.sounds[i]);
         }
         if (gameMode == 'single') {
-            debugger
             return {positions: positionArr}
         } else if (gameMode == 'dual') {
             this.soundBuilder.buildSounds(soundArr)

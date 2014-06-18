@@ -1,32 +1,37 @@
 describe("GameController", function() {
   describe("#initialize", function() {
+    gameData = {colors: ["#FFFFFF", "#FFFFF0", "#FFFFF1", "#FFFFF2" ], sounds: ["/assets/1.mp3", "/assets/2.mp3", "/assets/3.mp3", "/assets/4.mp3"], positions: [1, 2, 3, 4]} ;
     var applicationController = new ApplicationController('#game-section')
     var gameController =  new GameController(2, "triple", '#game-section', applicationController);
       it("creates a new GameController instance", function(){
         expect(gameController).toBeDefined();
       });
 
-      // it("creates a new GameController with the set number of rounds and game mode", function(){
-      //   expect(gameController.n).toEqual(2);
-      //   expect(gameController.fetchGameStructure).toBeDefined();
-      // });
+      it("creates a new GameController with the set number of rounds and game mode", function(){
+        expect(gameController.n).toEqual(2);
+        expect(gameController.fetchGameStructure).toBeDefined();
+      });
 
-      // it("when a new GameController is instantiated it creates a new intance of GameModel", function(){
-      //   expect(gameController.gameModel).toBeDefined();
-      // });
+      it("when a new GameController is instantiated it creates a new intance of GameModel", function(){
+        expect(gameController.gameModel).toBeDefined();
+      });
 
-      // it("when a new GameController is instantiated it creates a new intance of GameModel, which has n + 20 number of rounds", function(){
-      //   expect(gameController.gameModel.rounds.length).toEqual(22);
-      // });
+      it("when a new GameController is instantiated it creates a new intance of GameModel, which has n + 20 number of rounds", function(){
+        expect(gameController.gameModel.rounds.length).toEqual(22);
+      });
 
-      // it("when a new GameController is instantiated it creates a new intance of GameModel, which has rounds with gameMode prescribed attributes", function(){
-      //   expect(gameController.gameModel.rounds[0].color).toBeDefined();
-      //   expect(gameController.gameModel.rounds[0].sound).toBeDefined();
-      // });
+      it("when a new GameController is instantiated it creates a new intance of GameModel, which has n rounds with the attributes prescribed by the Game Mode Type", function(){
+        expect(gameController.gameModel.rounds[0].color).toBeDefined();
+        expect(gameController.gameModel.rounds[0].sound).toBeDefined();
+      });
 
-      //  it("when a new GameController is instantiated it creates a new intance of RoundView", function(){
-      //   expect(gameController.roundView).toBeDefined();
-      // });
+      it("when a new GameController is instantiated it creates a new intance of SoundBuilder", function(){
+        expect(gameController.soundBuilder).toBeDefined();
+      });
+
+       it("when a new GameController is instantiated it creates a new intance of RoundView", function(){
+        expect(gameController.roundView).toBeDefined();
+      });
 
   });
 
