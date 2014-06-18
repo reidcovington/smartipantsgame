@@ -2291,7 +2291,7 @@ select[multiple].navbar-form .btn {
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .dropdown > a .caret {
-  border-top-color: #34495e;
+  border-top-color: #ffff7e;
   border-bottom-color: #34495e;
 }
 .navbar-default .navbar-nav > .active > a .caret {
