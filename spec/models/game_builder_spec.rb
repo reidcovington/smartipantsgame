@@ -3,61 +3,72 @@ require 'spec_helper'
 
 valid_game = {
   n: 2,
-  rounds: {
-    "1" => {
-        color_id: 1,
-        audio_id: 1,
-        color_correct: true,
-        audio_correct: false
+  rounds: [
+    {
+        roundNumber: 1,
+        colorId: 1,
+        audioId: 1,
+        position: 1,
+        colorGuess: true,
+        audioGuess: false,
+        positionGuess: true
     },
-    "3" => {
-        color_id: 2,
-        audio_id: 3,
-        color_correct: false,
-        audio_correct: false
+    {
+        roundNumber: 3,
+        position: 1,
+        colorId: 2,
+        audioId: 4,
+        colorGuess: false,
+        audioGuess: false,
+        positionGuess: false
     },
-    "2" => {
-        color_id: 4,
-        audio_id: 2,
-        color_correct: true,
-        audio_correct: true
+    {
+        roundNumber: 2,
+        colorId: 4,
+        audioId: 2,
+        position: 3,
+        colorGuess: true,
+        audioGuess: true,
+        positionGuess: true
     },
-    "4" => {
-        color_id: 1,
-        audio_id: 1,
-        color_correct: true,
-        audio_correct: false
+    {
+        roundNumber: 4,
+        colorId: 1,
+        audioId: 1,
+        position: 2,
+        colorGuess: true,
+        audioGuess: false,
+        positionGuess: false
     }
-  }
+  ]
 }
 
 invalid_game = {
   n: nil,
-  rounds: {
-    "1" => {
+  rounds: [
+    {
         color_id: 1,
         audio_id: 1,
         color_correct: true,
         audio_correct: false
     }
-  }
+  ]
 }
 
 
 describe GameBuilder do
+  user_id = 1
+  game_builder_valid = GameBuilder.new(user_id, valid_game)
+  game_builder_invalid = GameBuilder.new(user_id, invalid_game)
 
-
-  # context 'on #create_game' do
-  #   let(:user) { User.create(username: "woof", email: "dog@bark.com", password: "bone", password_confirmation: "bone") }
-  #   it 'saves a valid game to the database' do
-  #     puts valid_game.inspect
-  #     expect(GameBuilder.create_game(user.id ,valid_game)).to eq true
-  #   end
-  #   it 'doesn\'t save an invalid game' do
-  #     expect(GameBuilder.create_game(user.id, invalid_game)).to eq false
-  #   end
-  # end
+  context 'on #create_game' do
+    it 'saves a valid game to the database' do
+      puts valid_game.inspect
+      expect(game_builder_valid.create_game).to eq true
+    end
+    it 'doesn\'t save an invalid game' do
+      expect(game_builder_invalid.create_game).to eq false
+    end
+  end
 
 end
-
-User.destroy_all
