@@ -26,7 +26,7 @@ ready = function() {
                         color: colors[0],
                         drilldown: {
                             name: 'Hit',
-                            categories: ['Green','Purple','Red','Blue'],
+                            categories: ['Green','Purple','Red','Yellow'],
                             data: stats_data,
                             color: colors[0]
                         }
