@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   post '/games', to: 'games#create', defaults: { format: 'json' }
   get '/games/play', to: 'games#play'
   get '/games/game_data', to: 'games#game_data'
-  get '/games/statistics', to: 'games#statistics'
 
   resources :scores, only: [:get]
   get '/score', to: 'score#game'
