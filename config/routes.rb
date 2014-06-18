@@ -16,6 +16,4 @@ Rails.application.routes.draw do
   resources :scores, only: [:get]
   get '/score', to: 'score#game'
 
-  get '/about', to: 'about#about'
-
 end
