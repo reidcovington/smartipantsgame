@@ -14,11 +14,6 @@ ready = function() {
                 stats_data_total = (eval(stats_data.join('+')))
                 false_states.push(100 - stats_data_total)
 
-                stats_data3.push(Math.round((stats.colors_false[1] || 0)/(false_states) *100))
-                stats_data3.push(Math.round((stats.colors_false[2] || 0)/(false_states) *100))
-                stats_data3.push(Math.round((stats.colors_false[3] || 0)/(false_states) *100))
-                stats_data3.push(Math.round((stats.colors_false[4] || 0)/(false_states) *100))
-                stats_data3_total = (eval(stats_data3.join('+')))
 
             });
 
@@ -40,7 +35,7 @@ ready = function() {
                         color: colors[4],
                         drilldown: {
                             name: 'miss',
-                            categories: ['Misses'],
+                            categories: ['Incorrect'],
                             data: false_states,
                             color: colors[4]
                         }
@@ -78,7 +73,7 @@ ready = function() {
                     type: 'pie'
                 },
                 title: {
-                    text: 'ColorGraph'
+                    text: 'Color Graph'
                 },
                 yAxis: {
                     title: {

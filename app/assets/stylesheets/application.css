@@ -30,7 +30,6 @@
 
 .dropdown {
   display: inline;
-  margin-left: 1em;
 }
 
 #game-mode {
@@ -51,11 +50,11 @@
   border-radius: 15px
 }
 
-#start-button{
-  position: absolute;
-  z-index: 999;
-  top:430px;
-  left: 540px;
+#start-button {
+    height: 100px;
+    width: 200px;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .form-group {
@@ -71,19 +70,19 @@
 #position-button {
   width: 9em;
   height: 4em;
-  margin: 2em 1em 1em 1em;
+  margin: 1em .25em .5em;
 }
 
 #sound-button {
   width: 9em;
   height: 4em;
-  margin: 2em 1em 1em 1em;
+  margin: 1em .25em .5em;
 }
 
 #color-button {
   width: 9em;
   height: 4em;
-  margin: 2em 1em 1em 1em;
+  margin: 1em .25em .5em;
 }
 
 #graph_container{
@@ -113,4 +112,8 @@
     padding: 20px 60px;
     border-radius: 25px;
     background-color: #f6f6f6;
+}
+
+.white-background {
+    background-color: #FFF;
 }
