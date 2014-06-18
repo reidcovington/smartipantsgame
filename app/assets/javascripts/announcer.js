@@ -56,7 +56,7 @@ Announcer.prototype = {
             rounds = 60;
         };
         $('#cue-buttons').empty()
-        $(this.jQSelector).empty().append('<p>You scored '+points+' out of ' + rounds + ' possible points!</p><br><p> See full results <a hre="#">below</a><br><br>OR<br><br><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button>');
+        $(this.jQSelector).empty().append('<tr><td><center><p>You scored '+points+' out of ' + rounds + ' possible points!</p><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button></center></td></tr>');
         $('#graph_container').show();
     },
 };
