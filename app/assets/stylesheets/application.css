@@ -11,14 +11,34 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require bootstrap
+
  *= require_self
- *= require_flat-ui
+ *= require flat-ui
  */
 
 #game-section {
   width: 30em;
   height: 30em;
-  background-color: #ECF0F1;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.pagination ul {
+  padding: .5em;
+}
+
+.dropdown {
+  display: inline;
+}
+
+#game-mode {
+  padding: .8em 1em .8em 1em;
+  background-color: #7AABED;
+}
+
+#game-mode-selection {
+  background-color: #C966D6;
 }
 
 #game-section tr {
@@ -27,13 +47,14 @@
 
 #game-section td {
   width: 15em;
+  border-radius: 15px
 }
 
-#start-button{
-  position: absolute;
-  z-index: 999;
-  top:330px;
-  left: 740px;
+#start-button {
+    height: 100px;
+    min-width: 200px;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .form-group {
@@ -48,25 +69,19 @@
 #position-button {
   width: 9em;
   height: 4em;
-  margin: 2em 1em 1em 1em;
+  margin: 1em .25em .5em;
 }
 
 #sound-button {
   width: 9em;
   height: 4em;
-  margin: 2em 1em 1em 1em;
+  margin: 1em .25em .5em;
 }
 
 #color-button {
   width: 9em;
   height: 4em;
-  margin: 2em 1em 1em 1em;
-}
-
-#shape-button {
-  width: 9em;
-  height: 4em;
-  margin: 2em 1em 1em 1em;
+  margin: 1em .25em .5em;
 }
 
 #graph_container{
@@ -88,4 +103,17 @@
   text-align: center;
   background-color: #BDC3C7;
   border-radius: 20px;
+}
+
+.game-box {
+    margin-top: 20px;
+    width: 750px;
+    height: 765px;
+    padding: 20px 60px;
+    border-radius: 25px;
+    background-color: #f6f6f6;
+}
+
+.white-background {
+    background-color: #FFF;
 }

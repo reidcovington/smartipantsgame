@@ -26,7 +26,6 @@ class UserShowBrain
         @color_id << color_id
       end
       @answer3 = []
-      @answer = []
       @color_answer.each do |answer|
         response1 = []
         answer.each do |bool|
@@ -42,9 +41,11 @@ class UserShowBrain
   def self.audio_correct(player)
     @audio_answer = []
     @audio_id = []
+    @game_n = []
     User.find(player).games.all.each do |game|
       audio_answer = []
       audio_id = []
+      @game_n << game.n
         game.rounds.each do |round|
           audio_answer << round.audio_correct
           audio_id << round.audio_id
@@ -52,23 +53,81 @@ class UserShowBrain
         @audio_answer << audio_answer
         @audio_id << audio_id
       end
-      @answer2 = []
       @answer4 = []
-      @audio_answer.each do |answer2|
+      @audio_answer.each do |answer|
         response = []
-        answer2.each do |bool|
+        answer.each do |bool|
           if bool == true
              response << bool
          end
         end
             @answer4 << response.length
       end
+
+      @game_n = @game_n.zip(@answer4).flatten.compact
+      @game_n = @game_n.each_slice(2).to_a
       @answer4
+      @game_n
   end
 
-  def self.total_correct
+  def self.position_correct(player)
+    @position_answer = []
+    @position_id = []
+    User.find(player).games.all.each do |game|
+      position_answer = []
+      position_id = []
+        game.rounds.each do |round|
+          position_answer << round.position_correct
+          position_id << round.position
+        end
+        @position_answer << position_answer
+        @position_id << position_id
+      end
+      @answer6 = []
+      @position_answer.each do |answer|
+        response = []
+        answer.each do |bool|
+          if bool == true
+             response << bool
+         end
+        end
+            @answer6 << response.length
+      end
+      @answer6
+  end
+
+  def self.total_correct(player)
+    @game_type = []
+    @user = User.find(player)
+    @game = @user.games.last
+    @answer6.each_with_index do |answer, ind|
+      if @answer3[ind]==0 && @answer4[ind]==0
+        @game_type << 1
+      elsif @answer3[ind]==0
+        @game_type << 2
+      else
+        @game_type << 3
+      end
+    end
     @total_correct = [@answer3,@answer4].transpose.map {|x| x.reduce(:+)}
-    @total_correct
+    @total_correct = [@total_correct,@answer6].transpose.map {|x| x.reduce(:+)}
+    @full_total = @game_type.zip(@total_correct).flatten.compact
+    @full_total = @full_total.each_slice(2).to_a
+    @full_total
+  end
+
+  def self.position_true(player)
+    @position_true_array = []
+    @user = User.find(player)
+    @game = @user.games.last
+    @true_rounds = @game.rounds.where(position_correct: true)
+    @true_rounds.each do |round|
+        @position_true_array << round.position
+      end
+      @position_true_array
+    @position_hash = Hash.new(0)
+    @position_true_array.each { | v | @position_hash.store(v, @position_hash[v]+1) }
+    @position_hash
   end
 
   def self.color_true(player)
@@ -79,7 +138,7 @@ class UserShowBrain
     @true_rounds.each do |round|
         @color_true_array << round.color_id
       end
-      p @color_true_array
+      @color_true_array
     @color_hash = Hash.new(0)
     @color_true_array.each { | v | @color_hash.store(v, @color_hash[v]+1) }
     @color_hash
@@ -126,7 +185,7 @@ class UserShowBrain
     @color_false_array
     @color_hash = Hash.new(0)
     @color_false_array.each { | v | @color_hash.store(v, @color_hash[v]+1) }
-    @color_hash
+    p @color_hash
   end
 
   def self.n(player)
