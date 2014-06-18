@@ -26,7 +26,7 @@ ready = function() {
                         color: colors[0],
                         drilldown: {
                             name: 'Hit',
-                            categories: ['color1','color2','color3','color4'],
+                            categories: ['Green','Purple','Red','Yellow'],
                             data: stats_data,
                             color: colors[0]
                         }
@@ -90,7 +90,7 @@ ready = function() {
                   valueSuffix: '%'
                 },
                 series: [{
-                    name: 'Browsers',
+                    name: 'Answers',
                     data: browserData,
                     size: '40%',
                     dataLabels: {
