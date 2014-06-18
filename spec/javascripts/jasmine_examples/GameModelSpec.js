@@ -2,34 +2,44 @@ describe("GameModel", function() {
 
   describe("Game Model initialization", function() {
 
-    it("should be initialized with an n-back number and roundAttributes as arguments", function() {
+    beforeEach(function () {
+      // appController = new ApplicationController()
+      // gameController = new GameController(2, 'single', '#game-section', appController )
+      gameData = {colors: ['red,', 'blue', 'green', 'orange']}
+      gameModel = new GameModel(2, { color: ['blue', 'green', 'orange'] }, 'single', {} )
+    });
 
-      var gameModel = new GameModel(2, { color: ['blue', 'green', 'orange'] })
+    it("should be initialized with an n-back number", function() {
+      expect(typeof gameModel.n).toEqual('number');
+      expect(gameData.colors).toBeDefined();
+    })
 
-      expect(gameModel.n).toBeDefined();
-      expect(gameModel.roundAttributes).toBeDefined();
-      expect(gameModel).toBeDefined();
+    it("should be initialized with roundAttributes object", function() {
+      expect(typeof gameModel.roundAttributes).toEqual('object');
     })
 
     it("should have a rounds property which is an array (responds to #push)", function() {
-
-      var gameModel = new GameModel(2, { color: ['blue', 'green', 'orange'] })
       gameModel.rounds.push('test')
-
       expect(gameModel.rounds[gameModel.rounds.length - 1]).toEqual('test')
+    })
+
+    it("should be initialized with a delegate object", function() {
+      expect(typeof gameModel.delegate).toEqual('object');
+    })
+
+    it("should be initialized with a gameMode", function() {
+      expect(gameModel.gameMode).toEqual('single');
+      expect(typeof gameModel.gameMode).toEqual('string');
     })
   })
 
   describe("GameModel Methods", function() {
     describe("#makeRounds", function() {
       it('should initialize with a make rounds method', function() {
-        var gameModel = new GameModel(2, { color: ['blue', 'green', 'orange'] })
         expect(gameModel.makeRounds).toBeDefined()
       })
 
       it("should create round objects and push them into gameModel.rounds", function() {
-        var gameModel = new GameModel(2, { colors: ['blue', 'green', 'red'] })
-
         gameModel.rounds = []
         gameModel.makeRounds()
         expect(gameModel.rounds.length).toEqual(22);
@@ -38,34 +48,38 @@ describe("GameModel", function() {
 
     describe('#scoreGuess', function() {
       it('should set attributeGuess to true if user indicates a match correctly', function() {
-        var gameModel = new GameModel(2, { colors: ['blue', 'blue', 'blue', 'blue'] })
-        gameModel.scoreGuess('color', 3)
-        expect(gameModel.rounds[3]['colorGuess']).toEqual(true)
+        var gameModel2 = new GameModel(2, { colors: [] }, 'single', new GameController())
+
+        gameModel2.rounds[0].color = 'blue'
+        gameModel2.rounds[2].color = 'red'
+        gameModel2.scoreGuess('color', 3)
+        expect(gameModel2.rounds[3]['colorGuess']).toEqual(true)
       })
 
       it('should not set attributeGuess if user guesses incorrectly', function() {
-        var gameModel = new GameModel(2, { colors: [] })
-        gameModel.rounds[0].color = 'blue'
-        gameModel.rounds[2].color = 'red'
-        gameModel.scoreGuess('color', 2)
+        var gameModel2 = new GameModel(2, { colors: [] })
+        
+        gameModel2.rounds[0].color = 'blue'
+        gameModel2.rounds[2].color = 'red'
+        gameModel2.scoreGuess('color', 2)
         expect(gameModel.rounds[2]['colorGuess']).toBeUndefined();
       })
     })
 
     describe('#scoreNonGuess', function() {
       it('should set attributeGuess to true if user correctly gives no input', function() {
-        var gameModel = new GameModel(2, { colors: [] })
+        var gameModel2 = new GameModel(2, { colors: [] })
 
-        gameModel.rounds[0].color = 'blue'
-        gameModel.rounds[2].color = 'red'
+        gameModel2.rounds[0].color = 'blue'
+        gameModel2.rounds[2].color = 'red'
 
-        gameModel.scoreNonGuess('color', 2)
+        gameModel2.scoreNonGuess('color', 2)
 
-        expect(gameModel.rounds[2].colorGuess).toEqual(true)
+        expect(gameModel2.rounds[2].colorGuess).toEqual(true)
       })
 
       it('should not set attributeGuess to true if user incorrectly gives no input', function() {
-        var gameModel = new GameModel(2, { colors: [] })
+        var gameModel2 = new GameModel(2, { colors: [] })
 
         gameModel.rounds[0].color = 'blue'
         gameModel.rounds[2].color = 'blue'
