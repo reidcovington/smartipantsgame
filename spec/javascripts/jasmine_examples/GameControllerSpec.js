@@ -64,14 +64,11 @@ describe("GameController", function() {
   })
 
   describe("#initiateGame", function() {
-    var applicationController = new ApplicationController
-    var gameController =  new GameController( 2, "dual", '#game-section', applicationController);
+     gameData = {colors: ["#FFFFFF", "#FFFFF0", "#FFFFF1", "#FFFFF2" ], sounds: ["/assets/1.mp3", "/assets/2.mp3", "/assets/3.mp3", "/assets/4.mp3"], positions: [1, 2, 3, 4]} ;
+      var applicationController = new ApplicationController('#game-section')
+      var gameController =  new GameController(2, "single", '#game-section', applicationController);
     it("calls #constructRound method, which applies RoundView first round data (color, sounds etc)", function(){
       expect(gameController.roundView.constructRound).toBeDefined();
-    });
-
-    it("calls #constructRound method, which applies RoundView first round data (color, sounds etc)", function(){
-    expect(gameController.roundView.constructRound).toBeDefined();
     });
 
     it("starts #setInterval timer that cycles through rounds", function(){
@@ -81,21 +78,24 @@ describe("GameController", function() {
 
   })
 
-//   describe("#evalGuess", function() {
-//     var applicationController = new ApplicationController
-//     var gameController =  new GameController( 2, "dual", '#game-section', applicationController);
-//     gameController.currentRound = gameController.gameModel.rounds[3]
-//     it('if "q" is pressed, calls #scoreGuess method and evals for color match', function(){
-//       expect(gameController.gameModel.scoreGuess("color", gameController.currentRound )).toBeDefined();
-//     });
-//   });
+  describe("#evalGuess", function() {
+    gameData = {colors: ["#FFFFFF", "#FFFFF0", "#FFFFF1", "#FFFFF2" ], sounds: ["/assets/1.mp3", "/assets/2.mp3", "/assets/3.mp3", "/assets/4.mp3"], positions: [1, 2, 3, 4]} ;
+      var applicationController = new ApplicationController('#game-section')
+      var gameController =  new GameController(2, "single", '#game-section', applicationController);
+    gameController.currentRound = gameController.gameModel.rounds[3]
+    // it('if "e" is pressed, calls #scoreGuess method and evals for color match', function(){
+    //   expect(gameController.gameModel.scoreGuess("color", gameController.currentRound )).toBeDefined();
+    // });
 
-//     it("acceptes color and sound attributes", function(){
-//       var round =  new RoundModel( {colors: ["Magenta"], sounds: ["chewbacca growl"]})
-//       expect(round.color).toEqual("Magenta");
-//       expect(round.sound).toEqual("chewbacca growl");
-//     });
-// });
+
+    it("calls #scoreGuess to score postion, sound and color attributes", function(){
+      var round =  new RoundModel(1, {colors: ["#FFFFFF", "#FFFFF0", "#FFFFF1", "#FFFFF2" ], sounds: ["/assets/1.mp3", "/assets/2.mp3", "/assets/3.mp3", "/assets/4.mp3"], positions: [1, 2, 3, 4]})
+      expect(round.position).toBeDefined();
+      expect(round.sound).toBeDefined();
+      expect(round.color).toBeDefined();
+    });
+  });
+
 });
 
 
