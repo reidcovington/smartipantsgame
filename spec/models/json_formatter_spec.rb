@@ -9,7 +9,7 @@ describe JSONFormatter do
       expect(json_formatter.format).to be_an_instance_of Hash
     end
 
-    it "raises an error if not passed a hash" do
+    it "raises an error if not passed correct arguments" do
       expect{ JSONFormatter.new(1) }.to raise_error ArgumentError
     end
 
