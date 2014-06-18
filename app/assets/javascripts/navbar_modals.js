@@ -4,6 +4,21 @@ $(document).ready(function() {
 		$('#instructions-pane').show();
 	})
 
+	$('#signup').on("click", function(e) {
+		e.preventDefault();
+		$('#signup-modal').show();
+	})
+
+	$('#login').on("click", function(e) {
+		e.preventDefault();
+		$('#login-modal').show();
+	})
+
+	$('#about').on("click", function(e) {
+		e.preventDefault();
+		$('#about-modal').show();
+	})
+
 	$('#close-instructions').on("click", function(e) {
 		e.preventDefault();
 		$('#instructions-pane').hide();
