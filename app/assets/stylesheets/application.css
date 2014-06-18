@@ -85,27 +85,6 @@
   margin: 1em .25em .5em;
 }
 
-#graph_container{
-
-}
-
-#real-time-score{
-  width: 44em;
-  height: 3em;
-  border-radius: 20px;
-  background-color: #ECF0F1;
-}
-
-#real-time-score td {
-  width: 2em;
-}
-
-#current-score {
-  text-align: center;
-  background-color: #BDC3C7;
-  border-radius: 20px;
-}
-
 .game-box {
     margin-top: 20px;
     width: 750px;
@@ -117,4 +96,11 @@
 
 .white-background {
     background-color: #FFF;
+}
+#instructions-body p {
+    text-align: left;
+}
+#points-total {
+    font-size: 1.5em;
+    color: #C966D6;
 }

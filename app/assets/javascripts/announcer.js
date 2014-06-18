@@ -47,7 +47,7 @@ Announcer.prototype = {
     },
     postResult: function(points, rounds){
         $('#cue-buttons').empty();
-        $(this.jQSelector).empty().append('<tr><td><center><p id="points-total">You scored '+points+' out of ' + rounds + ' possible points.<br>Your stats will be updated on your profile page.</p><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button></center></td></tr>');
+        $(this.jQSelector).empty().append('<tr><td><center><p id="points-total">You scored '+points+' out of ' + rounds + ' possible points.</p><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button></center></td></tr>');
     },
     _drawCueButtons: function(){
         $("#cue-buttons").append("<tr><td><button id='position-button' class='btn btn-inverse'>Position (Q)</button></td><td><button id='sound-button' class='btn btn-inverse'>Sound (W)</button></td><td ><button id='color-button' class='btn btn-inverse'>Color (E)</button></td></tr>")
