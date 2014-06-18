@@ -7,10 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 colors = [
-  '#32ED3C',
-  '#B75FFF',
-  '#ed2d14',
-  '#fff51b'
+  '#32ED3C', #green
+  '#B75FFF', #purple
+  '#ed2d14', #red
+  '#fff51b' #blue
 ]
 
 colors.each do |color|

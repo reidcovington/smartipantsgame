@@ -24,7 +24,7 @@ ready = function() {
                         color: colors[0],
                         drilldown: {
                             name: 'Hit',
-                            categories: ['audio1','audio2','audio3','audio4'],
+                            categories: ['K','R','L','F'],
                             data: stats_data2,
                             color: colors[0]
                         }
