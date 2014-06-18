@@ -2,7 +2,6 @@ function SoundBuilder(){};
 
 SoundBuilder.prototype = {
     buildSounds: function(soundUrlArray){
-        // debugger
         for(var i = 0; i < soundUrlArray.length; i++){
             this._buildSound(i+1, soundUrlArray[i]);
         }
