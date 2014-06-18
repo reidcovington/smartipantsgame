@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-body" id='signin-form'>
-         <%= form_for User.new, url: users_path, method: :post do |u| %>
+         <%= form_for User.new, url: new_user_path, method: :post do |u| %>
           <%= u.text_field :username, class:"form-control", placeholder:"Username" %>
           <%= u.text_field :email, class:"form-control", placeholder:"Email" %>
           <%= u.text_field :password, class:"form-control", type:"password", placeholder:"Password" %>

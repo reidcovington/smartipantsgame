@@ -14,6 +14,11 @@ $(document).ready(function() {
 		$('#login-modal').show();
 	})
 
+	$('#about').on("click", function(e) {
+		e.preventDefault();
+		$('#about-modal').show();
+	})
+
 	$('#close-instructions').on("click", function(e) {
 		e.preventDefault();
 		$('#instructions-pane').hide();
