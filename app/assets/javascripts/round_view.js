@@ -25,7 +25,9 @@ RoundView.prototype = {
         this.turnOnBuzzers();
     },
     turnOnBuzzers: function(){
-        $(document).on('keyup', function(event){
+        $(document)
+        .off('keyup')
+        .on('keyup', function(event){
             event.preventDefault();
             this.delegate.evalGuess(event.keyCode);
         }.bind(this));

@@ -203,7 +203,7 @@ body {
   font-size: 18px;
   line-height: 1.72222;
   color: #34495e;
-  background-color: #FFFFF0;
+  background-color: #fefcf9;
 }
 a {
   color: #16a085;
@@ -614,7 +614,7 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
   color: #ffffff;
-  background-color: #7AABED;
+  background-color: #DDA0F4;
   border-color: #48c9b0;
 }
 .btn-primary:active,
@@ -1941,10 +1941,9 @@ fieldset[disabled] .input-group-btn .btn-default.active {
   border-width: 0;
 }
 .navbar-brand {
-  font-size: 24px;
-  line-height: 1.042;
+  font-size: 3em;
   font-weight: 700;
-  padding: 14px 21px;
+  padding: 16px 21px;
 }
 .navbar-brand > [class*="fui-"] {
   font-size: 19px;
@@ -2171,6 +2170,11 @@ select[multiple].navbar-form .btn {
 .navbar-nav > .open > .dropdown-toggle:hover {
   background-color: transparent;
 }
+#game-mode.btn.btn-primary.dropdown-toggle:hover,
+#game-mode.btn.btn-primary.dropdown-toggle:active,
+#game-mode.btn.btn-primary.dropdown-toggle:focus {
+background-color: #C6E2FF;
+}
 .navbar-text {
   font-size: 16px;
   line-height: 1.438;
@@ -2291,7 +2295,7 @@ select[multiple].navbar-form .btn {
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .dropdown > a .caret {
-  border-top-color: #34495e;
+  border-top-color: #ffff7e;
   border-bottom-color: #34495e;
 }
 .navbar-default .navbar-nav > .active > a .caret {
@@ -3337,7 +3341,7 @@ fieldset[disabled] .twitter-typeahead .tt-hint {
 .dropdown-menu li > a:hover,
 .dropdown-menu li > a:active,
 .dropdown-menu li > a:focus {
-  background: #e1e4e7;
+  background: #DDA0F4;
   color: inherit;
   outline: none;
 }

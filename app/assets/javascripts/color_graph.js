@@ -92,7 +92,7 @@ ready = function() {
                 series: [{
                     name: 'Browsers',
                     data: browserData,
-                    size: '60%',
+                    size: '40%',
                     dataLabels: {
                         formatter: function() {
                             return this.y > 5 ? this.point.name : null;
@@ -103,8 +103,8 @@ ready = function() {
                 }, {
                     name: 'Versions',
                     data: versionsData,
-                    size: '80%',
-                    innerSize: '60%',
+                    size: '60%',
+                    innerSize: '40%',
                     dataLabels: {
                         formatter: function() {
                             // display only if larger than 1
