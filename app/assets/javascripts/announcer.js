@@ -1,62 +1,55 @@
 function Announcer(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
-    this.nSelector = '.pagination';
     this.gameModeSelector = '#game-mode'
     this.postIntro();
 };
 Announcer.prototype = {
 
     postIntro: function(){
-        $("#graph_container").hide();
-        // $(this.jQSelector).append("Hello")
-        this._listenForNbackNumber();
-        this._listenForGameMode(this.gameModeSelector);
-        this._listenForStartClick(this.jQSelector, this.gameModeSelector);
+        this._activateNBackPicker();
+        this._activateGameModeDropdown(this.gameModeSelector);
+        this._waitForStartBtnClick(this.jQSelector, this.gameModeSelector);
     },
-    _listenForNbackNumber: function() {
+    _activateNBackPicker: function() {
         $('.pagination ul li').click(function(event) {
             event.preventDefault();
             $('.pagination ul li').removeClass('active');
             this.className = 'active'
         })
     },
-    _listenForGameMode: function(gameModeSelector) {
-        var self = this
+    _activateGameModeDropdown: function(gameModeSelector) {
         $(gameModeSelector).click(function(event) {
             event.preventDefault();
+            this._updateGameModeSelection(gameModeSelector);
 
-            self._listenForGameModeSelection(gameModeSelector);
-
-        })
+        }.bind(this))
     },
-    _listenForGameModeSelection: function(gameModeSelector){
+    _updateGameModeSelection: function(gameModeSelector){
         $(gameModeSelector + '-selection').click(function(event) {
             event.preventDefault();
             $(gameModeSelector).text(event.target.innerHTML).append('<span class="caret"></span>');
         })
     },
-    _listenForStartClick: function(jQSelector, gameModeSelector){
-        var activeNBack = this.nSelector + ' .active';
+    _waitForStartBtnClick: function(jQSelector, gameModeSelector){
         $(document).on('click', "#start-button", function(event){
             event.preventDefault();
-            $(this.jQSelector).empty().append('<tr><td class="1"></td><td class="2"></td></tr><tr><td class="3"></td><td class="4"></td></tr>');
-            $("#start-button").hide();
-            $("#cue-buttons").append("<tr><td><button id='position-button' class='btn btn-inverse'>Position (Q)</button></td><td><button id='sound-button' class='btn btn-inverse'>Sound (W)</button></td><td ><button id='color-button' class='btn btn-inverse'>Color (E)</button></td></tr>")
-            this.delegate.buildGame(parseInt( $(activeNBack).attr('id' )), $(gameModeSelector).text().toLowerCase())
+            var nBack = parseInt($('.pagination .active').attr('id'));
+            var gameMode = $('#game-mode').text().toLowerCase();
+            this._drawGameBoard();
+            this._drawCueButtons();
+            this.delegate.buildGame(nBack, gameMode)
         }.bind(this))
     },
-    postResult: function(points, gameMode){
-        var rounds;
-        if (gameMode == 'single') {
-            rounds = 20;
-        } else if (gameMode == 'dual') {
-            rounds = 40;
-        } else if (gameMode == 'triple'){
-            rounds = 60;
-        };
-        $('#cue-buttons').empty()
-        $(this.jQSelector).empty().append('<tr><td><center><p>You scored '+points+' out of ' + rounds + ' possible points!</p><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button></center></td></tr>');
-        $('#graph_container').show();
+    _drawGameBoard: function(){
+        $("#start-button").hide();
+        $(this.jQSelector).empty().append('<tr><td class="1"></td><td class="2"></td></tr><tr><td class="3"></td><td class="4"></td></tr>');
     },
+    postResult: function(points, rounds){
+        $('#cue-buttons').empty();
+        $(this.jQSelector).empty().append('<tr><td><center><p id="points-total">You scored '+points+' out of ' + rounds + ' possible points.<br>Your stats will be updated on your profile page.</p><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button></center></td></tr>');
+    },
+    _drawCueButtons: function(){
+        $("#cue-buttons").append("<tr><td><button id='position-button' class='btn btn-inverse'>Position (Q)</button></td><td><button id='sound-button' class='btn btn-inverse'>Sound (W)</button></td><td ><button id='color-button' class='btn btn-inverse'>Color (E)</button></td></tr>")
+    }
 };

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  post '/games', to: 'games#create', defaults: { format: 'json' }
+  post '/games', to: 'games#create'
   get '/games/play', to: 'games#play'
   get '/games/game_data', to: 'games#game_data'
 
