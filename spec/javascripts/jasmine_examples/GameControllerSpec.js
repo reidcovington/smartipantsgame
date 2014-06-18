@@ -2,14 +2,18 @@ describe("GameController", function() {
   describe("#initialize", function() {
     gameData = {colors: ["#FFFFFF", "#FFFFF0", "#FFFFF1", "#FFFFF2" ], sounds: ["/assets/1.mp3", "/assets/2.mp3", "/assets/3.mp3", "/assets/4.mp3"], positions: [1, 2, 3, 4]} ;
     var applicationController = new ApplicationController('#game-section')
-    var gameController =  new GameController(2, "triple", '#game-section', applicationController);
+    var gameController =  new GameController(2, "single", '#game-section', applicationController);
       it("creates a new GameController instance", function(){
         expect(gameController).toBeDefined();
       });
 
       it("creates a new GameController with the set number of rounds and game mode", function(){
         expect(gameController.n).toEqual(2);
-        expect(gameController.fetchGameStructure).toBeDefined();
+        expect(gameController.gameMode).toEqual('single');
+      });
+
+      it("assigns applicationController as its delegate", function(){
+        expect(gameController.delegate).toEqual(applicationController);
       });
 
       it("when a new GameController is instantiated it creates a new intance of GameModel", function(){
@@ -35,25 +39,47 @@ describe("GameController", function() {
 
   });
 
-  // describe("#fetchGameStructure", function(){
-  //     it("calls #constructRound method, which applies RoundView first round data (color, sounds etc)", function(){
-  //     expect(gameController.roundView.constructRound).toBeDefined();
-  //   });
-  // })
+  describe("#fetchGameStructure", function(){
+      it("when gameMode is 'single' it only fetches position attributes", function(){
+      gameData = {colors: ["#FFFFFF", "#FFFFF0", "#FFFFF1", "#FFFFF2" ], sounds: ["/assets/1.mp3", "/assets/2.mp3", "/assets/3.mp3", "/assets/4.mp3"], positions: [1, 2, 3, 4]} ;
+      var applicationController = new ApplicationController('#game-section')
+      var gameController =  new GameController(2, "single", '#game-section', applicationController);
+      expect(gameController.fetchGameStructure('single')).toEqual({positions: [1, 2, 3, 4]});
+      });
 
-//   describe("#initiateGame", function() {
-//     var applicationController = new ApplicationController
-//     var gameController =  new GameController( 2, "dual", '#game-section', applicationController);
-//     it("calls #constructRound method, which applies RoundView first round data (color, sounds etc)", function(){
-//       expect(gameController.roundView.constructRound).toBeDefined();
-//     });
+      it("when gameMode is 'dual' it fetches position and sound attributes", function(){
+      gameData = {colors: ["#FFFFFF", "#FFFFF0", "#FFFFF1", "#FFFFF2" ], sounds: ["/assets/1.mp3", "/assets/2.mp3", "/assets/3.mp3", "/assets/4.mp3"], positions: [1, 2, 3, 4]} ;
+      var applicationController = new ApplicationController('#game-section')
+      var gameController =  new GameController(2, "single", '#game-section', applicationController);
+      expect(gameController.fetchGameStructure('single')).toEqual({positions: [1, 2, 3, 4]});
+      });
 
-//     it("starts #setInterval timer that cycles through rounds", function(){
-//       expect(gameController.initiateGame).toBeDefined();
-//       // should access #setInterval...
-//     });
+      it("when gameMode is 'triple' it fetches position and sound attributes", function(){
+      gameData = {colors: ["#FFFFFF", "#FFFFF0", "#FFFFF1", "#FFFFF2" ], sounds: ["/assets/1.mp3", "/assets/2.mp3", "/assets/3.mp3", "/assets/4.mp3"], positions: [1, 2, 3, 4]} ;
+      var applicationController = new ApplicationController('#game-section')
+      var gameController =  new GameController(2, "single", '#game-section', applicationController);
+      expect(gameController.fetchGameStructure('single')).toEqual({positions: [1, 2, 3, 4]});
+      });
 
-//   })
+  })
+
+  describe("#initiateGame", function() {
+    var applicationController = new ApplicationController
+    var gameController =  new GameController( 2, "dual", '#game-section', applicationController);
+    it("calls #constructRound method, which applies RoundView first round data (color, sounds etc)", function(){
+      expect(gameController.roundView.constructRound).toBeDefined();
+    });
+
+    it("calls #constructRound method, which applies RoundView first round data (color, sounds etc)", function(){
+    expect(gameController.roundView.constructRound).toBeDefined();
+    });
+
+    it("starts #setInterval timer that cycles through rounds", function(){
+      expect(gameController.initiateGame).toBeDefined();
+      // should access #setInterval...
+    });
+
+  })
 
 //   describe("#evalGuess", function() {
 //     var applicationController = new ApplicationController
