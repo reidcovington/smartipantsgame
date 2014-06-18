@@ -1,4 +1,4 @@
-function GameController(n, gameMode, jQSelector, delegate){
+ function GameController(n, gameMode, jQSelector, delegate){
     this.n = n;
     this.gameMode = gameMode;
     this.delegate = delegate;
@@ -18,6 +18,7 @@ GameController.prototype = {
             soundArr.push(gameData.sounds[i]);
         }
         if (gameMode == 'single') {
+            debugger
             return {positions: positionArr}
         } else if (gameMode == 'dual') {
             this.soundBuilder.buildSounds(soundArr)
