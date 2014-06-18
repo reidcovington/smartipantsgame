@@ -4,25 +4,31 @@ function RoundView(jQSelector, delegate){
 };
 RoundView.prototype = {
     constructRound: function(roundData){
+        if(roundData.color){
+            this._fillPosition(roundData.position, roundData.color)
+            this.turnOnColorMatch();
+        }else{
+            this._fillPosition(roundData.position, '#666')
+        }
+        if(roundData.sound){
+            this._playSound(roundData.soundId);
+        };
+        this.turnOnBuzzers();
+    },
+    _fillPosition: function(position, color){
         $('#game-section td').fadeOut(200)
         setTimeout(function(){
             $('#game-section td').css('background-color', 'transparent')
-            if(roundData.color){
-                $('td.'+roundData.position).css('background-color', roundData.color)
-                this.turnOnColorMatch();
-            } else{
-                $('td.'+roundData.position).css('background-color', '#555')
-            };
+            $('td.'+position).css('background-color', color)
             this.turnOnPositionMatch();
             $('#game-section td').fadeIn(200)
         }.bind(this), 200)
-        if(roundData.sound){
-            setTimeout(function(){
-                $("#soundElem"+roundData.soundId)[0].play();
-                this.turnOnSoundMatch();
-            }.bind(this), 300)
-        };
-        this.turnOnBuzzers();
+    },
+    _playSound: function(soundId){
+        setTimeout(function(){
+            $("#soundElem"+soundId)[0].play();
+            this.turnOnSoundMatch();
+        }.bind(this), 300)
     },
     turnOnBuzzers: function(){
         $(document)
