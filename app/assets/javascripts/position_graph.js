@@ -23,7 +23,7 @@ ready = function() {
                         color: colors[0],
                         drilldown: {
                             name: 'Hit',
-                            categories: ['position1','position2','position3','position4'],
+                            categories: ['Top Left','Top Right','Bot Left','Bot Right'],
                             data: stats_data4,
                             color: colors[0]
                         }
