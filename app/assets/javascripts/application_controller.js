@@ -6,6 +6,7 @@ function ApplicationController(jQSelector){
 };
 ApplicationController.prototype = {
     buildGame: function(n, gameMode){
+        // this.announcer.prepareButtons()
         this.gameController = new GameController(n, gameMode, this.jQSelector, this);
     },
     announceResult: function(points, gameMode){

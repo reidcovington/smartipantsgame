@@ -52,7 +52,7 @@
 
 #start-button {
     height: 100px;
-    width: 200px;
+    min-width: 200px;
     font-size: 2em;
     font-weight: bold;
 }
@@ -108,6 +108,7 @@
 .game-box {
     margin-top: 20px;
     width: 750px;
+    height: 765px;
     padding: 20px 60px;
     border-radius: 25px;
     background-color: #f6f6f6;
