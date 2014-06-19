@@ -62,8 +62,9 @@
 }
 
 .form-control {
-	margin-top: .3em;
-	width: 10em;
+  margin-top: .2em;
+	margin-bottom: .2em;
+	width: 15em;
 }
 
 #position-button {

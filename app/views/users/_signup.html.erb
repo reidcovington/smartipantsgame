@@ -1,0 +1,18 @@
+<div class="modal fade" id="signUpModal" tabindex="2" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" id='signin-form'>
+         <%= form_for User.new, method: :post do |u| %>
+          <%= u.text_field :username, class:"form-control", placeholder:"Username" %>
+          <%= u.text_field :email, class:"form-control", placeholder:"Email" %>
+          <%= u.text_field :password, class:"form-control", type:"password", placeholder:"Password" %>
+          <%= u.text_field :password_confirmation, class:"form-control", type:"password", placeholder:"Confirm Password" %>
+        <div class="modal-footer">
+        <center>
+          <%= u.submit class:"btn btn-success", :value => "Submit" %>
+          <% end %>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>

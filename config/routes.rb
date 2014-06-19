@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root to: 'games#play'
   get '/users/data', to: 'users#data'
   get '/users/profile', to: 'users#profile'
@@ -12,11 +13,8 @@ Rails.application.routes.draw do
   post '/games', to: 'games#create'
   get '/games/play', to: 'games#play'
   get '/games/game_data', to: 'games#game_data'
-  get '/games/statistics', to: 'games#statistics'
 
   resources :scores, only: [:get]
   get '/score', to: 'score#game'
-
-  get '/about', to: 'about#about'
 
 end
