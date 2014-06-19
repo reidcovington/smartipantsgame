@@ -37,7 +37,7 @@ Announcer.prototype = {
             var nBack = parseInt($('.pagination .active').attr('id'));
             var gameMode = $('#game-mode').text().toLowerCase();
             this._drawGameBoard();
-            this._drawCueButtons();
+            this._drawCueButtons(gameMode);
             this.delegate.buildGame(nBack, gameMode)
         }.bind(this))
     },
@@ -49,7 +49,13 @@ Announcer.prototype = {
         $('#cue-buttons').empty();
         $(this.jQSelector).empty().append('<tr><td><center><p id="points-total">You scored '+points+' out of ' + rounds + ' possible points.</p><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button></center></td></tr>');
     },
-    _drawCueButtons: function(){
-        $("#cue-buttons").append("<tr><td><button id='position-button' class='btn btn-inverse'>Position (Q)</button></td><td><button id='sound-button' class='btn btn-inverse'>Sound (W)</button></td><td ><button id='color-button' class='btn btn-inverse'>Color (E)</button></td></tr>")
-    }
+    _drawCueButtons: function(gameMode){
+        $('#position-button').slideDown(100)
+        if(gameMode === 'dual' || gameMode === 'triple'){
+        $('#sound-button').slideDown(100)
+        };
+        if(gameMode === 'triple'){
+        $('#color-button').slideDown(100)
+        };
+    },
 };

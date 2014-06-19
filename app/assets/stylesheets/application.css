@@ -33,7 +33,7 @@
 }
 
 #game-mode {
-  padding: .8em 1em .8em 1em;
+  padding: .9em 1em;
   background-color: #7AABED;
 }
 
@@ -106,4 +106,9 @@
 }
 #about-body {
     text-align: left;
+}
+#position-button,
+#sound-button,
+#color-button {
+    display: none;
 }
