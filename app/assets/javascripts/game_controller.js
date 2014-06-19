@@ -1,4 +1,4 @@
-function GameController(n, gameMode, jQSelector, delegate){
+ function GameController(n, gameMode, jQSelector, delegate){
     this.n = n;
     this.gameMode = gameMode;
     this.delegate = delegate;

@@ -12,11 +12,11 @@ class UsersController < ApplicationController
 
 def profile
   if session[:user_id]
-    @color_correct = UserShowBrain.color_correct(session[:user_id])
-    @audio_correct = UserShowBrain.audio_correct(session[:user_id])
-    @position_correct = UserShowBrain.position_correct(session[:user_id])
-    @total_correct = UserShowBrain.total_correct(session[:user_id])
-    @games = UserShowBrain.game_dates(session[:user_id])
+    @color_correct = SplineGraphBrain.color_correct(session[:user_id])
+    @audio_correct = SplineGraphBrain.audio_correct(session[:user_id])
+    @position_correct = SplineGraphBrain.position_correct(session[:user_id])
+    @total_correct = SplineGraphBrain.total_correct(session[:user_id])
+    @games = SplineGraphBrain.game_dates(session[:user_id])
     @username = User.find(session[:user_id]).username
   else
     redirect_to root_path
@@ -24,17 +24,15 @@ def profile
 end
 
   def data
-    render json: {games: UserShowBrain.game_dates(session[:user_id]),
-         total_correct: UserShowBrain.total_correct(session[:user_id]),
-         position_correct: UserShowBrain.position_correct(session[:user_id]),
-         audio_correct: UserShowBrain.audio_correct(session[:user_id]),
-         color_correct: UserShowBrain.color_correct(session[:user_id]),
-         last_game_color: UserShowBrain.color_correct(session[:user_id]).last,
-         last_game_audio: UserShowBrain.audio_correct(session[:user_id]).last,
-         colors_true: UserShowBrain.color_true(session[:user_id]),
-         audios_true: UserShowBrain.audio_true(session[:user_id]),
-         positions_true: UserShowBrain.position_true(session[:user_id]),
-         n: UserShowBrain.n(session[:user_id]),
+    render json: {games: SplineGraphBrain.game_dates(session[:user_id]),
+         total_correct: SplineGraphBrain.total_correct(session[:user_id]),
+         position_correct: SplineGraphBrain.position_correct(session[:user_id]),
+         audio_correct: SplineGraphBrain.audio_correct(session[:user_id]),
+         color_correct: SplineGraphBrain.color_correct(session[:user_id]),
+         n: SplineGraphBrain.n(session[:user_id]),
+         positions_true: PositionGraphBrain.position_true(session[:user_id]),
+         colors_true: ColorGraphBrain.color_true(session[:user_id]),
+         audios_true: AudioGraphBrain.audio_true(session[:user_id]),
          user_object: User.find(session[:user_id])}.to_json
   end
 

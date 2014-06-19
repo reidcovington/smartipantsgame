@@ -1,4 +1,4 @@
-class UserShowBrain
+class SplineGraphBrain
   def self.user(player)
     @user = player
   end
@@ -116,77 +116,6 @@ class UserShowBrain
     @full_total
   end
 
-  def self.position_true(player)
-    @position_true_array = []
-    @user = User.find(player)
-    @game = @user.games.last
-    @true_rounds = @game.rounds.where(position_correct: true)
-    @true_rounds.each do |round|
-        @position_true_array << round.position
-      end
-      @position_true_array
-    @position_hash = Hash.new(0)
-    @position_true_array.each { | v | @position_hash.store(v, @position_hash[v]+1) }
-    @position_hash
-  end
-
-  def self.color_true(player)
-    @color_true_array = []
-    @user = User.find(player)
-    @game = @user.games.last
-    @true_rounds = @game.rounds.where(color_correct: true)
-    @true_rounds.each do |round|
-        @color_true_array << round.color_id
-      end
-      @color_true_array
-    @color_hash = Hash.new(0)
-    @color_true_array.each { | v | @color_hash.store(v, @color_hash[v]+1) }
-    @color_hash
-  end
-
-  def self.audio_true(player)
-    @audio_true_array = []
-    @user = User.find(player)
-    @game = @user.games.last
-    @true_rounds = @game.rounds.where(audio_correct: true)
-    @true_rounds.each do |round|
-        @audio_true_array << round.audio_id
-      end
-     @audio_hash = Hash.new(0)
-     @audio_true_array.each { | v | @audio_hash.store(v, @audio_hash[v]+1) }
-     @audio_hash
-  end
-
-  def self.audios_false(player)
-    @audio_false_array = []
-    @user = User.find(player)
-    @game = @user.games.last
-    @false_rounds = @game.rounds
-    @false_rounds.each do |round|
-       if round.audio_correct != true
-          @audio_false_array << round.audio_id
-        end
-      end
-     @audio_hash = Hash.new(0)
-     @audio_false_array.each { | v | @audio_hash.store(v, @audio_hash[v]+1) }
-     @audio_hash
-  end
-
-  def self.color_false(player)
-    @color_false_array = []
-    @user = User.find(player)
-    @game = @user.games.last
-    @false_rounds = @game.rounds
-    @false_rounds.each do |round|
-      if round.color_correct != true
-        @color_false_array << round.color_id
-      end
-    end
-    @color_false_array
-    @color_hash = Hash.new(0)
-    @color_false_array.each { | v | @color_hash.store(v, @color_hash[v]+1) }
-    p @color_hash
-  end
 
   def self.n(player)
     @user = User.find(player)
