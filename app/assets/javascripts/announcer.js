@@ -46,16 +46,16 @@ Announcer.prototype = {
         $(this.jQSelector).empty().append('<tr><td class="1"></td><td class="2"></td></tr><tr><td class="3"></td><td class="4"></td></tr>');
     },
     postResult: function(points, rounds){
-        $('#cue-buttons').empty();
+        $('#cue-buttons td button').slideUp(150);
         $(this.jQSelector).empty().append('<tr><td><center><p id="points-total">You scored '+points+' out of ' + rounds + ' possible points.</p><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button></center></td></tr>');
     },
     _drawCueButtons: function(gameMode){
-        $('#position-button').slideDown(100)
+        $('#position-button').slideDown(150);
         if(gameMode === 'dual' || gameMode === 'triple'){
-        $('#sound-button').slideDown(100)
+            $('#sound-button').slideDown(150);
         };
         if(gameMode === 'triple'){
-        $('#color-button').slideDown(100)
+            $('#color-button').slideDown(150);
         };
     },
 };
