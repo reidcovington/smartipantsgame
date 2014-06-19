@@ -85,8 +85,6 @@ ready = function() {
                                     events: {
                                         click: function (e) {
                                             x: e.pageX
-                                            console.log(this.x);
-                                            console.log(stats);
                                             $('#profile_page_graphs').hide();
                                         }
                                     }
@@ -99,7 +97,6 @@ ready = function() {
                                     events: {
                                         click: function (e) {
                                             x: e.pageX
-                                            console.log(this.x);
                                         }
                                     }
                                 },
@@ -111,7 +108,6 @@ ready = function() {
                                     events: {
                                         click: function (e) {
                                             x: e.pageX
-                                            console.log(this.x);
                                         }
                                     }
                                 }
@@ -123,7 +119,6 @@ ready = function() {
                             events: {
                                 click: function (e) {
                                     x: e.pageX
-                                    console.log(this.x);
                                 }
                             }
                         }

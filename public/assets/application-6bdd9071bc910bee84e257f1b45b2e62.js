@@ -13524,7 +13524,6 @@ $(document).ready(function() {
 
     $.get('/users/data').done(function(response){
             stats = response;
-            // console.log(response);
         });
     new ApplicationController("#game-section")
 })
@@ -13658,7 +13657,6 @@ GameModel.prototype = {
         if(!currentRound[attribute + 'Key'] && !(currentRound[attribute] === pastRound[attribute])){
             currentRound[attribute + 'Guess'] = true;
         }
-        console.log(attribute + "Guess: " + currentRound[attribute + 'Guess'])
     }
 };
 
@@ -13934,14 +13932,6 @@ $(document).ready(function(){
         e.preventDefault();
         $.post('/users', $( '#submit-signup' ).serialize());
     })
-
-    // $('#logout').click(function(e){
-    //     e.preventDefault();
-    //     console.log('derp')
-    //     $.get('/users/logout').done(function(response){
-    //         window.location.reload();
-    //     });
-    // });
 });
 var AppController = function(controllers) {
   this.controllers = controllers;
@@ -14199,8 +14189,6 @@ if ((window.location.href.indexOf('/users/1'))>-1){
                             events: {
                                 click: function (e) {
                                     x: e.pageX
-                                    console.log(this.x);
-                                    console.log(stats);
                                     $('#profile_page_graphs').hide();
                                 }
                             }
@@ -14213,7 +14201,6 @@ if ((window.location.href.indexOf('/users/1'))>-1){
                             events: {
                                 click: function (e) {
                                     x: e.pageX
-                                    console.log(this.x);
                                 }
                             }
                         },
@@ -14225,7 +14212,6 @@ if ((window.location.href.indexOf('/users/1'))>-1){
                             events: {
                                 click: function (e) {
                                     x: e.pageX
-                                    console.log(this.x);
                                 }
                             }
                         }

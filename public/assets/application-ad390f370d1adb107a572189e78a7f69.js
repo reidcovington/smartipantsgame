@@ -14064,16 +14064,6 @@ $(function () {
 })
 
 ;
-// $(document).ready(function(){
-// if(location.href === 'http://0.0.0.0:3000/users/1'){
-//     $.ajax({
-//         type: "get"
-//         , url: "/users/stats"
-//         , dataType: 'JSON'
-//         , complete: function(response){
-//             console.log(response)
-//         }
-//     })
     $(function () {
             $('#total_progress_graph').highcharts({
                 credits: {
@@ -14126,7 +14116,6 @@ $(function () {
                             events: {
                                 click: function (e) {
                                     x: e.pageX
-                                    console.log(this.x);
                                 }
                             }
                         },
@@ -14138,7 +14127,6 @@ $(function () {
                             events: {
                                 click: function (e) {
                                     x: e.pageX
-                                    console.log(this.x);
                                 }
                             }
                         },
@@ -14150,7 +14138,6 @@ $(function () {
                             events: {
                                 click: function (e) {
                                     x: e.pageX
-                                    console.log(this.x);
                                 }
                             }
                         },

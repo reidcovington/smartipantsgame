@@ -12,7 +12,6 @@ ready = function() {
                 stats_data2.push(Math.round((stats.audios_true[4] || 0)/(20.0) *100))
                 stats_data2_total = (eval(stats_data2.join('+')))
                 false_states_array_audio.push(100 - stats_data2_total)
-                console.log(false_states_array_audio)
             });
     $(function () {
 

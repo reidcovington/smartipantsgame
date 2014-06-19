@@ -99,8 +99,6 @@ ready = function() {
         for (var key in rounds) {
             array_values.push(rounds[key]);
         }
-        console.log(array_values);
-
         for (i=0; i<array_values.length; i++){
           if(array_values[i].color_correct === true){
               color_correct.push(array_values[i])

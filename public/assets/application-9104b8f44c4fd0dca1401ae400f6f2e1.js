@@ -12511,13 +12511,6 @@ window.onload = function() {
 		if (attr) {
 			addIcon(el, attr);
 		}
-  //       console.log(el)
-  //       console.log(el.className)
-		// c = el.className;
-		// c = c.match(/fui-[^\s'"]+/);
-		// if (c && icons[c[0]]) {
-		// 	addIcon(el, icons[c[0]]);
-		// }
 	}
 };
 /*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
@@ -14337,7 +14330,6 @@ GameModel.prototype = {
         currentRound[attribute + 'Key'] = true;
         if(currentRound[attribute] === pastRound[attribute]){
             currentRound[attribute + 'Guess'] = true;
-            console.log(currentRound[attribute + 'Guess'])
         }
     },
     scoreNonGuess: function(attribute, roundIndex){
@@ -14720,16 +14712,6 @@ $(function () {
 })
 
 ;
-// $(document).ready(function(){
-// if(location.href === 'http://0.0.0.0:3000/users/1'){
-//     $.ajax({
-//         type: "get"
-//         , url: "/users/stats"
-//         , dataType: 'JSON'
-//         , complete: function(response){
-//             console.log(response)
-//         }
-//     })
     $(function () {
             $('#total_progress_graph').highcharts({
                 credits: {
@@ -14782,7 +14764,6 @@ $(function () {
                             events: {
                                 click: function (e) {
                                     x: e.pageX
-                                    console.log(this.x);
                                 }
                             }
                         },
@@ -14794,7 +14775,6 @@ $(function () {
                             events: {
                                 click: function (e) {
                                     x: e.pageX
-                                    console.log(this.x);
                                 }
                             }
                         },
@@ -14806,7 +14786,6 @@ $(function () {
                             events: {
                                 click: function (e) {
                                     x: e.pageX
-                                    console.log(this.x);
                                 }
                             }
                         },
