@@ -4,7 +4,7 @@ describe("GameModel", function() {
       gameData = {colors: ['red,', 'blue', 'green', 'orange'], sounds: [1, 2, 3, 4], positions: [1,2,3,4]}
       appController = new ApplicationController('#game-section')
       gameController = new GameController(2, 'single', '#game-section', appController)
-      gameModel = new GameModel(2, { color: ['blue', 'green', 'orange', "red"] }, 'dual', {} )
+      gameModel = new GameModel(2, { color: ['blue', 'green', 'orange', "red"] }, 'dual', gameController )
 
     it("should be initialized with an n-back number", function() {
       // expect(typeof gameModel.n).toEqual('number');
@@ -51,37 +51,31 @@ describe("GameModel", function() {
         expect(gameModel.rounds[2]['colorGuess']).toEqual(true)
       })
 
-      it('should not set attributeGuess if user guesses incorrectly', function() {
-        var gameModel2 = new GameModel(2, { colors: [] })
-        
-        gameModel2.rounds[0].color = 'blue'
-        gameModel2.rounds[2].color = 'red'
-        gameModel2.scoreGuess('color', 2)
-        expect(gameModel.rounds[2]['colorGuess']).toBeUndefined();
+      it('should not set attributeGuess if user guesses incorrectly', function() {        
+        gameModel.rounds[3].color = 'blue'
+        gameModel.rounds[5].color = 'red'
+        gameModel.scoreGuess('color', 2)
+        expect(gameModel.rounds[5]['colorGuess']).toBeUndefined();
       })
     })
 
     describe('#scoreNonGuess', function() {
       it('should set attributeGuess to true if user correctly gives no input', function() {
-        var gameModel2 = new GameModel(2, { colors: [] })
+        gameModel.rounds[2].color = 'blue'
+        gameModel.rounds[3].color = 'red'
 
-        gameModel2.rounds[0].color = 'blue'
-        gameModel2.rounds[2].color = 'red'
+        gameModel.scoreNonGuess('color', 3)
 
-        gameModel2.scoreNonGuess('color', 2)
-
-        expect(gameModel2.rounds[2].colorGuess).toEqual(true)
+        expect(gameModel.rounds[3].colorGuess).toEqual(true)
       })
 
       it('should not set attributeGuess to true if user incorrectly gives no input', function() {
-        var gameModel2 = new GameModel(2, { colors: [] })
+        gameModel.rounds[5].color = 'blue'
+        gameModel.rounds[7].color = 'blue'
 
-        gameModel.rounds[0].color = 'blue'
-        gameModel.rounds[2].color = 'blue'
+        gameModel.scoreNonGuess('color', 7)
 
-        gameModel.scoreNonGuess('color', 2)
-
-        expect(gameModel.rounds[2].colorGuess).toBeUndefined();
+        expect(gameModel.rounds[7].colorGuess).toBeUndefined();
       })
     })
   })
