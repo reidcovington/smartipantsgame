@@ -1,16 +1,13 @@
 describe("GameModel", function() {
-
   describe("Game Model initialization", function() {
 
-    beforeEach(function () {
-      // appController = new ApplicationController()
-      // gameController = new GameController(2, 'single', '#game-section', appController )
-      gameData = {colors: ['red,', 'blue', 'green', 'orange']}
-      gameModel = new GameModel(2, { color: ['blue', 'green', 'orange'] }, 'single', {} )
-    });
+      gameData = {colors: ['red,', 'blue', 'green', 'orange'], sounds: [1, 2, 3, 4], positions: [1,2,3,4]}
+      appController = new ApplicationController('#game-section')
+      gameController = new GameController(2, 'single', '#game-section', appController)
+      gameModel = new GameModel(2, { color: ['blue', 'green', 'orange', "red"] }, 'dual', {} )
 
     it("should be initialized with an n-back number", function() {
-      expect(typeof gameModel.n).toEqual('number');
+      // expect(typeof gameModel.n).toEqual('number');
       expect(gameData.colors).toBeDefined();
     })
 
@@ -28,7 +25,7 @@ describe("GameModel", function() {
     })
 
     it("should be initialized with a gameMode", function() {
-      expect(gameModel.gameMode).toEqual('single');
+      expect(gameModel.gameMode).toEqual('dual');
       expect(typeof gameModel.gameMode).toEqual('string');
     })
   })
@@ -48,12 +45,10 @@ describe("GameModel", function() {
 
     describe('#scoreGuess', function() {
       it('should set attributeGuess to true if user indicates a match correctly', function() {
-        var gameModel2 = new GameModel(2, { colors: [] }, 'single', new GameController())
-
-        gameModel2.rounds[0].color = 'blue'
-        gameModel2.rounds[2].color = 'red'
-        gameModel2.scoreGuess('color', 3)
-        expect(gameModel2.rounds[3]['colorGuess']).toEqual(true)
+        gameModel.rounds[0].color = 'blue'
+        gameModel.rounds[2].color = 'blue'
+        gameModel.scoreGuess('color', 2)
+        expect(gameModel.rounds[2]['colorGuess']).toEqual(true)
       })
 
       it('should not set attributeGuess if user guesses incorrectly', function() {
