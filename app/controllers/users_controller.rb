@@ -10,16 +10,31 @@ class UsersController < ApplicationController
     end
   end
 
-def show
-  p @color_correct = UserShowBrain.color_correct
-  p @audio_correct = UserShowBrain.audio_correct
-  p @total_correct = UserShowBrain.total_correct
-  @games = UserShowBrain.game_dates
+def profile
+  if session[:user_id]
+    @color_correct = SplineGraphBrain.color_correct(session[:user_id])
+    @audio_correct = SplineGraphBrain.audio_correct(session[:user_id])
+    @position_correct = SplineGraphBrain.position_correct(session[:user_id])
+    @total_correct = SplineGraphBrain.total_correct(session[:user_id])
+    @games = SplineGraphBrain.game_dates(session[:user_id])
+    @username = User.find(session[:user_id]).username
+  else
+    redirect_to root_path
+  end
 end
 
-def stats
-  format.json { render json: { ok: true } }
-end
+  def data
+    render json: {games: SplineGraphBrain.game_dates(session[:user_id]),
+         total_correct: SplineGraphBrain.total_correct(session[:user_id]),
+         position_correct: SplineGraphBrain.position_correct(session[:user_id]),
+         audio_correct: SplineGraphBrain.audio_correct(session[:user_id]),
+         color_correct: SplineGraphBrain.color_correct(session[:user_id]),
+         n: SplineGraphBrain.n(session[:user_id]),
+         positions_true: PositionGraphBrain.position_true(session[:user_id]),
+         colors_true: ColorGraphBrain.color_true(session[:user_id]),
+         audios_true: AudioGraphBrain.audio_true(session[:user_id]),
+         user_object: User.find(session[:user_id])}.to_json
+  end
 
   def login
     @user = User.find_and_auth(user_params[:email], user_params[:password])
@@ -34,6 +49,7 @@ end
 
   def logout
     session.clear
+    puts "[LOG] session[:user_id] = #{session[:user_id]}"
     redirect_to root_path
   end
 

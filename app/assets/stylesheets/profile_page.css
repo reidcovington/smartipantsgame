@@ -1,14 +1,15 @@
-#ColorGraph {
-  float: left;
-  margin-right: 0%;
+#profile_page_graphs{
 }
 
+#PositionGraph {
+    float: left;
+    width:33%;
+}
 #AudioGraph {
-  margin-left: 0%;
-  display: inline;
+    float: left;
+    width: 33%;
 }
-
-#profile_page_graphs {
-  margin-left: 18%;
+#ColorGraph {
+    float: left;
+    width: 33%;
 }
-

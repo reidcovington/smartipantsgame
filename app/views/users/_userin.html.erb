@@ -1,19 +1,15 @@
-<nav class="nav navbar-default" role="navigation" id='user-navbar'>
       <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">SmartiPants</a>
+          <%= link_to "SmartiPants", root_path, class: "navbar-brand" %>
         </div>
         <ul class="nav navbar-nav navbar-left">
-          <li><a href="#"> New Game </a></li>
+          <li><a href="#" data-toggle="modal" data-target="#aboutModal" id="about"> About </a></li>
+          <li><a href="#" data-toggle="modal" data-target="#instructionsModal" id="open-instructions"> How To Play </a></li>
         </ul>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">           
-            <li><a href="#">Profile</a></li>
-            <li><a href="/users/logout" id='logout'>Logout</a></li>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Profile", users_profile_path %></li>
+            <li><%= link_to("Logout", users_logout_path, id:"logout") %></li>
           </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+        </div>
+    </div>

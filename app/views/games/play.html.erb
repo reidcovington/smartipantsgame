@@ -1,58 +1,46 @@
+<center>
 <div class='container-fluid'>
-  <center>
+    <div class="game-box">
     <span>
-      <div class="pagination">
-        <ul style="background-color: #3498DB; padding: .2em">
-          <li> n Back:</a></li>
-          <li id='2' class="active"><a href="#">2</a></li>
-          <li id='3' ><a href="#"> 3</a></li>
-          <li id='4' ><a href="#"> 4</a></li>
-          <li id='5' ><a href="#"> 5</a></li>
-          <li id='6' ><a href="#"> 6</a></li>
-          <li id='7' ><a href="#"> 7</a></li>
-          <li id='8' ><a href="#"> 8</a></li>
-          <li id='9' ><a href="#"> 9</a></li>
+      <div class="pagination" >
+        <ul>
+          <li> N-Back: </a></li>
+          <li id='1' class="active"><a href="#">1 </a></li>
+          <li id='2' ><a href="#"> 2 </a></li>
+          <li id='3' ><a href="#"> 3 </a></li>
+          <li id='4' ><a href="#"> 4 </a></li>
+          <li id='5' ><a href="#"> 5 </a></li>
+          <li id='6' ><a href="#"> 6 </a></li>
+          <li id='7' ><a href="#"> 7 </a></li>
+          <li id='8' ><a href="#"> 8 </a></li>
+          <li id='9' ><a href="#"> 9 </a></li>
         </ul>
       </div>
 
-      <div class="dropdown" style="display:inline; margin-left: .20em;">
-        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: #3498DB;" id="game-mode">Game Mode<span class="caret"></span></button>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" id="game-mode">Single<span class="caret"></span></button>
         <span class="dropdown-arrow"></span>
-        <ul style="background-color: #1ABC9C;" class="dropdown-menu" id="game-mode-selection">
-          <li ><a href="#" style="color: white;">Single</a></li>
+        <ul class="dropdown-menu" id="game-mode-selection">
+          <li><a href="#" style="color: white;">Single</a></li>
           <li><a href="#" style="color: white;">Dual</a></li>
+          <li><a href="#" style="color: white;">Triple</a></li>
         </ul>
       </div>
     </span><br>
   <div>
-    <table class="btn btn-default"  id="game-section">
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <center><button id="start-button" class="btn btn-hg btn-primary">Start!</button>
-          </center>
-        </td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+    <table id="game-section">
+        <tr>
+            <td>
+                <center><button id="start-button" class="btn btn-hg btn-primary">START</button></center>
+            </td>
+        </tr>
     </table>
     <table id="cue-buttons">
-      <tr>
-        <td ><button id="color-button" class="btn btn-danger">Color Match</button></td>
-        <td><button id="sound-button" class="btn btn-danger">Sound Match</button></td>
-      </tr>
     </table>
+  </div>
   </div>
   <br>
     <div id="graph_container"></div><br><br><br><br><br><br>
   </center>
 </div>
+</center>

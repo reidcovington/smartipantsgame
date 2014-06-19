@@ -1,26 +1,38 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Smartipants</title>
-  <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <head>
+    <title> SmartiPants </title>
 
-   <script src="http://code.highcharts.com/highcharts.js"></script>
-  <script src="http://code.highcharts.com/modules/exporting.js"></script>
-  <script>$(document).ajaxSend(function(e, xhr, options) {
- var token = $("meta[name='csrf-token']").attr("content");
-  xhr.setRequestHeader("X-CSRF-Token", token);
-});</script>
-</head>
-<body>
+    <link href='http://fonts.googleapis.com/css?family=Maven+Pro:500' rel='stylesheet' type='text/css'>
 
-  <% if session[:user_id] %>
-    <%= render "users/userin" %>
-  <% else %>
-    <%= render "users/nouser" %>
-  <% end %>
+      <%= csrf_meta_tags %>
+
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+       <script src="http://code.highcharts.com/highcharts.js"></script>
+      <script src="http://code.highcharts.com/modules/exporting.js"></script>
+      <script>$(document).ajaxSend(function(e, xhr, options) {
+     var token = $("meta[name='csrf-token']").attr("content");
+      xhr.setRequestHeader("X-CSRF-Token", token);
+    });</script>
+  </head>
+<body data-no-turbolink>
+
+  <nav class="nav navbar-default" role="navigation" id='user-navbar'>
+    <% if session[:user_id] %>
+      <%= render "users/userin" %>
+    <% else %>
+      <%= render "users/nouser" %>
+    <% end %>
+  </nav>
+
+  <center id='instructions-modal' style="display: none z-index: 10"><%= render 'users/instructions' %></center>
+<center id='login-modal' style="display: none z-index: 10"><%= render 'users/login' %></center>
+<center id='signup-modal' style="display: none z-index: 10"><%= render 'users/signup' %></center>
+<center id='about-modal' style="display: none z-index: 10"><%= render '/about/about' %></center>
+
 
 <%= yield %>
     

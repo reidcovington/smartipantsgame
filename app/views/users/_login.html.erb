@@ -1,0 +1,17 @@
+<div class="modal fade" id="loginModal" tabindex="1" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body" id='login-form'>
+         <%= form_for User.new, url: users_login_path, method: :post do |u| %>
+          <%= u.text_field :email, class:"form-control", placeholder:"Email" %>
+          <%= u.text_field :password, class:"form-control", type:"password", placeholder:"Password" %>
+        <div class="modal-footer">
+        <center>
+          <%= u.submit class:"btn btn-success", :value => "Login" %>
+          <% end %>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
