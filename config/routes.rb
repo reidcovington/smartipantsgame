@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   root to: 'games#play'
   get '/users/data', to: 'users#data'
   get '/users/profile', to: 'users#profile'
