@@ -2,9 +2,11 @@
     this.n = n;
     this.gameMode = gameMode;
     this.delegate = delegate;
-    this.soundBuilder = new SoundBuilder()
+    this.cueButtonView = new CueButtonView(); 
+    this.soundBuilder = new SoundBuilder();
     this.roundView = new RoundView(jQSelector, this);
     this.currentRound = 0;
+    this.setCueButtons(this.gameMode);
     this.initiateGame();
 };
 
@@ -27,6 +29,9 @@ GameController.prototype = {
             return {colors: colorArr, sounds: soundArr, positions: positionArr}
         }
     },
+    setCueButtons: function(gameMode) {
+        if 
+    }
     initiateGame: function(){
         this.gameModel = new GameModel(this.n, this.fetchGameStructure(this.gameMode), this.gameMode, this);
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
