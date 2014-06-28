@@ -45,12 +45,12 @@ GameController.prototype = {
         }.bind(this), 2300);
     },
     setCueButtons: function(gameMode) {
-        this.cueButtonView.drawPositionButton;
+        this.cueButtonView.drawPositionButton();
         if(gameMode === 'dual' || gameMode === 'triple'){
-            this.cueButtonView.drawSoundButton;
+            this.cueButtonView.drawSoundButton();
         };
         if(gameMode === 'triple'){
-            this.cueButtonView.drawColorButton;
+            this.cueButtonView.drawColorButton();
         };
     },
     evalGuess: function(keyCode){

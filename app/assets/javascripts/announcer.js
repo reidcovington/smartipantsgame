@@ -46,5 +46,5 @@ Announcer.prototype = {
     postResult: function(points, rounds){
         $('#cue-buttons td button').slideUp(150);
         $(this.jQSelector).empty().append('<tr><td><center><p id="points-total">You scored '+points+' out of ' + rounds + ' possible points.</p><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button></center></td></tr>');
-    };
+    }
 };
