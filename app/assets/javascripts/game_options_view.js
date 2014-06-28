@@ -1,15 +1,18 @@
-function GameOptionsView(){
-
+function GameOptionsView(nBackSelector, gameModeSelector, delegate){
+    this.nBackSelector = nBackSelector;
+    this.gameModeSelector = gameModeSelector;
+    this.delegate = delegate;
 }
 GameOptionsView.prototype = {
     listenForOptions: function(){
-        this._activateNBackPicker();
-        this._activateGameModeDropdown();
+        this._activateNBackPicker(this.nBackSelector);
+        this._activateGameModeDropdown(this.gameModeSelector);
     },
-    _activateNBackPicker: function() {
-        $('.pagination ul li').click(function(event) {
+    _activateNBackPicker: function(nBackSelector) {
+        $(nBackSelector).click(function(event) {
             event.preventDefault();
-            $('.pagination ul li').removeClass('active');
+
+            $(nBackSelector).removeClass('active');
             this.className = 'active'
         })
     },
