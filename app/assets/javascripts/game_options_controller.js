@@ -5,5 +5,7 @@ function GameOptionsController(){
     this.nBack;
 }
 GameOptionsController.prototype = {
-
+    changeGameMode: function(gameMode){
+        this.gameModeModel.updateGameMode(gameMode)
+    }
 }

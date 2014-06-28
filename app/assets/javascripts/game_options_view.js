@@ -9,9 +9,10 @@ GameOptionsView.prototype = {
         this._activateGameModeDropdown(this.gameModeSelector);
     },
     _activateNBackPicker: function(nBackSelector) {
+        var self = this;
         $(nBackSelector).click(function(event) {
             event.preventDefault();
-
+            self.delegate.nBack = this.innerHTML;
             $(nBackSelector).removeClass('active');
             this.className = 'active'
         })
@@ -20,13 +21,14 @@ GameOptionsView.prototype = {
         $(gameModeSelector).click(function(event) {
             event.preventDefault();
             this._updateGameModeSelection(gameModeSelector);
-
         }.bind(this))
     },
     _updateGameModeSelection: function(gameModeSelector){
         $(gameModeSelector + '-selection').click(function(event) {
             event.preventDefault();
-            $(gameModeSelector).text(event.target.innerHTML).append('<span class="caret"></span>');
-        })
+            var gameMode = event.target.innerHTML;
+            this.delegate.changeGameMode(gameMode.toLowerCase())
+            $(gameModeSelector).text(gameMode).append('<span class="caret"></span>');
+        }.bind(this))
     }
 }
