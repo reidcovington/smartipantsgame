@@ -6,37 +6,35 @@ function Announcer(jQSelector, delegate){
 };
 Announcer.prototype = {
     postIntro: function(){
-        this._activateNBackPicker();
-        this._activateGameModeDropdown(this.gameModeSelector);
+        // this._activateNBackPicker();
+        // this._activateGameModeDropdown(this.gameModeSelector);
         this._waitForStartBtnClick(this.jQSelector, this.gameModeSelector);
     },
-    _activateNBackPicker: function() {
-        $('.pagination ul li').click(function(event) {
-            event.preventDefault();
-            $('.pagination ul li').removeClass('active');
-            this.className = 'active'
-        })
-    },
-    _activateGameModeDropdown: function(gameModeSelector) {
-        $(gameModeSelector).click(function(event) {
-            event.preventDefault();
-            this._updateGameModeSelection(gameModeSelector);
+    // _activateNBackPicker: function() {
+    //     $('.pagination ul li').click(function(event) {
+    //         event.preventDefault();
+    //         $('.pagination ul li').removeClass('active');
+    //         this.className = 'active'
+    //     })
+    // },
+    // _activateGameModeDropdown: function(gameModeSelector) {
+    //     $(gameModeSelector).click(function(event) {
+    //         event.preventDefault();
+    //         this._updateGameModeSelection(gameModeSelector);
 
-        }.bind(this))
-    },
-    _updateGameModeSelection: function(gameModeSelector){
-        $(gameModeSelector + '-selection').click(function(event) {
-            event.preventDefault();
-            $(gameModeSelector).text(event.target.innerHTML).append('<span class="caret"></span>');
-        })
-    },
+    //     }.bind(this))
+    // },
+    // _updateGameModeSelection: function(gameModeSelector){
+    //     $(gameModeSelector + '-selection').click(function(event) {
+    //         event.preventDefault();
+    //         $(gameModeSelector).text(event.target.innerHTML).append('<span class="caret"></span>');
+    //     })
+    // },
     _waitForStartBtnClick: function(jQSelector, gameModeSelector){
         $(document).on('click', "#start-button", function(event){
             event.preventDefault();
-            var nBack = parseInt($('.pagination .active').attr('id'));
-            var gameMode = $('#game-mode').text().toLowerCase();
             this._drawGameBoard();
-            this.delegate.buildGame(nBack, gameMode)
+            this.delegate.buildGame()
         }.bind(this))
     },
     _drawGameBoard: function(){

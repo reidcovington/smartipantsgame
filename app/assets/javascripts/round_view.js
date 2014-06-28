@@ -57,9 +57,7 @@ RoundView.prototype = {
         }.bind(this));
     },
     resetButtons: function(){
-        $('#color-button').attr("class", "btn btn-inverse");
-        $('#sound-button').attr("class", "btn btn-inverse");
-        $('#position-button').attr("class", "btn btn-inverse");
+        $('#cue-buttons button').attr("class", "btn btn-inverse");
     },
     markActive: function(button){
         $('#'+button+'-button').addClass('active');
