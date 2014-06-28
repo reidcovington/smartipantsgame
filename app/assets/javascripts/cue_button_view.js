@@ -1,4 +1,4 @@
-function CueButtonView() = {
+function CueButtonView(){
 	this.positionButton = '#position-button';
 	this.soundButton = '#sound-button';
 	this.colorButton = '#color-button';
@@ -12,6 +12,6 @@ CueButtonView.prototype = {
 	},
 	drawColorButton: function(){
 		$(this.colorButton).slideDown(150);
-	};
+	}
 };
 
