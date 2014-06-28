@@ -18,5 +18,16 @@ GameModeModel.prototype = {
             this.sound = true;
             this.color = true;
         }
+    },
+    assessGameMode: function(){
+        if(this.sound){
+            if(this.color){
+                return 'triple'
+            } else {
+                return 'dual'
+            };
+        } else {
+            return 'single'
+        };
     }
 }

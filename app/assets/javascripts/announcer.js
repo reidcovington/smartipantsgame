@@ -6,8 +6,8 @@ function Announcer(jQSelector, delegate){
 };
 Announcer.prototype = {
     postIntro: function(){
-        this._activateNBackPicker();
-        this._activateGameModeDropdown(this.gameModeSelector);
+        // this._activateNBackPicker();
+        // this._activateGameModeDropdown(this.gameModeSelector);
         this._waitForStartBtnClick(this.jQSelector, this.gameModeSelector);
     },
     // _activateNBackPicker: function() {
@@ -33,10 +33,8 @@ Announcer.prototype = {
     _waitForStartBtnClick: function(jQSelector, gameModeSelector){
         $(document).on('click', "#start-button", function(event){
             event.preventDefault();
-            var nBack = parseInt($('.pagination .active').attr('id'));
-            var gameMode = $('#game-mode').text().toLowerCase();
             this._drawGameBoard();
-            this.delegate.buildGame(nBack, gameMode)
+            this.delegate.buildGame()
         }.bind(this))
     },
     _drawGameBoard: function(){

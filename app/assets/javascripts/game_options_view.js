@@ -12,7 +12,7 @@ GameOptionsView.prototype = {
         var self = this;
         $(nBackSelector).click(function(event) {
             event.preventDefault();
-            self.delegate.nBack = this.innerHTML;
+            self.delegate.nBack = parseInt(this.textContent);
             $(nBackSelector).removeClass('active');
             this.className = 'active'
         })

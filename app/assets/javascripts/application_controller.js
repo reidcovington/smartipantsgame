@@ -1,11 +1,13 @@
 function ApplicationController(jQSelector){
     this.jQSelector = jQSelector;
     this.announcer = new Announcer(jQSelector, this);
-    this.gameOptionsController = new gameOptionsController();
+    this.gameOptionsController = new GameOptionsController();
     this.fetchStatData()
 };
 ApplicationController.prototype = {
-    buildGame: function(n, gameMode){
+    buildGame: function(){
+        var n = this.gameOptionsController.nBack;
+        var gameMode = this.gameOptionsController.fetchGameMode();
         this.gameController = new GameController(n, gameMode, this.jQSelector, this);
     },
     announceResult: function(points, gameMode){
