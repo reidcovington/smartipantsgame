@@ -5,7 +5,6 @@ function Announcer(jQSelector, delegate){
     this.postIntro();
 };
 Announcer.prototype = {
-
     postIntro: function(){
         this._activateNBackPicker();
         this._activateGameModeDropdown(this.gameModeSelector);
@@ -37,7 +36,6 @@ Announcer.prototype = {
             var nBack = parseInt($('.pagination .active').attr('id'));
             var gameMode = $('#game-mode').text().toLowerCase();
             this._drawGameBoard();
-            this._drawCueButtons(gameMode);
             this.delegate.buildGame(nBack, gameMode)
         }.bind(this))
     },
@@ -48,14 +46,5 @@ Announcer.prototype = {
     postResult: function(points, rounds){
         $('#cue-buttons td button').slideUp(150);
         $(this.jQSelector).empty().append('<tr><td><center><p id="points-total">You scored '+points+' out of ' + rounds + ' possible points.</p><button id="start-button" class="btn btn-hg btn-primary">Play Again!</button></center></td></tr>');
-    },
-    _drawCueButtons: function(gameMode){
-        $('#position-button').slideDown(150);
-        if(gameMode === 'dual' || gameMode === 'triple'){
-            $('#sound-button').slideDown(150);
-        };
-        if(gameMode === 'triple'){
-            $('#color-button').slideDown(150);
-        };
-    },
+    };
 };

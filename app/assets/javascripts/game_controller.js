@@ -30,8 +30,15 @@ GameController.prototype = {
         }
     },
     setCueButtons: function(gameMode) {
+        this.cueButtonView.drawPositionButton
+        if(gameMode === 'dual' || gameMode === 'triple'){
+            this.cueButtonView.drawSoundButton
+        };
+        if(gameMode === 'triple'){
+            this.cueButtonView.drawColorButton
+        };
         if 
-    }
+    },
     initiateGame: function(){
         this.gameModel = new GameModel(this.n, this.fetchGameStructure(this.gameMode), this.gameMode, this);
         this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
