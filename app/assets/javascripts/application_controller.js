@@ -1,7 +1,7 @@
 function ApplicationController(jQSelector){
     this.jQSelector = jQSelector;
     this.announcer = new Announcer(jQSelector, this);
-    this.gameController = null;
+    this.gameOptionsController = new gameOptionsController();
     this.fetchStatData()
 };
 ApplicationController.prototype = {
