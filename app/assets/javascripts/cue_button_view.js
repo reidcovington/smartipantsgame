@@ -12,6 +12,6 @@ CueButtonView.prototype = {
 	},
 	drawColorButton: function(){
 		$(this.colorButton).slideDown(150);
-	};
+	}
 };
 

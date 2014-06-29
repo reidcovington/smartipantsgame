@@ -30,7 +30,6 @@ ready = function() {
         });
 
                 $(function() {
-                    // $('#profile-page').append()
                     $('#total_progress_graph').highcharts({
                         credits: {
                             enabled: false

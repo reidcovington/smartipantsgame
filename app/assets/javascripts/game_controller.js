@@ -18,12 +18,12 @@ GameController.prototype = {
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
-        if (gameMode == 'single') {
+        if (gameMode === 'Single') {
             return {positions: positionArr}
-        } else if (gameMode == 'dual') {
+        } else if (gameMode === 'Dual') {
             this.soundBuilder.buildSounds(soundArr)
             return {positions: positionArr, sounds: soundArr}
-        } else if (gameMode == 'triple'){
+        } else if (gameMode === 'Triple'){
             this.soundBuilder.buildSounds(soundArr)
             return {colors: colorArr, sounds: soundArr, positions: positionArr}
         }
@@ -45,22 +45,22 @@ GameController.prototype = {
         }.bind(this), 2300);
     },
     setCueButtons: function(gameMode) {
-        this.cueButtonView.drawPositionButton;
-        if(gameMode === 'dual' || gameMode === 'triple'){
-            this.cueButtonView.drawSoundButton;
+        this.cueButtonView.drawPositionButton();
+        if(gameMode === 'Dual' || gameMode === 'Triple'){
+            this.cueButtonView.drawSoundButton();
         };
-        if(gameMode === 'triple'){
-            this.cueButtonView.drawColorButton;
+        if(gameMode === 'Triple'){
+            this.cueButtonView.drawColorButton();
         };
     },
     evalGuess: function(keyCode){
-        if(keyCode === 69 && this.gameMode === 'triple'){
+        if(keyCode === 69 && this.gameMode === 'Triple'){
             this.roundView.markActive('color');
             this.gameModel.scoreGuess('color', this.currentRound);
         } else if(keyCode === 81){
             this.roundView.markActive('position');
             this.gameModel.scoreGuess('position', this.currentRound);
-        } else if(keyCode === 87 && this.gameMode != 'single'){
+        } else if(keyCode === 87 && this.gameMode != 'Single'){
             this.roundView.markActive('sound');
             this.gameModel.scoreGuess('sound', this.currentRound);
         };

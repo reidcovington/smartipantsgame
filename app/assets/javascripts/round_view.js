@@ -16,19 +16,19 @@ RoundView.prototype = {
         this.turnOnBuzzers();
     },
     _fillPosition: function(position, color){
-        $('#game-section td').fadeOut(200)
+        $('#game-section td').fadeOut(150)
         setTimeout(function(){
             $('#game-section td').css('background-color', 'transparent')
             $('td.'+position).css('background-color', color)
             this.turnOnPositionMatch();
-            $('#game-section td').fadeIn(200)
-        }.bind(this), 200)
+            $('#game-section td').fadeIn(150)
+        }.bind(this), 150)
     },
     _playSound: function(soundId){
         setTimeout(function(){
             $("#soundElem"+soundId)[0].play();
             this.turnOnSoundMatch();
-        }.bind(this), 300)
+        }.bind(this), 200)
     },
     turnOnBuzzers: function(){
         $(document)
@@ -57,9 +57,7 @@ RoundView.prototype = {
         }.bind(this));
     },
     resetButtons: function(){
-        $('#color-button').attr("class", "btn btn-inverse");
-        $('#sound-button').attr("class", "btn btn-inverse");
-        $('#position-button').attr("class", "btn btn-inverse");
+        $('#cue-buttons button').attr("class", "btn btn-inverse");
     },
     markActive: function(button){
         $('#'+button+'-button').addClass('active');
