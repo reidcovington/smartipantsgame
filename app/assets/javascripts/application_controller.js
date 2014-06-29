@@ -8,6 +8,7 @@ ApplicationController.prototype = {
     buildGame: function(){
         var n = this.gameOptionsController.nBack;
         var gameMode = this.gameOptionsController.fetchGameMode();
+        this.announcer.drawGameBoard();
         this.gameController = new GameController(n, gameMode, this.jQSelector, this);
     },
     announceResult: function(points, gameMode){
