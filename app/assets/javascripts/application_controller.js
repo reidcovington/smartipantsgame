@@ -8,15 +8,16 @@ ApplicationController.prototype = {
     buildGame: function(){
         var n = this.gameOptionsController.nBack;
         var gameMode = this.gameOptionsController.fetchGameMode();
+        this.announcer.drawGameBoard();
         this.gameController = new GameController(n, gameMode, this.jQSelector, this);
     },
     announceResult: function(points, gameMode){
         var rounds;
-        if (gameMode == 'single') {
+        if (gameMode === 'Single') {
             rounds = 20;
-        } else if (gameMode == 'dual') {
+        } else if (gameMode === 'Dual') {
             rounds = 40;
-        } else if (gameMode == 'triple'){
+        } else if (gameMode === 'Triple'){
             rounds = 60;
         };
         this.announcer.postResult(points, rounds);

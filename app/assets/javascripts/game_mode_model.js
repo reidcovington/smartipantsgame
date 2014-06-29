@@ -5,11 +5,11 @@ function GameModeModel(){
 }
 GameModeModel.prototype = {
     updateGameMode: function(gameMode){
-        if(gameMode === 'single'){
+        if(gameMode === 'Single'){
             this.position = true;
             this.sound = false;
             this.color = false;
-        } else if(gameMode === 'dual'){
+        } else if(gameMode === 'Dual'){
             this.position = true;
             this.sound = true;
             this.color = false;
@@ -22,12 +22,12 @@ GameModeModel.prototype = {
     assessGameMode: function(){
         if(this.sound){
             if(this.color){
-                return 'triple'
+                return 'Triple'
             } else {
-                return 'dual'
+                return 'Dual'
             };
         } else {
-            return 'single'
+            return 'Single'
         };
     }
 }
