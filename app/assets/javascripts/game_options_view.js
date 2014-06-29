@@ -1,34 +1,38 @@
 function GameOptionsView(nBackSelector, gameModeSelector, delegate){
     this.nBackSelector = nBackSelector;
-    this.gameModeSelector = gameModeSelector;
+    this.dropdownSelector = gameModeSelector;
     this.delegate = delegate;
 }
 GameOptionsView.prototype = {
     listenForOptions: function(){
-        this._activateNBackPicker(this.nBackSelector);
-        this._listenForGameModeDropdown(this.gameModeSelector);
+        this._listenForNBack();
+        this._listenForGameModeDropdown();
     },
-    _activateNBackPicker: function(nBackSelector) {
+    _listenForNBack: function() {
         var self = this;
-        $(nBackSelector).click(function(event) {
+        $(this.nBackSelector).click(function(event) {
             event.preventDefault();
-            self.delegate.nBack = parseInt(this.textContent);
-            $(nBackSelector).removeClass('active');
-            this.className = 'active'
+            self.delegate.setNBack(parseInt(this.textContent));
         })
     },
-    _listenForGameModeDropdown: function(dropdownSelector) {
-        $(dropdownSelector).click(function(event) {
+    updateNBackPicker: function(nBack){
+        $(this.nBackSelector).removeClass('active');
+        $(this.nBackSelector + "#" + nBack).addClass('active');
+    },
+    _listenForGameModeDropdown: function() {
+        $(this.dropdownSelector).click(function(event){
             event.preventDefault();
-            this._listenForGameModeSelection(dropdownSelector);
+            this._listenForGameModeSelection();
         }.bind(this))
     },
-    _listenForGameModeSelection: function(dropdownSelector){
-        $(dropdownSelector + '-selection').click(function(event) {
+    _listenForGameModeSelection: function(){
+        $(this.dropdownSelector + '-selection').click(function(event) {
             event.preventDefault();
             var gameMode = event.target.innerHTML;
-            this.delegate.newGameMode(gameMode.toLowerCase())
-            $(dropdownSelector).text(gameMode).append('<span class="caret"></span>');
+            this.delegate.newGameMode(gameMode);
         }.bind(this))
+    },
+    updateGameModeDropdown: function(gameMode){
+        $(this.dropdownSelector).text(gameMode).append('<span class="caret"></span>');
     }
 }

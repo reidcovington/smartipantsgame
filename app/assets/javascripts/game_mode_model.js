@@ -22,12 +22,12 @@ GameModeModel.prototype = {
     assessGameMode: function(){
         if(this.sound){
             if(this.color){
-                return 'triple'
+                return 'Triple'
             } else {
-                return 'dual'
+                return 'Dual'
             };
         } else {
-            return 'single'
+            return 'Single'
         };
     }
 }

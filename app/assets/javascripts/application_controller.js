@@ -13,11 +13,11 @@ ApplicationController.prototype = {
     },
     announceResult: function(points, gameMode){
         var rounds;
-        if (gameMode == 'single') {
+        if (gameMode === 'Single') {
             rounds = 20;
-        } else if (gameMode == 'dual') {
+        } else if (gameMode === 'Dual') {
             rounds = 40;
-        } else if (gameMode == 'triple'){
+        } else if (gameMode === 'Triple'){
             rounds = 60;
         };
         this.announcer.postResult(points, rounds);
