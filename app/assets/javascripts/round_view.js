@@ -1,7 +1,7 @@
 function RoundView(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
-    this.turnOnKeyboardBuzzers();
+    // this.turnOnKeyboardBuzzers();
 };
 RoundView.prototype = {
     _fillPosition: function(position, color){

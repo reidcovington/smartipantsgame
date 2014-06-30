@@ -40,7 +40,7 @@ GameController.prototype = {
             }
             else {
                 clearInterval(timeInt);
-                this.endGame(this.gameModel.rounds);
+                this._endGame();
             }
         }.bind(this), 2300);
     },
@@ -63,6 +63,7 @@ GameController.prototype = {
         if (roundData.sound){
             this.roundView._playSound(roundData.soundId);
         };
+        this.roundView.turnOnKeyboardBuzzers();
     },
     evalGuess: function(keyCode){
         if (keyCode === 69 && this.gameMode === 'Triple'){
@@ -87,13 +88,8 @@ GameController.prototype = {
     provideFeedback: function(button, feedback){
         this.roundView.updateButtonStatus(button, feedback);
     },
-    endGame: function(rounds){
-        var points = 0;
-        for (var i = 0; i < rounds.length; i++){
-            if (rounds[i].colorGuess){ points++ };
-            if (rounds[i].soundGuess){ points++ };
-            if (rounds[i].positionGuess){ points++ };
-        };
+    _endGame: function(){
+        var points = this.gameModel.calculateTotalScore();
         this.gameModel.delegate = null;
         $.ajax({
             url: '/games',

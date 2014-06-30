@@ -29,5 +29,14 @@ GameModel.prototype = {
         if (!currentRound[attribute + 'Key'] && !(currentRound[attribute] === pastRound[attribute])){
             currentRound[attribute + 'Guess'] = true;
         }
+    },
+    calculateTotalScore: function(){
+        var totalPoints = 0;
+        for (var i = 0; i < this.rounds.length; i++){
+            if (this.rounds[i].colorGuess){ totalPoints++ };
+            if (this.rounds[i].soundGuess){ totalPoints++ };
+            if (this.rounds[i].positionGuess){ totalPoints++ };
+        };
+        return totalPoints;
     }
 };
