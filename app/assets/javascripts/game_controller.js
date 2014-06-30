@@ -14,7 +14,7 @@ GameController.prototype = {
         var colorArr = [];
         var soundArr = [];
         var positionArr = [1,2,3,4];
-        for(var i = 1; i < 5; i++){
+        for (var i = 1; i < 5; i++){
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
@@ -31,12 +31,12 @@ GameController.prototype = {
     initiateGame: function(){
         this.setCueButtons(this.gameMode);
         this.gameModel = new GameModel(this.n, this.fetchGameStructure(this.gameMode), this.gameMode, this);
-        this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
+        this.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
-            if(this.currentRound < this.gameModel.rounds.length - 1){
+            if (this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
-                this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
+                this.constructRound(this.gameModel.rounds[this.currentRound]);
             }
             else {
                 clearInterval(timeInt);
@@ -46,27 +46,38 @@ GameController.prototype = {
     },
     setCueButtons: function(gameMode) {
         this.cueButtonView.drawPositionButton();
-        if(gameMode === 'Dual' || gameMode === 'Triple'){
+        if (gameMode === 'Dual' || gameMode === 'Triple'){
             this.cueButtonView.drawSoundButton();
         };
-        if(gameMode === 'Triple'){
+        if (gameMode === 'Triple'){
             this.cueButtonView.drawColorButton();
         };
     },
+    constructRound: function(roundData){
+        if (roundData.color){
+            this.roundView._fillPosition(roundData.position, roundData.color);
+            this.roundView.turnOnColorMatch();
+        } else {
+            this.roundView._fillPosition(roundData.position, '#666');
+        };
+        if (roundData.sound){
+            this.roundView._playSound(roundData.soundId);
+        };
+    },
     evalGuess: function(keyCode){
-        if(keyCode === 69 && this.gameMode === 'Triple'){
+        if (keyCode === 69 && this.gameMode === 'Triple'){
             this.roundView.markActive('color');
             this.gameModel.scoreGuess('color', this.currentRound);
-        } else if(keyCode === 81){
+        } else if (keyCode === 81){
             this.roundView.markActive('position');
             this.gameModel.scoreGuess('position', this.currentRound);
-        } else if(keyCode === 87 && this.gameMode != 'Single'){
+        } else if (keyCode === 87 && this.gameMode != 'Single'){
             this.roundView.markActive('sound');
             this.gameModel.scoreGuess('sound', this.currentRound);
         };
     },
     evalRound: function(){
-        if(this.currentRound >= this.n){
+        if (this.currentRound >= this.n){
             this.gameModel.scoreNonGuess('color', this.currentRound);
             this.gameModel.scoreNonGuess('sound', this.currentRound);
             this.gameModel.scoreNonGuess('position', this.currentRound);
@@ -78,10 +89,10 @@ GameController.prototype = {
     },
     endGame: function(rounds){
         var points = 0;
-        for(var i = 0; i < rounds.length; i++){
-            if(rounds[i].colorGuess){ points++ };
-            if(rounds[i].soundGuess){ points++ };
-            if(rounds[i].positionGuess){ points++ };
+        for (var i = 0; i < rounds.length; i++){
+            if (rounds[i].colorGuess){ points++ };
+            if (rounds[i].soundGuess){ points++ };
+            if (rounds[i].positionGuess){ points++ };
         };
         this.gameModel.delegate = null;
         $.ajax({
