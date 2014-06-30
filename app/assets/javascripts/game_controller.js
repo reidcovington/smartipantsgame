@@ -2,7 +2,7 @@
     this.n = n;
     this.gameMode = gameMode;
     this.delegate = delegate;
-    this.cueButtonView = new CueButtonView(); 
+    this.cueButtonView = new CueButtonView(this); 
     this.soundBuilder = new SoundBuilder();
     this.roundView = new RoundView(jQSelector, this);
     this.currentRound = 0;
@@ -55,15 +55,13 @@ GameController.prototype = {
     },
     constructRound: function(roundData){
         if (roundData.color){
-            this.roundView._fillPosition(roundData.position, roundData.color);
-            this.roundView.turnOnColorMatch();
+            this.roundView.fillPosition(roundData.position, roundData.color);
         } else {
-            this.roundView._fillPosition(roundData.position, '#666');
+            this.roundView.fillPosition(roundData.position, '#666');
         };
         if (roundData.sound){
-            this.roundView._playSound(roundData.soundId);
+            this.roundView.playSound(roundData.soundId);
         };
-        this.roundView.turnOnKeyboardBuzzers();
     },
     evalGuess: function(keyCode){
         if (keyCode === 69 && this.gameMode === 'Triple'){
