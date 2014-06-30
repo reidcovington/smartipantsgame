@@ -1,6 +1,6 @@
 function ApplicationController(jQSelector){
     this.jQSelector = jQSelector;
-    this.announcer = new Announcer(jQSelector, this);
+    this.gameView = new GameView(jQSelector, this);
     this.gameOptionsController = new GameOptionsController();
     this.fetchStatData()
 };
@@ -8,7 +8,7 @@ ApplicationController.prototype = {
     buildGame: function(){
         var n = this.gameOptionsController.nBack;
         var gameMode = this.gameOptionsController.fetchGameMode();
-        this.announcer.drawGameBoard();
+        this.gameView.drawGameBoard();
         this.gameController = new GameController(n, gameMode, this.jQSelector, this);
     },
     announceResult: function(points, gameMode){
@@ -20,7 +20,7 @@ ApplicationController.prototype = {
         } else if (gameMode === 'Triple'){
             rounds = 60;
         };
-        this.announcer.postResult(points, rounds);
+        this.gameView.postResult(points, rounds);
     },
     fetchStatData: function(){
         $.get('/games/game_data').done(function(response){ gameData = response; });
