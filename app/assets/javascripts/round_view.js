@@ -4,13 +4,13 @@ function RoundView(jQSelector, delegate){
 };
 RoundView.prototype = {
     constructRound: function(roundData){
-        if(roundData.color){
+        if (roundData.color){
             this._fillPosition(roundData.position, roundData.color)
             this.turnOnColorMatch();
-        }else{
+        } else {
             this._fillPosition(roundData.position, '#666')
         }
-        if(roundData.sound){
+        if (roundData.sound){
             this._playSound(roundData.soundId);
         };
         this.turnOnBuzzers();
