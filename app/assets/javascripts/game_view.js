@@ -1,10 +1,10 @@
-function Announcer(jQSelector, delegate){
+function GameView(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
     this.gameModeSelector = '#game-mode'
     this._waitForStartBtnClick();
 };
-Announcer.prototype = {
+GameView.prototype = {
     _waitForStartBtnClick: function(){
         $(document).on('click', "#start-button", function(event){
             event.preventDefault();
