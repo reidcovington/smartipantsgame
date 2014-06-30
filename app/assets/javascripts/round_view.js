@@ -1,20 +1,9 @@
 function RoundView(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
-    this.turnOnBuzzers();
+    this.turnOnKeyboardBuzzers();
 };
 RoundView.prototype = {
-    constructRound: function(roundData){
-        if (roundData.color){
-            this._fillPosition(roundData.position, roundData.color);
-            this.turnOnColorMatch();
-        } else {
-            this._fillPosition(roundData.position, '#666');
-        };
-        if (roundData.sound){
-            this._playSound(roundData.soundId);
-        };
-    },
     _fillPosition: function(position, color){
         $('#game-section td').fadeOut(150)
         setTimeout(function(){
@@ -30,7 +19,7 @@ RoundView.prototype = {
             this.turnOnSoundMatch();
         }.bind(this), 200);
     },
-    turnOnBuzzers: function(){
+    turnOnKeyboardBuzzers: function(){
         $(document)
         .off('keyup');
         .on('keyup', function(event){

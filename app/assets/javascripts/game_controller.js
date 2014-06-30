@@ -31,12 +31,12 @@ GameController.prototype = {
     initiateGame: function(){
         this.setCueButtons(this.gameMode);
         this.gameModel = new GameModel(this.n, this.fetchGameStructure(this.gameMode), this.gameMode, this);
-        this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
+        this.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
             if (this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
-                this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
+                this.constructRound(this.gameModel.rounds[this.currentRound]);
             }
             else {
                 clearInterval(timeInt);
@@ -51,6 +51,17 @@ GameController.prototype = {
         };
         if (gameMode === 'Triple'){
             this.cueButtonView.drawColorButton();
+        };
+    },
+    constructRound: function(roundData){
+        if (roundData.color){
+            this.roundView._fillPosition(roundData.position, roundData.color);
+            this.roundView.turnOnColorMatch();
+        } else {
+            this.roundView._fillPosition(roundData.position, '#666');
+        };
+        if (roundData.sound){
+            this.roundView._playSound(roundData.soundId);
         };
     },
     evalGuess: function(keyCode){
