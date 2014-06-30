@@ -1,38 +1,38 @@
 function RoundView(jQSelector, delegate){
     this.delegate = delegate;
     this.jQSelector = jQSelector;
+    this.turnOnBuzzers();
 };
 RoundView.prototype = {
     constructRound: function(roundData){
         if (roundData.color){
-            this._fillPosition(roundData.position, roundData.color)
+            this._fillPosition(roundData.position, roundData.color);
             this.turnOnColorMatch();
         } else {
-            this._fillPosition(roundData.position, '#666')
-        }
+            this._fillPosition(roundData.position, '#666');
+        };
         if (roundData.sound){
             this._playSound(roundData.soundId);
         };
-        this.turnOnBuzzers();
     },
     _fillPosition: function(position, color){
         $('#game-section td').fadeOut(150)
         setTimeout(function(){
-            $('#game-section td').css('background-color', 'transparent')
-            $('td.'+position).css('background-color', color)
+            $('#game-section td').css('background-color', 'transparent');
+            $('td.'+position).css('background-color', color);
             this.turnOnPositionMatch();
-            $('#game-section td').fadeIn(150)
-        }.bind(this), 150)
+            $('#game-section td').fadeIn(150);
+        }.bind(this), 150);
     },
     _playSound: function(soundId){
         setTimeout(function(){
             $("#soundElem"+soundId)[0].play();
             this.turnOnSoundMatch();
-        }.bind(this), 200)
+        }.bind(this), 200);
     },
     turnOnBuzzers: function(){
         $(document)
-        .off('keyup')
+        .off('keyup');
         .on('keyup', function(event){
             event.preventDefault();
             this.delegate.evalGuess(event.keyCode);
