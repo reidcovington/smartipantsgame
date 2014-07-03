@@ -62,6 +62,7 @@ GameController.prototype = {
         if (roundData.sound){
             this.roundView.playSound(roundData.soundId);
         };
+        this.roundView.turnOnKeyboardBuzzers();
     },
     evalGuess: function(keyCode){
         if (keyCode === 69 && this.gameMode === 'Triple'){
