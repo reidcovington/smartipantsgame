@@ -2,7 +2,8 @@ function ApplicationController(jQSelector){
     this.jQSelector = jQSelector;
     this.gameView = new GameView(jQSelector, this);
     this.gameOptionsController = new GameOptionsController();
-    this.fetchStatData()
+    this.graphBuilder = new GraphBuilder();
+    this.fetchPageData()
 };
 ApplicationController.prototype = {
     buildGame: function(){
@@ -22,8 +23,10 @@ ApplicationController.prototype = {
         };
         this.gameView.postResult(points, rounds);
     },
-    fetchStatData: function(){
+    fetchPageData: function(){
+        if (window.location.href.indexOf('profile') > -1){
+            this.graphBuilder.buildGraphs();
+        }
         $.get('/games/game_data').done(function(response){ gameData = response; });
-        $.get('/users/data').done(function(response){ stats = response; });
     }
 };

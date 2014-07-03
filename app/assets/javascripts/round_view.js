@@ -18,9 +18,8 @@ RoundView.prototype = {
     },
     turnOnKeyboardBuzzers: function(){
         $(document)
-        .off("keyup")
-        .on("keyup", function(event){
-            event.preventDefault();
+        .off("keydown")
+        .on("keydown", function(event){
             this.delegate.evalGuess(event.keyCode);
         }.bind(this));
     },
