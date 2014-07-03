@@ -33,17 +33,18 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'flatui-rails'
 
 group :development, :test do
-  gem "rspec-rails", "~> 2.14.0"
-  gem "factory_girl_rails", "~> 4.2.1"
-  gem "jasmine-rails"
+  gem 'rspec-rails', '~> 2.14.0'
+  gem 'factory_girl_rails', '~> 4.2.1'
+  gem 'jasmine-rails'
 end
 
 group :test do
-  gem "faker", "~> 1.1.2"
-  gem "capybara", "~> 2.1.0"
-  gem "database_cleaner", "~> 1.0.1"
-  gem "launchy", "~> 2.3.0"
-  gem "selenium-webdriver", "~> 2.35.1"
+  gem 'faker', '~> 1.1.2'
+  gem 'capybara', '~> 2.1.0'
+  gem 'database_cleaner', '~> 1.0.1'
+  gem 'launchy', '~> 2.3.0'
+  gem 'selenium-webdriver', '~> 2.35.1'
+  gem 'simplecov', :require => false
 end
 # Use unicorn as the app server
 # gem 'unicorn'

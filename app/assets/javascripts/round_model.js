@@ -7,7 +7,7 @@ function RoundModel(roundNumber, attributes){
 RoundModel.prototype = {
     pickColor: function(attributes){
         var colors = attributes.colors;
-        if( colors ){
+        if (colors){
             this.colorId = Math.floor(Math.random() * colors.length) + 1;
             return colors[this.colorId - 1];
         };
@@ -15,7 +15,7 @@ RoundModel.prototype = {
     },
     pickSound: function(attributes){
         var sounds = attributes.sounds;
-        if( sounds ){
+        if (sounds){
             this.soundId = Math.floor(Math.random() * sounds.length) + 1;
             return sounds[this.soundId - 1];
         };
@@ -23,7 +23,7 @@ RoundModel.prototype = {
     },
     pickPosition: function(attributes){
         var positions = attributes.positions;
-        if( positions ){
+        if (positions){
             return positions[Math.floor(Math.random()*positions.length)]
         }
         return null

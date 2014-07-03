@@ -2,7 +2,8 @@
     this.n = n;
     this.gameMode = gameMode;
     this.delegate = delegate;
-    this.soundBuilder = new SoundBuilder()
+    this.cueButtonView = new CueButtonView(this); 
+    this.soundBuilder = new SoundBuilder();
     this.roundView = new RoundView(jQSelector, this);
     this.currentRound = 0;
     this.initiateGame();
@@ -13,49 +14,69 @@ GameController.prototype = {
         var colorArr = [];
         var soundArr = [];
         var positionArr = [1,2,3,4];
-        for(var i = 1; i < 5; i++){
+        for (var i = 1; i < 5; i++){
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
-        if (gameMode == 'single') {
+        if (gameMode === 'Single') {
             return {positions: positionArr}
-        } else if (gameMode == 'dual') {
+        } else if (gameMode === 'Dual') {
             this.soundBuilder.buildSounds(soundArr)
             return {positions: positionArr, sounds: soundArr}
-        } else if (gameMode == 'triple'){
+        } else if (gameMode === 'Triple'){
             this.soundBuilder.buildSounds(soundArr)
             return {colors: colorArr, sounds: soundArr, positions: positionArr}
         }
     },
     initiateGame: function(){
+        this.setCueButtons(this.gameMode);
         this.gameModel = new GameModel(this.n, this.fetchGameStructure(this.gameMode), this.gameMode, this);
-        this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
+        this.constructRound(this.gameModel.rounds[this.currentRound]);
         var timeInt = window.setInterval(function(){
             this.evalRound();
-            if(this.currentRound < this.gameModel.rounds.length - 1){
+            if (this.currentRound < this.gameModel.rounds.length - 1){
                 this.currentRound++
-                this.roundView.constructRound(this.gameModel.rounds[this.currentRound]);
+                this.constructRound(this.gameModel.rounds[this.currentRound]);
             }
             else {
                 clearInterval(timeInt);
-                this.endGame(this.gameModel.rounds);
+                this._endGame();
             }
         }.bind(this), 2300);
     },
+    setCueButtons: function(gameMode) {
+        this.cueButtonView.drawPositionButton();
+        if (gameMode === 'Dual' || gameMode === 'Triple'){
+            this.cueButtonView.drawSoundButton();
+        };
+        if (gameMode === 'Triple'){
+            this.cueButtonView.drawColorButton();
+        };
+    },
+    constructRound: function(roundData){
+        if (roundData.color){
+            this.roundView.fillPosition(roundData.position, roundData.color);
+        } else {
+            this.roundView.fillPosition(roundData.position, '#666');
+        };
+        if (roundData.sound){
+            this.roundView.playSound(roundData.soundId);
+        };
+    },
     evalGuess: function(keyCode){
-        if(keyCode === 69 && this.gameMode === 'triple'){
+        if (keyCode === 69 && this.gameMode === 'Triple'){
             this.roundView.markActive('color');
             this.gameModel.scoreGuess('color', this.currentRound);
-        } else if(keyCode === 81){
+        } else if (keyCode === 81){
             this.roundView.markActive('position');
             this.gameModel.scoreGuess('position', this.currentRound);
-        } else if(keyCode === 87 && this.gameMode != 'single'){
+        } else if (keyCode === 87 && this.gameMode != 'Single'){
             this.roundView.markActive('sound');
             this.gameModel.scoreGuess('sound', this.currentRound);
         };
     },
     evalRound: function(){
-        if(this.currentRound >= this.n){
+        if (this.currentRound >= this.n){
             this.gameModel.scoreNonGuess('color', this.currentRound);
             this.gameModel.scoreNonGuess('sound', this.currentRound);
             this.gameModel.scoreNonGuess('position', this.currentRound);
@@ -65,13 +86,8 @@ GameController.prototype = {
     provideFeedback: function(button, feedback){
         this.roundView.updateButtonStatus(button, feedback);
     },
-    endGame: function(rounds){
-        var points = 0;
-        for(var i = 0; i < rounds.length; i++){
-            if(rounds[i].colorGuess){ points++ };
-            if(rounds[i].soundGuess){ points++ };
-            if(rounds[i].positionGuess){ points++ };
-        };
+    _endGame: function(){
+        var points = this.gameModel.calculateTotalScore();
         this.gameModel.delegate = null;
         $.ajax({
             url: '/games',
