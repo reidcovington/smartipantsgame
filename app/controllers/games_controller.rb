@@ -3,10 +3,12 @@ class GamesController < ApplicationController
   end
 
   def game_data
-    color_formatter = JSONFormatter.new(Color, :hexcode)
-    audio_formatter = JSONFormatter.new(Audio, :file_loc)
-    render json: {colors: color_formatter.format,
-     sounds: audio_formatter.format}.to_json
+    # color_formatter = JSONFormatter.new(Color, :hexcode)
+    # audio_formatter = JSONFormatter.new(Audio, :file_loc)
+
+    hexcodes = Color.all.pluck(:hexcode)
+    
+    render json: {colors: hexcodes}
   end
 
   def create
