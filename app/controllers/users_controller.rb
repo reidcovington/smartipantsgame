@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      session[:user_id] = @user.id
+      session[:user_id] = @user.id.to_s
       redirect_to root_path
     else
       flash[:error] = "Unable to create user."
@@ -39,7 +39,7 @@ end
   def login
     @user = User.find_and_auth(user_params[:email], user_params[:password])
     if @user
-      session[:user_id] = @user.id
+      session[:user_id] = @user.id.to_s
       redirect_to root_path
     else
       flash[:error] = "Unable to log in."
