@@ -14,7 +14,7 @@ GameController.prototype = {
         var colorArr = [];
         var soundArr = [];
         var positionArr = [1,2,3,4];
-        for (var i = 1; i < 5; i++){
+        for (var i = 0; i < 4; i++){
             colorArr.push(gameData.colors[i]);
             soundArr.push(gameData.sounds[i]);
         }
