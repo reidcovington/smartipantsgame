@@ -14,7 +14,9 @@ class GamesController < ApplicationController
     # @game_builder = GameBuilder.new(session[:user_id], game_params)
     # @game_builder.create_game
 
-    Game.create(game_params)
+    @game = Game.new(game_params)
+    @game.user_id = session[:user_id]
+    @game.save
 
     redirect_to root_path
   end
