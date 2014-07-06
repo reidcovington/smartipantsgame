@@ -11,8 +11,11 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game_builder = GameBuilder.new(session[:user_id], game_params)
-    @game_builder.create_game
+    # @game_builder = GameBuilder.new(session[:user_id], game_params)
+    # @game_builder.create_game
+
+    Game.create(game_params)
+
     redirect_to root_path
   end
 

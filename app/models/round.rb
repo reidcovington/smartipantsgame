@@ -1,9 +1,9 @@
-class Round
-  include Mongoid::Document
+# class Round
+#   include Mongoid::Document
 	
-  belongs_to :game
-  belongs_to :color
-  belongs_to :audio
+#   belongs_to :game
+#   belongs_to :color
+#   belongs_to :audio
 
-  validates :game, presence: true
-end
+#   validates :game, presence: true
+# end
