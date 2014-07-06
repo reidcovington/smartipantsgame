@@ -16,6 +16,7 @@ class GamesController < ApplicationController
 
     @game = Game.new(game_params)
     @game.user_id = session[:user_id]
+    @game.created_at = Time.now
     @game.save
 
     redirect_to root_path

@@ -19,8 +19,8 @@ class SplineGraphBrain
       color_answer = []
       color_id = []
         game.rounds.each do |round|
-          color_answer << round.color_correct
-          color_id << round.color_id
+          color_answer << round[:colorGuess]
+          color_id << round[:colorId]
         end
         @color_answer << color_answer
         @color_id << color_id
@@ -47,8 +47,8 @@ class SplineGraphBrain
       audio_id = []
       @game_n << game.n
         game.rounds.each do |round|
-          audio_answer << round.audio_correct
-          audio_id << round.audio_id
+          audio_answer << round[:audioGuess]
+          audio_id << round[:audioId]
         end
         @audio_answer << audio_answer
         @audio_id << audio_id
@@ -77,8 +77,8 @@ class SplineGraphBrain
       position_answer = []
       position_id = []
         game.rounds.each do |round|
-          position_answer << round.position_correct
-          position_id << round.position
+          position_answer << round[:positionCorrect]
+          position_id << round[:position]
         end
         @position_answer << position_answer
         @position_id << position_id
