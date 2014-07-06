@@ -20,5 +20,4 @@ class GamesController < ApplicationController
   def game_params
     params.permit!
   end
-
 end
