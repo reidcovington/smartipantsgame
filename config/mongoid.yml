@@ -8,6 +8,7 @@ development:
       database: smartipants_development
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
+      allow_dynamic_fields: true
       hosts:
         - localhost:27017
       options:
