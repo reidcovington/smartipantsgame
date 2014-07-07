@@ -4,5 +4,5 @@ class Color
   field :hexcode
   validates :hexcode, presence: true
 
-  has_many :rounds
+  # has_many :rounds
 end

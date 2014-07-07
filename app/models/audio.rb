@@ -4,5 +4,5 @@ class Audio
  	field :file
 	validates :file, presence: true
 
-  has_many :rounds
+  # has_many :rounds
 end

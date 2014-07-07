@@ -25,5 +25,5 @@ audios = [
 ]
 
 audios.each do |audio|
-  Audio.create(file_loc: audio)
+  Audio.create(file: audio)
 end
