@@ -1,7 +1,7 @@
 function NavbarController(){
     this.sessionView = new SessionView();
     this.infoView = new InfoView();
-    this.navbarListener = new NavbarListener();
+    this.navbarListener = new NavbarListener(this);
 }
 NavbarController.prototype = {
     askForSessionInfo: function(selector){
@@ -12,10 +12,15 @@ NavbarController.prototype = {
         }
     },
     produceGameInfo: function(selector){
-        if (selector === 'instructions'){
+        if(selector === 'instructions'){
             this.infoView.drawInstructions();
+        } else if(selector === 'demo'){
+            this.infoView.drawExample();
         } else {
             this.infoView.drawAboutPage();
         }
+    },
+    closeInfo: function(){
+        this.infoView.hideInfoModals();        
     }
 }
