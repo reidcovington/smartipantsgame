@@ -153,8 +153,14 @@ describe UsersController do
   end
 
   context '#profile' do
+    it 'is a valid route' do
+      expect(response.status).to eq 200
+    end
   end
 
   context '#data' do
+    it 'is a valid route' do
+      expect(response.status).to eq 200
+    end
   end
 end
