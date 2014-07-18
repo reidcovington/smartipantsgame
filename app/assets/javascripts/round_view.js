@@ -13,7 +13,7 @@ RoundView.prototype = {
     },
     playSound: function(soundId){
         setTimeout(function(){
-            $("#soundElem"+soundId)[0].play();
+            $("[data-audio='"+soundId+"']")[0].play();
         }.bind(this), 200);
     },
     turnOnKeyboardBuzzers: function(){

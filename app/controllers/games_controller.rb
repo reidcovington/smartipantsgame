@@ -6,7 +6,7 @@ class GamesController < ApplicationController
     color_formatter = JSONFormatter.new(Color, :hexcode)
     audio_formatter = JSONFormatter.new(Audio, :file_loc)
     render json: {colors: color_formatter.format,
-     sounds: audio_formatter.format}.to_json
+                  sounds: audio_formatter.format}.to_json
   end
 
   def create

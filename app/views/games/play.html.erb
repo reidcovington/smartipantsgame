@@ -27,25 +27,41 @@
         </ul>
       </div>
     </span><br>
-  <div>
-    <table id="game-section">
-        <tr>
-            <td>
-                <center><button id="start-button" class="btn btn-hg btn-primary">START</button></center>
-            </td>
-        </tr>
-    </table>
-    <table id="cue-buttons">
-        <tr>
-            <td><button id='position-button' class='btn btn-inverse'>Position (Q)</button></td>
-            <td><button id='sound-button' class='btn btn-inverse'>Sound (W)</button></td>
-            <td><button id='color-button' class='btn btn-inverse'>Color (E)</button></td>
-        </tr>
-    </table>
-  </div>
-  </div>
-  <br>
-    <div id="graph_container"></div><br><br><br><br><br><br>
+    <div>
+      <table id="game-section">
+          <tr>
+              <td>
+                  <center><button id="start-button" class="btn btn-hg btn-primary">START</button></center>
+              </td>
+          </tr>
+      </table>
+      <table id="cue-buttons">
+          <tr>
+              <td><button id='position-button' class='btn btn-inverse'>Position (Q)</button></td>
+              <td><button id='sound-button' class='btn btn-inverse'>Sound (W)</button></td>
+              <td><button id='color-button' class='btn btn-inverse'>Color (E)</button></td>
+          </tr>
+      </table>
+    </div>
+    <div class="sounds">
+        <audio data-audio="1">
+            <source src="/assets/1.ogg" type="audio/ogg"></source>
+            <source src="/assets/1.mp3" type="audio/mpeg"></source>
+            <p>Your browser doesn't support our audio.</p>
+        </audio>
+        <audio data-audio="2">
+            <source src="/assets/2.ogg" type="audio/ogg"></source>
+            <source src="/assets/2.mp3" type="audio/mpeg"></source>
+        </audio>
+        <audio data-audio="3">
+            <source src="/assets/3.ogg" type="audio/ogg"></source>
+            <source src="/assets/3.mp3" type="audio/mpeg"></source>
+        </audio>
+        <audio data-audio="4">
+            <source src="/assets/4.ogg" type="audio/ogg"></source>
+            <source src="/assets/4.mp3" type="audio/mpeg"></source>
+        </audio>
+    </div>
   </center>
 </div>
 </center>

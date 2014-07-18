@@ -3,7 +3,6 @@
     this.gameMode = gameMode;
     this.delegate = delegate;
     this.cueButtonView = new CueButtonView(this); 
-    this.soundBuilder = new SoundBuilder();
     this.roundView = new RoundView(jQSelector, this);
     this.currentRound = 0;
     this.initiateGame();
@@ -21,10 +20,8 @@ GameController.prototype = {
         if (gameMode === 'Single') {
             return {positions: positionArr}
         } else if (gameMode === 'Dual') {
-            this.soundBuilder.buildSounds(soundArr)
             return {positions: positionArr, sounds: soundArr}
         } else if (gameMode === 'Triple'){
-            this.soundBuilder.buildSounds(soundArr)
             return {colors: colorArr, sounds: soundArr, positions: positionArr}
         }
     },

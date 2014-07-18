@@ -18,10 +18,10 @@ colors.each do |color|
 end
 
 audios = [
-  '/assets/1.mp3',
-  '/assets/2.mp3',
-  '/assets/3.mp3',
-  '/assets/4.mp3'
+  '/assets/1',
+  '/assets/2',
+  '/assets/3',
+  '/assets/4'
 ]
 
 audios.each do |audio|
