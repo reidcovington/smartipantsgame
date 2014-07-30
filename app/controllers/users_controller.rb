@@ -29,6 +29,7 @@ end
     spline_graph_brain = SplineGraphBrain.new(user_id)
     position_graph_brain = PositionGraphBrain.new(user_id)
     color_graph_brain = ColorGraphBrain.new(user_id)
+    audio_graph_brain = AudioGraphBrain.new(user_id)
     render json: {games: spline_graph_brain.game_dates,
          color_correct: spline_graph_brain.color_correct,
          audio_correct: spline_graph_brain.audio_correct,
@@ -37,8 +38,8 @@ end
          n: spline_graph_brain.n,
          positions_true: position_graph_brain.position_true,
          colors_true: color_graph_brain.color_true,
-         audios_true: AudioGraphBrain.audio_true(session[:user_id]),
-         user_object: User.find(session[:user_id])}.to_json
+         audios_true: audio_graph_brain.audio_true,
+         user_object: User.find(user_id)}.to_json
   end
 
   def login
