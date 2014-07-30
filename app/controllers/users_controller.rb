@@ -25,14 +25,16 @@ def profile
 end
 
   def data
-    spline_graph_brain = SplineGraphBrain.new(session[:user_id])
+    user_id = session[:user_id]
+    spline_graph_brain = SplineGraphBrain.new(user_id)
+    position_graph_brain = PositionGraphBrain.new(user_id)
     render json: {games: spline_graph_brain.game_dates,
          color_correct: spline_graph_brain.color_correct,
          audio_correct: spline_graph_brain.audio_correct,
          position_correct: spline_graph_brain.position_correct,
          total_correct: spline_graph_brain.total_correct,
          n: spline_graph_brain.n,
-         positions_true: PositionGraphBrain.position_true(session[:user_id]),
+         positions_true: position_graph_brain.position_true,
          colors_true: ColorGraphBrain.color_true(session[:user_id]),
          audios_true: AudioGraphBrain.audio_true(session[:user_id]),
          user_object: User.find(session[:user_id])}.to_json
