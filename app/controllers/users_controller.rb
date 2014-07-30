@@ -30,6 +30,7 @@ end
     position_graph_brain = PositionGraphBrain.new(user_id)
     color_graph_brain = ColorGraphBrain.new(user_id)
     audio_graph_brain = AudioGraphBrain.new(user_id)
+
     render json: {games: spline_graph_brain.game_dates,
          color_correct: spline_graph_brain.color_correct,
          audio_correct: spline_graph_brain.audio_correct,
